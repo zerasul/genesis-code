@@ -24,14 +24,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 		console.log("current platform is: "+process.platform);
 		
-		if(process.platform.toString() == 'win32')
+		if(process.platform.toString() === 'win32')
 		{
 			//Windows
 			terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen clean\n");
-		}else if(process.platform.toString() == 'linux')
+		}else if(process.platform.toString() === 'linux')
 		{
 			//linux
-			terminal.sendText("make -f $GENDEV\\sgdk\\mkfiles\\makefile.gen clean\n");
+			terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
 		}else
 		{
 			vscode.window.showWarningMessage("Operating System not yet supported");
