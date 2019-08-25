@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.cleancode"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.cleancode",
+				"title": "Genesis Code: clean"
 			}
 		]
 	},
@@ -35,8 +35,8 @@
 		"@types/vscode": "^1.37.0",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
+		"tslint": "^5.19.0",
 		"typescript": "^3.3.1",
-		"tslint": "^5.12.1",
 		"vscode-test": "^1.0.2"
 	}
 }
