@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as Path from 'path';
 
 
 // this method is called when your extension is activated
@@ -38,9 +40,50 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		
 	});
+	//Create Project Command; create a new Project for SGDK
+	let disposablecreate = vscode.commands.registerCommand('extension.createproject', () =>{
+		//First, select the folder where the project will be created
+		vscode.window.showOpenDialog({
+			canSelectFiles: false,
+			canSelectFolders: true,
+			canSelectMany: false
+		}).then(r =>{
+			if(r!== undefined){
+				let uripath = createproject(r[0]);
+				let uri = vscode.Uri.file(uripath.fsPath);
+				let sucess = vscode.commands.executeCommand('vscode.openFolder', uri);
+				if( sucess){
+					vscode.window.showInformationMessage("Created New SGDK Project");
+				}
+			}
+		});
+	});
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposablecreate);
 }
 
-
+/**
+ * Create a new Project for SGDK. Create on a specific folder, three subfolders called _src_, _inc_ and _res_.
+ * @param projectPath Root Path for the project
+ * @returns Initial Project folder
+ */
+export function createproject(projectPath: vscode.Uri): vscode.Uri
+{
+	let sourcepath = Path.join(projectPath.fsPath, "src");
+	if(!fs.existsSync(sourcepath)){
+		fs.mkdirSync(sourcepath);
+	}
+	let includePath = Path.join(projectPath.fsPath, "inc");
+	if(!fs.existsSync(includePath)){
+		fs.mkdirSync(includePath);
+	}
+	let resourcePath = Path.join(projectPath.fsPath, "res");
+	if(!fs.existsSync(resourcePath)){
+		fs.mkdirSync(resourcePath);
+	}
+	return projectPath;
+}
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	
+}
