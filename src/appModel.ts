@@ -8,13 +8,13 @@ import * as fs from 'fs';
 export class AppModel {
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
-
+     statusBar: vscode.StatusBarItem| undefined;
     constructor(){
         this.terminal= vscode.window.createTerminal('gens-code');
         this.terminal.show();
-        let varitem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,1);
-        varitem.text="Genesis Code Ready";
-        varitem.show();
+        this.statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,1);
+        this.statusBar.text="Genesis Code Ready";
+        this.statusBar.show();
     }
 
     /**
@@ -68,6 +68,7 @@ export class AppModel {
 
     public deactivate()
     {
-        this.terminal.dispose()
+        this.terminal.dispose();
+        
     }
 }
