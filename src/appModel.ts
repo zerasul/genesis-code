@@ -9,12 +9,14 @@ export class AppModel {
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
      statusBar: vscode.StatusBarItem| undefined;
-    constructor(){
+     context: vscode.ExtensionContext;
+    constructor(context: vscode.ExtensionContext){
         this.terminal= vscode.window.createTerminal('gens-code');
         this.terminal.show();
         this.statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,1);
         this.statusBar.text="Genesis Code Ready";
         this.statusBar.show();
+        this.context=context;
     }
 
     /**
@@ -62,7 +64,20 @@ export class AppModel {
         if(!fs.existsSync(resourcePath)){
             fs.mkdirSync(resourcePath);
         }
-        this.terminal.sendText("git init");
+        //Add README.md File
+        let readmetemppath=Path.join(this.context.extensionPath,"resources","README.md.template");
+        let readmemdpath =Path.join(rootPath.fsPath,"README.MD");
+        fs.copyFileSync(readmetemppath,readmemdpath);
+        //add .gitignorefile
+        let ignoretemppath=Path.join(this.context.extensionPath,"resources","gitignore.template");
+        let ignorepath =Path.join(rootPath.fsPath,".gitignore");
+        fs.copyFileSync(ignoretemppath,ignorepath);
+        //add main.c hello world Example
+        let mainctemppath=Path.join(this.context.extensionPath,"resources","mainc.template");
+        let maincpath =Path.join(rootPath.fsPath,"src","main.c");
+        fs.copyFileSync(mainctemppath,maincpath);
+        //add git repository to the project
+        this.terminal.sendText("cd "+ rootPath.fsPath+" && git init");
         return rootPath;
     }
 
