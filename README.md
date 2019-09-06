@@ -6,13 +6,15 @@ Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive deve
 
 ## Features
 
-With this extension, you can use easily a fow commands for help you create awesome games. This extension adds the following commands:
+With this extension, you can use easily a few commands for help you create awesome games. This extension adds the following commands:
 
 * Compile command: compile the program and generate the Rom file.
 * Run command: You can use an emulator like Gens to run and test your game.
 * Clean command: Clean the programs build folder (calls makefile with clean).
 * Compile & Run command: first compile and later run the rom.bin file in an emulator.
 * Create project: Select a folder and create a Hello World project ready for compile and run.
+
+![vscodegif](vscodegif.gif)
 
 ## Requirements
 
@@ -24,7 +26,7 @@ Soon....
 
 ## Known Issues
 
-Currently we donot support MacOs due to the [GENDEV-MACOS](https://github.com/SONIC3D/gendev-macos) project is dinscontinue.
+Currently we donot support MacOs due to the [GENDEV-MACOS](https://github.com/SONIC3D/gendev-macos) project is discontinued.
 
 ## Release Notes
 
