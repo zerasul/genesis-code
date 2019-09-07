@@ -6,6 +6,7 @@ import * as fs from 'fs';
  * AppModel class; this class have all the internalFunctionality for use with SGDK tasks.
  */
 export class AppModel {
+	
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
      statusBar: vscode.StatusBarItem| undefined;
@@ -96,6 +97,27 @@ export class AppModel {
         }
     }
 
+    public setRunPath(uri: string):boolean{
+        vscode.workspace.getConfiguration().update("gens.path",uri, vscode.ConfigurationTarget.Global).then(
+            r =>{
+                console.log("Updated gens command path");
+        });
+        return true;
+    }
+
+    //Run Project command
+    public runProject(): boolean {
+        let platform = process.platform.toString();
+        let currentPath = (vscode.workspace.workspaceFolders !== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+       
+        let rompath = (currentPath!== undefined)?Path.join(currentPath.fsPath, "out", "rom.bin"):undefined; 
+        
+        let genspath = this.context.globalState.get("genspath");
+        
+        this.terminal.sendText(genspath + " "+ rompath);
+        return true;
+    }
+    
     public deactivate()
     {
         this.terminal.dispose();

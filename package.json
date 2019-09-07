@@ -14,7 +14,9 @@
 	"activationEvents": [
 		"onCommand:extension.cleancode",
 		"onCommand:extension.createproject",
-		"onCommand:extension.compileproject"
+		"onCommand:extension.compileproject",
+		"onCommand:extension.runproject",
+		"onCommand:extension.setrunpath"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -30,6 +32,26 @@
 			{
 				"command": "extension.compileproject",
 				"title": "Genesis Code: Compile Project"
+			},
+			{"command": "extension.runproject",
+			"title": "Genesis Code: Run Project"
+			},
+			{
+				"command": "extension.setrunpath",
+				"title": "Genesis Code: Set Gens Emulator Command Path"
+			}
+		],
+		"configuration":[
+			{
+				"title": "Genesis Code",
+				"properties": {
+					"gens.path":{
+						"title": "Gens Emulator Command path",
+						"type":"string",
+						"default": "gens",
+						"description": "Set the Gens Emulator command path"
+					}
+				}
 			}
 		]
 	},
