@@ -7,17 +7,24 @@
 		"vscode": "^1.37.0"
 	},
 	"categories": [
+		"Programming Languages",
+		"Snippets",
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.cleancode",
+		"onCommand:extension.createproject"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.cleancode",
+				"title": "Genesis Code: clean"
+			},
+			{
+				"command": "extension.createproject",
+				"title": "Genesis Code: Create Project"
 			}
 		]
 	},
@@ -35,8 +42,10 @@
 		"@types/vscode": "^1.37.0",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
+		"tslint": "^5.19.0",
 		"typescript": "^3.3.1",
-		"tslint": "^5.12.1",
 		"vscode-test": "^1.0.2"
-	}
+	},
+	"bugs": {"url": "https://github.com/zerasul/genesis-code/issues"},
+	"repository": {"url": "https://github.com/zerasul/genesis-code"}
 }
