@@ -43,8 +43,13 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		});
 	});
+	// Compiple Command;
+	let disposableCompile = vscode.commands.registerCommand('extension.compileproject', () => {
+		appModel.compileProject();
+	});
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
+	context.subscriptions.push(disposableCompile);
 }
 
 

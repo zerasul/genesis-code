@@ -81,6 +81,21 @@ export class AppModel {
         return rootPath;
     }
 
+
+    public compileProject(): boolean {
+        let platform = process.platform.toString();
+        if (platform === 'win32'){
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen");
+            return true;
+        } else if (platform === 'linux'){
+            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen");
+            return true;
+        } else {
+            vscode.window.showWarningMessage("Operating System not yet supported");
+            return false;
+        }
+    }
+
     public deactivate()
     {
         this.terminal.dispose();
