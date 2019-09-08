@@ -2,7 +2,9 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"icon": "genesiscodeicon.png",
+	"publisher": "Zerasul",
 	"engines": {
 		"vscode": "^1.37.0"
 	},
@@ -22,7 +24,6 @@
 	"contributes": {
 		"commands": [
 			{
-				"category": "Genesis Code",
 				"command": "extension.cleancode",
 				"title": "Genesis Code: clean"
 			},
