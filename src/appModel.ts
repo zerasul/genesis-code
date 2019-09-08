@@ -96,25 +96,44 @@ export class AppModel {
             return false;
         }
     }
-
+    /**
+     * Sets the current gens emulator bash command and update the configuration
+     * @param uri the new gens emulator command to be updated.
+     * @returns true if the configuration has been updated.
+     */
     public setRunPath(uri: string):boolean{
         vscode.workspace.getConfiguration().update("gens.path",uri, vscode.ConfigurationTarget.Global).then(
             r =>{
-                console.log("Updated gens command path");
+                vscode.window.showInformationMessage("Updated gens command path Configuration");
         });
         return true;
     }
 
-    //Run Project command
+    /**
+     * Runs the current project  using the gens command configuration and the rom.bin file path.
+     * Before execute this method, the project must be compiled.
+     * @returns true if the emulator runs properly
+     */
     public runProject(): boolean {
         let platform = process.platform.toString();
         let currentPath = (vscode.workspace.workspaceFolders !== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
        
         let rompath = (currentPath!== undefined)?Path.join(currentPath.fsPath, "out", "rom.bin"):undefined; 
         
-        let genspath = this.context.globalState.get("genspath");
+        let genspath = vscode.workspace.getConfiguration().get("gens.path");
         
-        this.terminal.sendText(genspath + " "+ rompath);
+        let command =genspath + " "+ rompath;
+        let platfm = process.platform.toString();
+        if(platfm === 'win32'){
+            //Run command on background in cmd
+            command = 'START /B '+ command;
+        }else if(platfm === 'linux'){
+            command = command + ' &';
+        }else{
+            return false;
+        }
+        this.terminal.sendText(command);
+        
         return true;
     }
     

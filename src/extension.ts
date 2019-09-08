@@ -51,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposablesetpath = vscode.commands.registerCommand('extension.setrunpath', () =>{
 		vscode.window.showInputBox({
 			placeHolder: 'Please insert Gens Emulator Command',
-			value: 'gens'
+			value: vscode.workspace.getConfiguration().get("gens.path")
 		}).then(r=>{
 			if(r !== undefined)
 			{
@@ -63,9 +63,12 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposableRun = vscode.commands.registerCommand('extension.runproject', () =>{
 		appModel.runProject();
 	});
+	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
+	context.subscriptions.push(disposablesetpath);
+	context.subscriptions.push(disposableRun);
 	context.subscriptions.push(disposablesetpath);
 }
 

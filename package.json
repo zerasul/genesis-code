@@ -22,6 +22,7 @@
 	"contributes": {
 		"commands": [
 			{
+				"category": "Genesis Code",
 				"command": "extension.cleancode",
 				"title": "Genesis Code: clean"
 			},
@@ -33,13 +34,15 @@
 				"command": "extension.compileproject",
 				"title": "Genesis Code: Compile Project"
 			},
-			{"command": "extension.runproject",
-			"title": "Genesis Code: Run Project"
+			{
+				"command": "extension.runproject",
+				"title": "Genesis Code: Run Project"
 			},
 			{
 				"command": "extension.setrunpath",
 				"title": "Genesis Code: Set Gens Emulator Command Path"
 			}
+			
 		],
 		"configuration":[
 			{
