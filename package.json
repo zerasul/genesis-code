@@ -5,6 +5,14 @@
 	"version": "1.0.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
+	"keywords": [
+		"genesis",
+		"sgdk",
+		"gendev",
+		"sega",
+		"mega drive",
+		"retrodev"
+	],
 	"engines": {
 		"vscode": "^1.37.0"
 	},
