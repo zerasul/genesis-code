@@ -82,7 +82,10 @@ export class AppModel {
         return rootPath;
     }
 
-
+    /**
+     * Compile the project. It call to make with the SGDK makefile.gen file.
+     *  @returns true if the project runs properly or false otherwise.
+     */
     public compileProject(): boolean {
         let platform = process.platform.toString();
         if (platform === 'win32'){
