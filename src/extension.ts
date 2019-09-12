@@ -47,9 +47,29 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposableCompile = vscode.commands.registerCommand('extension.compileproject', () => {
 		appModel.compileProject();
 	});
+	//Set gens emulator path
+	let disposablesetpath = vscode.commands.registerCommand('extension.setrunpath', () =>{
+		vscode.window.showInputBox({
+			placeHolder: 'Please insert Gens Emulator Command',
+			value: vscode.workspace.getConfiguration().get("gens.path")
+		}).then(r=>{
+			if(r !== undefined)
+			{
+				appModel.setRunPath(r);
+			}
+		});
+	});
+	//Run the current rom with the gens emulator
+	let disposableRun = vscode.commands.registerCommand('extension.runproject', () =>{
+		appModel.runProject();
+	});
+	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
+	context.subscriptions.push(disposablesetpath);
+	context.subscriptions.push(disposableRun);
+	context.subscriptions.push(disposablesetpath);
 }
 
 

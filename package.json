@@ -2,7 +2,17 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"icon": "genesiscodeicon.png",
+	"publisher": "Zerasul",
+	"keywords": [
+		"genesis",
+		"sgdk",
+		"gendev",
+		"sega",
+		"mega drive",
+		"retrodev"
+	],
 	"engines": {
 		"vscode": "^1.37.0"
 	},
@@ -14,7 +24,9 @@
 	"activationEvents": [
 		"onCommand:extension.cleancode",
 		"onCommand:extension.createproject",
-		"onCommand:extension.compileproject"
+		"onCommand:extension.compileproject",
+		"onCommand:extension.runproject",
+		"onCommand:extension.setrunpath"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -30,6 +42,28 @@
 			{
 				"command": "extension.compileproject",
 				"title": "Genesis Code: Compile Project"
+			},
+			{
+				"command": "extension.runproject",
+				"title": "Genesis Code: Run Project"
+			},
+			{
+				"command": "extension.setrunpath",
+				"title": "Genesis Code: Set Gens Emulator Command Path"
+			}
+			
+		],
+		"configuration":[
+			{
+				"title": "Genesis Code",
+				"properties": {
+					"gens.path":{
+						"title": "Gens Emulator Command path",
+						"type":"string",
+						"default": "gens",
+						"description": "Set the Gens Emulator command path"
+					}
+				}
 			}
 		]
 	},
