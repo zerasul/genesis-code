@@ -5,6 +5,7 @@
 	"version": "1.0.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
+	"license": "See LICENSE in LICENSE",
 	"keywords": [
 		"genesis",
 		"sgdk",
