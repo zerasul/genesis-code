@@ -1,65 +1,52 @@
-# genesis-code README
+# Genesis-code Extension
 
-This is the README for your extension "genesis-code". After writing up a brief description, we recommend including the following sections.
+Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) projects for create homebrew games for the Sega 16 bits console.
+
+For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+With this extension, you can use easily a few commands for help you create awesome games. This extension adds the following commands:
 
-For example if there is an image subfolder under your extension project workspace:
+* Compile command: compile the program and generate the Rom file.
+* Run command: You can use an emulator like Gens to run and test your game.
+* Clean command: Clean the programs build folder (calls makefile with clean).
+* Compile & Run command: first compile and later run the rom.bin file in an emulator.
+* Create project: Select a folder and create a Hello World project ready for compile and run.
+* Set Gens Command: Update the configuration and adds the command path to run Gens Emulator.
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![vscodegif](vscodegif.gif)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+To use this extension you need to install SGDK(windows) or GENDEV(linux) projects on your system and configure the GDK or GENDEV enviroment variables.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+You can set the [Gens Emulator](http://www.gens.me/) command to call it directly from the Genesis Code Extension (Run Command).
 
-For example:
+You can set it via command , or using the settings configuration.
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+![Genesiscodeconfiguration](genscodesettings.png)
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Currently we donot support MacOs due to the [GENDEV-MACOS](https://github.com/SONIC3D/gendev-macos) project is discontinued.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+Initial Release:
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+* Added Compile command.
+* Added Run command.
+* Added Clean command.
+* Added Compile & Run command.
+* Added Create Project command.
+* Added Set Gens Emulator Command.
 
 -----------------------------------------------------------------------------------------------------------
 
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
