@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
+import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 /**
  * AppModel class; this class have all the internalFunctionality for use with SGDK tasks.
@@ -86,19 +87,33 @@ export class AppModel {
      * Compile the project. It call to make with the SGDK makefile.gen file.
      *  @returns true if the project runs properly or false otherwise.
      */
-    public compileProject(): boolean {
+    public compileProject(newline : boolean = true): boolean {
         let platform = process.platform.toString();
         if (platform === 'win32'){
-            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen");
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen",newline);
             return true;
         } else if (platform === 'linux'){
-            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen");
+            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen",newline);
             return true;
         } else {
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
         }
     }
+
+    public compileAndRunProject(): boolean {
+        
+         Promise.resolve(this.compileProject(false)).then( res =>{
+             if(res === true){
+                this.terminal.sendText(" && ", false);
+                this.runProject();
+             }else{
+                 vscode.window.showWarningMessage("An error ocurred while Compile & Run");
+             }
+         });
+         return true;
+    }
+
     /**
      * Sets the current gens emulator bash command and update the configuration
      * @param uri the new gens emulator command to be updated.
@@ -117,7 +132,7 @@ export class AppModel {
      * Before execute this method, the project must be compiled.
      * @returns true if the emulator runs properly
      */
-    public runProject(): boolean {
+    public runProject(newline:boolean=true): boolean {
         let platform = process.platform.toString();
         let currentPath = (vscode.workspace.workspaceFolders !== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
        
@@ -135,7 +150,7 @@ export class AppModel {
         }else{
             return false;
         }
-        this.terminal.sendText(command);
+        this.terminal.sendText(command,newline);
         
         return true;
     }

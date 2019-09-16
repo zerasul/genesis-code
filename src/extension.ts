@@ -66,8 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Compiles and then run the current rom with the gens emulator
 	let disposableCompileAndRun = vscode.commands.registerCommand('extension.compileandrunproject', () => {
-		appModel.compileProject();
-		appModel.runProject();
+		appModel.compileAndRunProject();
 	});
 	
 	context.subscriptions.push(disposable);
