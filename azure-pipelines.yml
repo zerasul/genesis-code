@@ -37,6 +37,7 @@ steps:
     DISPLAY: ':99.0'
 - task: SonarQubePrepare@4
   inputs:
+    SonarQube: 'Sonarqube'
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'genesis-code-project'
