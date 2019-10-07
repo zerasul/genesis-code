@@ -48,4 +48,8 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.login=${SONAR_TOKEN}
       sonar.organization=zerasul-github
+- task: SonarQubeAnalyze@4
 
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
