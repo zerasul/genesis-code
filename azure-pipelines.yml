@@ -35,4 +35,17 @@ steps:
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
-- task: SonarQubeAnalyze@4
+- task: SonarQubePrepare@4
+  inputs:
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'genesis-code-project'
+    cliProjectName: 'Genesis Code'
+    cliSources: 'src/'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.login=${SONAR_TOKEN}
+      sonar.organization=zerasul-github
+
