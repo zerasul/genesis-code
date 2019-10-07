@@ -44,11 +44,11 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'genesis-code-project'
     cliProjectName: 'Genesis Code'
-    cliSources: 'src/*'
+    cliSources: 'src/'
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
-      sonar.exclusions=src/test/*
+      sonar.exclusions=src/test/
 
 - task: SonarCloudAnalyze@1
 
