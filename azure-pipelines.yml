@@ -1,4 +1,5 @@
 trigger:
+
 - master
 
 strategy:
@@ -34,3 +35,4 @@ steps:
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
+- task: SonarQubeAnalyze@4
