@@ -35,22 +35,23 @@ steps:
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
-- task: SonarQubePrepare@4
+
+- task: SonarCloudPrepare@1
   inputs:
-    SonarQube: 'Sonarqube'
+    SonarCloud: 'SonarCloud'
+    organization: 'zerasul-github'
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'genesis-code-project'
     cliProjectName: 'Genesis Code'
-    cliSources: 'src/'
+    cliSources: 'src/*'
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.login=${SONAR_TOKEN}
-      sonar.organization=zerasul-github
-- task: SonarQubeAnalyze@4
+      sonar.exclusions=src/test/*
 
-- task: SonarQubePublish@4
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
