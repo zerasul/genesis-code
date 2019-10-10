@@ -1,12 +1,11 @@
 trigger:
+
 - master
 
 strategy:
   matrix:
     linux:
       imageName: 'ubuntu-16.04'
-    mac:
-      imageName: 'macos-10.13'
     windows:
       imageName: 'vs2017-win2016'
 
@@ -36,3 +35,23 @@ steps:
   displayName: Run Tests
   env:
     DISPLAY: ':99.0'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'zerasul-github'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'genesis-code-project'
+    cliProjectName: 'Genesis Code'
+    cliSources: 'src/'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      sonar.exclusions=src/test/
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
