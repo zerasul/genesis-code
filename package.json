@@ -89,7 +89,7 @@
 		"glob": "^7.1.4",
 		"mocha": "^6.2.1",
 		"tslint": "^5.20.0",
-		"typescript": "^3.3.1",
+		"typescript": "^3.6.4",
 		"vscode-test": "^1.0.2"
 	},
 	"bugs": {
