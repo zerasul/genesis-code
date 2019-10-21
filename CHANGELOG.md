@@ -6,6 +6,7 @@ This is the change Log of Genesis Code. For more information you can see the [Do
 
 * [Fixed Readme.md template Bug](https://github.com/zerasul/genesis-code/issues/18).
 * [Fixed an error on create project that donsent track the empty directories](https://github.com/zerasul/genesis-code/issues/18).
+* Updated some outdated depencies.
 
 ## 1.0.0
 
