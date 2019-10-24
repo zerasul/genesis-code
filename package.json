@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.37.0"
+		"vscode": "^1.39.0"
 	},
 	"categories": [
 		"Programming Languages",
