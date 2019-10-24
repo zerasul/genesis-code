@@ -31,11 +31,21 @@ You can set it via command , or using the settings configuration.
 
 ![Genesiscodeconfiguration](genscodesettings.png)
 
+**NOTE**: You can use another emulators like [Blastem](https://www.retrodev.com/blastem/).
+
 ## Known Issues
 
 Currently we donot support MacOs due to the [GENDEV-MACOS](https://github.com/SONIC3D/gendev-macos) project is discontinued.
 
+**NOTE**: We are working on support MacOs using wine with brew.
+
 ## Release Notes
+
+### 1.0.1
+
+* Fixed a bug with create new project that dosent show properly the readme.md file.
+* Fixed a bug with create new project that dosent include 'res' and 'inc' directories into git repository.
+* Updating dependencies of the extension.
 
 ### 1.0.0
 

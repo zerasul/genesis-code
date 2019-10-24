@@ -61,10 +61,18 @@ export class AppModel {
         let includePath = Path.join(rootPath.fsPath, "inc");
         if(!fs.existsSync(includePath)){
             fs.mkdirSync(includePath);
+            // Added gitkeep files to show it on git repo
+            let gitinckeep=Path.join(this.context.extensionPath,"resources","gitkeep.template");
+            let gitinckeeppath =Path.join(rootPath.fsPath,"inc",".gitkeep");
+            fs.copyFileSync(gitinckeep,gitinckeeppath);
         }
         let resourcePath = Path.join(rootPath.fsPath, "res");
         if(!fs.existsSync(resourcePath)){
             fs.mkdirSync(resourcePath);
+            // Added gitkeep files to show it on git repo
+            let gitreskeep=Path.join(this.context.extensionPath,"resources","gitkeep.template");
+            let gitreskeeppath =Path.join(rootPath.fsPath,"res",".gitkeep");
+            fs.copyFileSync(gitreskeep,gitreskeeppath);
         }
         //Add README.md File
         let readmetemppath=Path.join(this.context.extensionPath,"resources","README.md.template");
