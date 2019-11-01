@@ -90,7 +90,7 @@
 		"mocha": "^6.2.2",
 		"tslint": "^5.20.0",
 		"typescript": "^3.6.4",
-		"vscode-test": "^1.0.2"
+		"vscode-test": "^1.2.2"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
