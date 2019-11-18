@@ -27,6 +27,7 @@ export class AppModel {
      */
     public cleanProject(): boolean
     {
+        console.log(process.platform.toString());
         if(process.platform.toString() === 'win32')
 		{
 			//Windows
@@ -40,13 +41,29 @@ export class AppModel {
             this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
             
             return true;
-		}else
+		}else if(process.platform.toString() === 'darwin'){
+            // MacOs using Wine
+            //first check if the build.bat file is created
+            let currentdir = (vscode.workspace.workspaceFolders!= undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+            this.copybuildmacos(currentdir);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat clean");
+            return true;
+        }else
 		{
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
 		}
     }
 
+    private copybuildmacos(rootPath: vscode.Uri|undefined){
+        if(rootPath!=undefined){
+            if(!fs.existsSync(Path.join(rootPath.fsPath,"build.bat"))){
+                let buildbatpath=Path.join(this.context.extensionPath,"resources","build.bat");
+                let buildcurrentpath = Path.join(rootPath.fsPath, "build.bat");
+                fs.copyFileSync(buildbatpath, buildcurrentpath);
+            }
+       }
+    }
     /**
      * Create a new Project for SGDK. Create on a specific folder, three subfolders called _src_, _inc_ and _res_.
      * @param projectPath Root Path for the project
@@ -103,6 +120,14 @@ export class AppModel {
         } else if (platform === 'linux'){
             this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen",newline);
             return true;
+        }else if(platform === 'darwin'){
+            // MacOs using Wine
+            //first check if the build.bat file is created
+            let currentdir = (vscode.workspace.workspaceFolders!= undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+            this.copybuildmacos(currentdir);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
+            return true;
+        
         } else {
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
