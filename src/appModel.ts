@@ -178,7 +178,8 @@ export class AppModel {
         if(platfm === 'win32'){
             //Run command on background in cmd
             command = 'START /B '+ command;
-        }else if(platfm === 'linux'){
+        }else if(platfm === 'linux' || platfm === 'darwin'){
+            //for linux and mac run the command with &
             command = command + ' &';
         }else{
             return false;
