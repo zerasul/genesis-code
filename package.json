@@ -60,6 +60,19 @@
 			}
 			
 		],
+		"languages": [
+			{ "id": "sgdk_res_lang",
+				"extensions": [
+					".res"
+			]}
+		],
+		"grammars": [
+			{
+				"language": "sgdk_res_lang",
+				"scopeName": "source.res",
+				"path": "./resources/res_grammar.json"
+			}
+		],
 		"configuration":[
 			{
 				"title": "Genesis Code",

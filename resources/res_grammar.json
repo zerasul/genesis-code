@@ -1,0 +1,34 @@
+{
+    "scopeName": "source.res",
+    "patterns": [{"include": "#resource"}],
+    "repository":{
+        "resource":{
+            "patterns":[{"include": "#resourceType"},{"include":"#resourceName"},{"include":"#fileName"},{"include":"#compression"}]
+        },
+        "resourceType": {
+            "match": "BITMAP|PALETTE|TILESET|IMAGE|SPRITE",
+            "name": "keyword.resourceType"
+        },
+        "resourceName":{
+            "match": "\\w+",
+            "name": "variable.resource.name"
+        },
+        "fileName":{
+            "begin":"\"",
+            "end": "\"",
+            "beginCaptures":{
+                "0":{"name": "punctuation.paren.open"}
+            },
+            "endCaptures":{
+                "0":{"name": "punctuation.paren.open"}
+            },
+            "match": "(\\w+)",
+            "name": "constant.character.escape.untitled"
+        },
+        "compression":{
+            "match": "BEST|AUTO|NONE|APLIB|FAST|LZ4W",
+            "name": "keyword.control.compresion"
+        }
+    }
+
+}
