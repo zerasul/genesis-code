@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.39.0"
+		"vscode": "^1.40.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -61,14 +61,14 @@
 			
 		],
 		"languages": [
-			{ "id": "sgdk_res_lang",
+			{ "id": "Sgdk Resource File",
 				"extensions": [
 					".res"
 			]}
 		],
 		"grammars": [
 			{
-				"language": "sgdk_res_lang",
+				"language": "Sgdk Resource File",
 				"scopeName": "source.res",
 				"path": "./resources/res_grammar.json"
 			}
