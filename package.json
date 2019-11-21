@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.39.0"
+		"vscode": "^1.40.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -60,6 +60,19 @@
 			}
 			
 		],
+		"languages": [
+			{ "id": "Sgdk Resource File",
+				"extensions": [
+					".res"
+			]}
+		],
+		"grammars": [
+			{
+				"language": "Sgdk Resource File",
+				"scopeName": "source.res",
+				"path": "./resources/res_grammar.json"
+			}
+		],
 		"configuration":[
 			{
 				"title": "Genesis Code",
@@ -84,7 +97,7 @@
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
-		"@types/node": "^12.12.7",
+		"@types/node": "^12.12.9",
 		"@types/vscode": "^1.40.0",
 		"glob": "^7.1.6",
 		"mocha": "^6.2.2",
