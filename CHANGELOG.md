@@ -2,6 +2,12 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.1.0
+
+* [Added MACOs Support](https://github.com/zerasul/genesis-code/issues/16).
+* [Added Syntax HighLigthing for SGDK Resource Files.](https://github.com/zerasul/genesis-code/issues/17).
+* Updated some outdated dependencies.
+
 ## 1.0.1
 
 * [Fixed Readme.md template Bug](https://github.com/zerasul/genesis-code/issues/18).
