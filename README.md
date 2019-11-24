@@ -35,11 +35,15 @@ You can set it via command , or using the settings configuration.
 
 ## Known Issues
 
-Currently we donot support MacOs due to the [GENDEV-MACOS](https://github.com/SONIC3D/gendev-macos) project is discontinued.
-
-**NOTE**: We are working on support MacOs using wine with brew.
+* In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
 
 ## Release Notes
+
+### 1.1.0
+
+* Adding MACOs Support. Now you can use genesis code using wine. For more information please see [Genesis code Documentation](https://zerasul.github.io/genesis-code-docs/).
+* Added Syntax HighLingthing for SGDK Resource Files (.res).
+* Updated dependencies.
 
 ### 1.0.1
 

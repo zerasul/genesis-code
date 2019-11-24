@@ -1,0 +1,156 @@
+{
+    "scopeName": "source.res",
+    "patterns": [
+        {
+            "include": "#resource"
+        }
+    ],
+    "repository": {
+        "resource": {
+            "patterns": [
+                {
+                    "include": "#resourceType"
+                },
+                {
+                    "include": "#resourceName"
+                },
+                {
+                    "include": "#fileName"
+                },
+                {
+                    "include": "#width"
+                },
+                {
+                    "include": "#height"
+                },
+                {
+                    "include": "#compression"
+                },
+                {
+                    "include": "#timing"
+                },
+                {
+                    "include": "#mapopt"
+                },
+                {
+                    "include": "#mapbase"
+                },
+                {
+                    "include": "#timesprt"
+                },
+                {
+                    "include": "#collision"
+                },
+                {
+                    "include": "#optsprt"
+                },
+                {
+                    "include": "#iterationsprt"
+                },
+                {
+                    "include": "#optionsxgm"
+                },
+                {
+                    "include": "#drivername"
+                },
+                {
+                    "include": "#outrate"
+                }
+            ]
+        },
+        "resourceType": {
+            "match": "BITMAP|PALETTE|TILESET|MAP|IMAGE|SPRITE|XGM|WAV|BIN",
+            "name": "keyword.resourceType"
+        },
+        "resourceName": {
+            "match": "\\.",
+            "name": "variable.parameter.resource.name"
+        },
+        "fileName": {
+            "begin": "\"",
+            "end": "\"",
+            "name": "string.quoted.doble.filename"
+        },
+        "width": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "number": {
+            "match": "\\d",
+            "name": "constant.numeric.number"
+        },
+        "height": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "compression": {
+            "match": "BEST|AUTO|NONE|APLIB|FAST|LZ4W",
+            "name": "keyword.control.compresion"
+        },
+        "timing": {
+            "match": "AUTO|NTSC|PAL",
+            "name": "keyword.control.timing"
+        },
+        "mapopt": {
+            "match": "ALL|DUPLICATE",
+            "name": "keyword.operator.mapopt"
+        },
+        "mapbase": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "timesprt": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "collision": {
+            "match": "CIRCLE|BOX",
+            "name": "support.function.collision"
+        },
+        "optsprt": {
+            "match": "BALANCED|TILE|SPRITE",
+            "name": "support.class.optsprt"
+        },
+        "drivername": {
+            "match": "PCM|2ADPCM|4PCM|XGM",
+            "name": "keyword.control.drivername"
+        },
+        "outrate": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "iterationsprt": {
+            "patterns": [
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "letters": {
+            "match": "\\.",
+            "name": "variable.parameter.letters"
+        },
+        "optionsxgm": {
+            "patterns": [
+                {
+                    "include": "#letters"
+                }
+            ]
+        }
+    }
+}

@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.39.0"
+		"vscode": "^1.40.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -60,6 +60,19 @@
 			}
 			
 		],
+		"languages": [
+			{ "id": "Sgdk Resource File",
+				"extensions": [
+					".res"
+			]}
+		],
+		"grammars": [
+			{
+				"language": "Sgdk Resource File",
+				"scopeName": "source.res",
+				"path": "./resources/res_grammar.json"
+			}
+		],
 		"configuration":[
 			{
 				"title": "Genesis Code",
@@ -84,13 +97,13 @@
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
-		"@types/node": "^12.11.6",
-		"@types/vscode": "^1.39.0",
-		"glob": "^7.1.5",
+		"@types/node": "^12.12.11",
+		"@types/vscode": "^1.40.0",
+		"glob": "^7.1.6",
 		"mocha": "^6.2.2",
-		"tslint": "^5.20.0",
-		"typescript": "^3.6.4",
-		"vscode-test": "^1.0.2"
+		"tslint": "^5.20.1",
+		"typescript": "^3.7.2",
+		"vscode-test": "^1.2.3"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"

@@ -27,6 +27,7 @@ export class AppModel {
      */
     public cleanProject(): boolean
     {
+        console.log(process.platform.toString());
         if(process.platform.toString() === 'win32')
 		{
 			//Windows
@@ -40,13 +41,33 @@ export class AppModel {
             this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
             
             return true;
-		}else
+		}else if(process.platform.toString() === 'darwin'){
+            // MacOs using Wine
+            //first check if the build.bat file is created
+            let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+            this.copybuildmacos(currentdir);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat clean");
+            return true;
+        }else
 		{
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
 		}
     }
 
+    /**
+     * copy the current build.bat program for run it with wine.
+     * @param rootPath current main path
+     */
+    private copybuildmacos(rootPath: vscode.Uri|undefined){
+        if(rootPath!==undefined){
+            if(!fs.existsSync(Path.join(rootPath.fsPath,"build.bat"))){
+                let buildbatpath=Path.join(this.context.extensionPath,"resources","build.bat");
+                let buildcurrentpath = Path.join(rootPath.fsPath, "build.bat");
+                fs.copyFileSync(buildbatpath, buildcurrentpath);
+            }
+       }
+    }
     /**
      * Create a new Project for SGDK. Create on a specific folder, three subfolders called _src_, _inc_ and _res_.
      * @param projectPath Root Path for the project
@@ -103,16 +124,40 @@ export class AppModel {
         } else if (platform === 'linux'){
             this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen",newline);
             return true;
+        }else if(platform === 'darwin'){
+            // MacOs using Wine
+            //first check if the build.bat file is created
+            let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+            this.copybuildmacos(currentdir);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
+            return true;
+        
         } else {
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
         }
     }
-
+    /**
+     * Compiles the project and run using the current emulator command path.
+     * In this case, the emulator is not running in background.
+     */
+    private compileAndRunMacosProject(): boolean{
+        this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
+        this.terminal.sendText(" && ", false);
+        let genspath = vscode.workspace.getConfiguration().get("gens.path");
+        this.terminal.sendText(genspath+ " "+ "$(pwd)/out/rom.bin", true);
+        return true;
+    }
+    /**
+     * Compiles and run the current project.
+     * NOTE: In darwin (MACOs) the emulator is running in foreground.
+     */
     public compileAndRunProject(): boolean {
-        
+         if(process.platform.toString() === 'darwin'){
+             return this.compileAndRunMacosProject();
+         }
          Promise.resolve(this.compileProject(false)).then( res =>{
-             if(res === true){
+             if(res){
                 this.terminal.sendText(" && ", false);
                 this.runProject();
              }else{
@@ -141,7 +186,7 @@ export class AppModel {
      * @returns true if the emulator runs properly
      */
     public runProject(newline:boolean=true): boolean {
-        let platform = process.platform.toString();
+       
         let currentPath = (vscode.workspace.workspaceFolders !== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
        
         let rompath = (currentPath!== undefined)?Path.join(currentPath.fsPath, "out", "rom.bin"):undefined; 
@@ -153,7 +198,8 @@ export class AppModel {
         if(platfm === 'win32'){
             //Run command on background in cmd
             command = 'START /B '+ command;
-        }else if(platfm === 'linux'){
+        }else if(platfm === 'linux' || platfm === 'darwin'){
+            //for linux and mac run the command with &
             command = command + ' &';
         }else{
             return false;
