@@ -23,12 +23,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.cleancode",
-		"onCommand:extension.createproject",
-		"onCommand:extension.compileproject",
-		"onCommand:extension.runproject",
-		"onCommand:extension.setrunpath",
-		"onCommand:extension.compileandrunproject"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
