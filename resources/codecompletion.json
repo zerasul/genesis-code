@@ -4,55 +4,55 @@
             "label":"BITMAP",
             "kind": "KEYWORD",
             "text": "BITMAP ",
-            "doc": "A BITMAP RESOURCE IS ADDED"
+            "doc": "Bitmapped image type resource, used for the Bitmap SGDK engine"
         },
         {
             "label":"PALETTE",
             "kind":"KEYWORD",
             "text": "PALETTE ",
-            "doc": "A PALLETE RESOURCE IS ADDED"
+            "doc": "Palette type resource, used as color input for Bitmap, Image or Sprite resource."
         },
         {
             "label":"TILESET",
             "kind":"KEYWORD",
             "text": "TILESET ",
-            "doc": "A TILESET RESOURCE IS ADDED"
+            "doc": "Tileset type resource, contains tiles data which are used by Image or Sprite resource."
         },
         {
             "label":"MAP",
             "kind":"KEYWORD",
             "text": "MAP ",
-            "doc": "A MAP RESOURCE IS ADDED"
+            "doc": "Map type resource"
         },
         {
             "label":"IMAGE",
             "kind":"KEYWORD",
             "text": "IMAGE ",
-            "doc": "A IMAGE RESOURCE IS ADDED"
+            "doc": "Image type resource, internally contains Palette, Tileset and Map data and can be used to draw a complete background."
         },
         {
             "label":"SPRITE",
             "kind":"KEYWORD",
             "text": "SPRITE ",
-            "doc": "A SPRITE RESOURCE IS ADDED"
+            "doc": "Sprite type resource, used to handle sprites with the SGDK Sprite engine."
         },
         {
             "label":"XGM",
             "kind":"KEYWORD",
             "text": "XGM ",
-            "doc": "A XGM RESOURCE IS ADDED"
+            "doc": "XGM music type resource"
         },
         {
             "label":"WAV",
             "kind":"KEYWORD",
             "text": "WAV ",
-            "doc": "A WAV RESOURCE IS ADDED"
+            "doc": "WAV sound type resource (.wav file), used to play sample sound data."
         },
         {
             "label":"BIN",
             "kind":"KEYWORD",
             "text": "BIN ",
-            "doc": "A BIN RESOURCE IS ADDED"
+            "doc": "Any binary data file which do not need any specific conversion or processing."
         },
         {
             "label": "BEST",
@@ -76,19 +76,19 @@
             "label": "APLIB",
             "kind":"PROPERTY",
             "text": "APLIB ",
-            "doc": "Use APLIB Compression"
+            "doc": "Use APLIB Compression (good compression ratio but slow)"
         },
         {
             "label": "FAST",
             "kind":"PROPERTY",
             "text": "FAST ",
-            "doc": "Use FAST Compression"
+            "doc": "Use FAST Compression (average compression ratio but fast)"
         },
         {
             "label": "LZ4W",
             "kind":"PROPERTY",
             "text": "LZ4W ",
-            "doc": "Use LZ4W Compression"
+            "doc": "Use LZ4W Compression (average compression ratio but fast)"
         },
         {
             "label": "AUTO",
