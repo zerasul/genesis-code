@@ -16,7 +16,7 @@ export class CodeProvider{
     /**
      * Extension Context
      */
-    private context: vscode.ExtensionContext;
+    private extensionPath: string;
     /**
      * CompletionItemList
      */
@@ -30,7 +30,7 @@ export class CodeProvider{
     public static getCodeProviderInstance(context: vscode.ExtensionContext):vscode.ProviderResult<vscode.CompletionItem[]>{
         
         if(this.instance===undefined){
-            this.instance= new CodeProvider(context);
+            this.instance= new CodeProvider(context.extensionPath);
         }
 
         return this.instance.getCodeProviderItems();
@@ -40,8 +40,8 @@ export class CodeProvider{
      * Class constructor. Loads the current codeCompletionItems from the codecompletion.json file.
      * @param context Extension context
      */
-    constructor(context: vscode.ExtensionContext){
-        this.context=context;
+    constructor(extensionPath: string){
+        this.extensionPath=extensionPath;
         //loads the codecompletion from the jsonfile.
         this.codeCompletionItems = this.loadCodeProviderItems();
     }
@@ -51,9 +51,9 @@ export class CodeProvider{
      * 
      * @returns the CodeCompletionList with the content of codecompletion.json file
      */
-    public loadCodeProviderItems():vscode.CompletionList{
+    private loadCodeProviderItems():vscode.CompletionList{
       
-       let jsoncodefile= fs.readFileSync(path.join(this.context.extensionPath,"resources","codecompletion.json"));
+       let jsoncodefile= fs.readFileSync(path.join(this.extensionPath,"resources","codecompletion.json"));
 
        let jsonobj=JSON.parse(jsoncodefile.toString());
        let completionitems = new vscode.CompletionList;

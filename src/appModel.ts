@@ -11,14 +11,18 @@ export class AppModel {
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
      statusBar: vscode.StatusBarItem| undefined;
-     context: vscode.ExtensionContext;
-    constructor(context: vscode.ExtensionContext){
+     extensionPath: string;
+     /**
+      * class constructor
+      * @param extensionPath extension Path
+      */
+    constructor(extensionPath: string){
         this.terminal= vscode.window.createTerminal('gens-code');
         this.terminal.show();
         this.statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,1);
         this.statusBar.text="Genesis Code Ready";
         this.statusBar.show();
-        this.context=context;
+        this.extensionPath=extensionPath;
     }
 
     /**
@@ -62,7 +66,7 @@ export class AppModel {
     private copybuildmacos(rootPath: vscode.Uri|undefined){
         if(rootPath!==undefined){
             if(!fs.existsSync(Path.join(rootPath.fsPath,"build.bat"))){
-                let buildbatpath=Path.join(this.context.extensionPath,"resources","build.bat");
+                let buildbatpath=Path.join(this.extensionPath,"resources","build.bat");
                 let buildcurrentpath = Path.join(rootPath.fsPath, "build.bat");
                 fs.copyFileSync(buildbatpath, buildcurrentpath);
             }
@@ -83,7 +87,7 @@ export class AppModel {
         if(!fs.existsSync(includePath)){
             fs.mkdirSync(includePath);
             // Added gitkeep files to show it on git repo
-            let gitinckeep=Path.join(this.context.extensionPath,"resources","gitkeep.template");
+            let gitinckeep=Path.join(this.extensionPath,"resources","gitkeep.template");
             let gitinckeeppath =Path.join(rootPath.fsPath,"inc",".gitkeep");
             fs.copyFileSync(gitinckeep,gitinckeeppath);
         }
@@ -91,20 +95,20 @@ export class AppModel {
         if(!fs.existsSync(resourcePath)){
             fs.mkdirSync(resourcePath);
             // Added gitkeep files to show it on git repo
-            let gitreskeep=Path.join(this.context.extensionPath,"resources","gitkeep.template");
+            let gitreskeep=Path.join(this.extensionPath,"resources","gitkeep.template");
             let gitreskeeppath =Path.join(rootPath.fsPath,"res",".gitkeep");
             fs.copyFileSync(gitreskeep,gitreskeeppath);
         }
         //Add README.md File
-        let readmetemppath=Path.join(this.context.extensionPath,"resources","README.md.template");
+        let readmetemppath=Path.join(this.extensionPath,"resources","README.md.template");
         let readmemdpath =Path.join(rootPath.fsPath,"README.MD");
         fs.copyFileSync(readmetemppath,readmemdpath);
         //add .gitignorefile
-        let ignoretemppath=Path.join(this.context.extensionPath,"resources","gitignore.template");
+        let ignoretemppath=Path.join(this.extensionPath,"resources","gitignore.template");
         let ignorepath =Path.join(rootPath.fsPath,".gitignore");
         fs.copyFileSync(ignoretemppath,ignorepath);
         //add main.c hello world Example
-        let mainctemppath=Path.join(this.context.extensionPath,"resources","mainc.template");
+        let mainctemppath=Path.join(this.extensionPath,"resources","mainc.template");
         let maincpath =Path.join(rootPath.fsPath,"src","main.c");
         fs.copyFileSync(mainctemppath,maincpath);
         //add git repository to the project
