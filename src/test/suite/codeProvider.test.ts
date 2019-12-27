@@ -9,7 +9,7 @@ import * as vscode from 'vscode';
 
 suite('Codecompletion Test', () =>{
     
-    test('loadconf Test', ()=>{
+    test('CodeProvider', ()=>{
         let currentpath = Path.join(__dirname, "../../../");
         let fixture = new CodeProvider(currentpath);
         let firstElement = fixture.getCodeProviderItems()[0];
