@@ -8,3 +8,5 @@ vsc-extension-quickstart.md
 **/tslint.json
 **/*.map
 **/*.ts
+coverage/**
+.nyc_output/

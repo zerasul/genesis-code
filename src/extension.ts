@@ -4,17 +4,28 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as Path from 'path';
 import { AppModel } from './appModel';
+import { CodeProvider } from './codeProvider';
+
 
 let appModel: AppModel;
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	appModel= new AppModel(context);
+	appModel= new AppModel(context.extensionPath);
+	let codeprovider = CodeProvider.getCodeProviderInstance(context);
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "genesis-code" is now active!');
 	// adding a status bar element 
-	
+	// Add code completion for sgdk files
+	let codecompletion=vscode.languages.registerCompletionItemProvider('Sgdk Resource File',{
+		provideCompletionItems(document:vscode.TextDocument,position: vscode.Position, token:vscode.CancellationToken, context: vscode.CompletionContext){
+			
+
+			return codeprovider;
+		}
+	});
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -76,6 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposableRun);
 	context.subscriptions.push(disposablesetpath);
 	context.subscriptions.push(disposableCompileAndRun);
+	context.subscriptions.push(codecompletion);
 }
 
 

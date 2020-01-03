@@ -2,6 +2,12 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.1.1
+
+* [Fixed a typo error on main.c file](https://github.com/zerasul/genesis-code/issues/62)
+* [Added Autocomplete feature for SGDK Resource Files](https://github.com/zerasul/genesis-code/issues/53)
+* Updated some autdated dependencies.
+
 ## 1.1.0
 
 * [Added MACOs Support](https://github.com/zerasul/genesis-code/issues/16).

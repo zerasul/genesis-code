@@ -1,0 +1,184 @@
+{
+    "items":[
+        {
+            "label":"BITMAP",
+            "kind": "KEYWORD",
+            "text": "BITMAP ",
+            "doc": "Bitmapped image type resource, used for the Bitmap SGDK engine"
+        },
+        {
+            "label":"PALETTE",
+            "kind":"KEYWORD",
+            "text": "PALETTE ",
+            "doc": "Palette type resource, used as color input for Bitmap, Image or Sprite resource."
+        },
+        {
+            "label":"TILESET",
+            "kind":"KEYWORD",
+            "text": "TILESET ",
+            "doc": "Tileset type resource, contains tiles data which are used by Image or Sprite resource."
+        },
+        {
+            "label":"MAP",
+            "kind":"KEYWORD",
+            "text": "MAP ",
+            "doc": "Map type resource"
+        },
+        {
+            "label":"IMAGE",
+            "kind":"KEYWORD",
+            "text": "IMAGE ",
+            "doc": "Image type resource, internally contains Palette, Tileset and Map data and can be used to draw a complete background."
+        },
+        {
+            "label":"SPRITE",
+            "kind":"KEYWORD",
+            "text": "SPRITE ",
+            "doc": "Sprite type resource, used to handle sprites with the SGDK Sprite engine."
+        },
+        {
+            "label":"XGM",
+            "kind":"KEYWORD",
+            "text": "XGM ",
+            "doc": "XGM music type resource"
+        },
+        {
+            "label":"WAV",
+            "kind":"KEYWORD",
+            "text": "WAV ",
+            "doc": "WAV sound type resource (.wav file), used to play sample sound data."
+        },
+        {
+            "label":"BIN",
+            "kind":"KEYWORD",
+            "text": "BIN ",
+            "doc": "Any binary data file which do not need any specific conversion or processing."
+        },
+        {
+            "label": "BEST",
+            "kind":"PROPERTY",
+            "text": "BEST ",
+            "doc": "Uses Best Compresion"
+        },
+        {
+            "label": "AUTO",
+            "kind":"PROPERTY",
+            "text": "AUTO ",
+            "doc": "Uses Auto Compresion. BEST by default if possible"
+        },
+        {
+            "label": "NONE",
+            "kind":"PROPERTY",
+            "text": "NONE ",
+            "doc": "Don't use compression"
+        },
+        {
+            "label": "APLIB",
+            "kind":"PROPERTY",
+            "text": "APLIB ",
+            "doc": "Use APLIB Compression (good compression ratio but slow)"
+        },
+        {
+            "label": "FAST",
+            "kind":"PROPERTY",
+            "text": "FAST ",
+            "doc": "Use FAST Compression (average compression ratio but fast)"
+        },
+        {
+            "label": "LZ4W",
+            "kind":"PROPERTY",
+            "text": "LZ4W ",
+            "doc": "Use LZ4W Compression (average compression ratio but fast)"
+        },
+        {
+            "label": "AUTO",
+            "kind":"TEXT",
+            "text": "AUTO ",
+            "doc": "Auto Timming"
+        },
+        {
+            "label": "NTSC",
+            "kind":"TEXT",
+            "text": "NTSC ",
+            "doc": "NTSC Timming"
+        },
+        {
+            "label": "PAL",
+            "kind":"TEXT",
+            "text": "PAL ",
+            "doc": "PAL Timming"
+        },
+        {
+            "label": "ALL",
+            "kind":"TEXT",
+            "text": "ALL ",
+            "doc": "Map Optimization ALL: find duplicate and flipped tile"
+        },
+        {
+            "label": "DUPLICATE",
+            "kind":"TEXT",
+            "text": "DUPLICATE ",
+            "doc": "Map Optimization DUPLICATE: find duplicate only"
+        },
+        {
+            "label":"CIRCLE",
+            "kind":"VARIABLE",
+            "text": "CIRCLE ",
+            "doc": "Circle collision"
+        },
+        {
+            "label":"BOX",
+            "kind":"VARIABLE",
+            "text": "BOX ",
+            "doc": "Box collision"
+        },
+        {
+            "label":"NONE",
+            "kind":"VARIABLE",
+            "text": "NONE ",
+            "doc": "No collision (default)"
+        },
+        {
+            "label":"BALANCED",
+            "kind":"VARIABLE",
+            "text": "BALANCED ",
+            "doc": "Balanced Sprite Optimization: balance between used tiles and hardware sprites (default)."
+        },
+        {
+            "label":"TILE",
+            "kind":"VARIABLE",
+            "text": "TILE ",
+            "doc": "reduce the number of tiles at the expense of more hardware sprite"
+        },
+        {
+            "label": "SPRITE",
+            "kind":"VARIABLE",
+            "text": "SPRITE ",
+            "doc":"reduce the number of hardware sprite (using bigger sprite) at the expense of more used tiles"
+        },
+        {
+            "label": "PCM",
+            "kind":"STRUCT",
+            "text": "PCM ",
+            "doc":"Single channel 8 bits signed sample driver."
+        },
+        {
+            "label": "2ADPCM",
+            "kind":"STRUCT",
+            "text": "2ADPCM ",
+            "doc":"2 channels 4 bits ADPCM sample driver."
+        },
+        {
+            "label": "4PCM",
+            "kind":"STRUCT",
+            "text": "4PCM ",
+            "doc":"4 channels 8 bits signed sample driver with volume support."
+        },
+        {
+            "label": "XGM",
+            "kind":"STRUCT",
+            "text": "XGM ",
+            "doc":"XGM music with 4 channels 8 bits samples driver."
+        }
+    ]
+}
