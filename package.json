@@ -98,7 +98,7 @@
 		"glob": "^7.1.6",
 		"mocha": "^7.0.0",
 		"tslint": "^5.20.1",
-		"typescript": "^3.7.4",
+		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0",
 		"nyc": "^14.1.1",
 		"yarn": "^1.21.1"
