@@ -101,7 +101,7 @@
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0",
 		"nyc": "^14.1.1",
-		"yarn": "^1.21.1"
+		"yarn": "^1.22.0"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
