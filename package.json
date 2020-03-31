@@ -93,7 +93,7 @@
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.9.4",
+		"@types/node": "^13.9.8",
 		"@types/vscode": "^1.43.0",
 		"glob": "^7.1.6",
 		"mocha": "^7.1.1",
