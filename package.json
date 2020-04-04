@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -51,6 +51,10 @@
 			{
 				"command": "extension.compileandrunproject",
 				"title": "Genesis Code: Compile & Run Project"
+			},
+			{
+				"command": "extension.compile4debug",
+				"title": "Genesis Code: Compile For Debugging"
 			}
 		],
 		"languages": [
@@ -77,6 +81,13 @@
 						"type": "string",
 						"default": "gens",
 						"description": "Set the Gens Emulator command path"
+					},
+					"toolchaintType":{
+						"title": "ToolChain Type",
+						"type": "string",
+						"enum": ["sgdk/gendev", "marsdev"],
+						"default": "sgdk/gendev",
+						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
 					}
 				}
 			}

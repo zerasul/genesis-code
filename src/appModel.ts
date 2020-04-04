@@ -8,6 +8,7 @@ import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
  */
 export class AppModel {
 	
+	
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
      statusBar: vscode.StatusBarItem| undefined;
@@ -218,4 +219,15 @@ export class AppModel {
         this.terminal.dispose();
         
     }
+    /**
+     * Compile the project with debug options creating simbols table.
+     */
+    public compileForDebugging() {
+        let platform = process.platform.toString();
+        if (platform === 'win32'){
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen debug");
+        }else{
+            vscode.window.showWarningMessage("Operating System not yet supported");
+        }
+	}
 }
