@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
-import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 /**
  * Use of SGDK or GENDEV toolchains
@@ -231,7 +230,6 @@ export class AppModel {
             let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
             this.copybuildmacos(currentdir);
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\build.bat release", newline);
-            return true;
         }else if(toolchainType === MARSDEV){
             this.terminal.sendText("make clean release", newline);
         }
