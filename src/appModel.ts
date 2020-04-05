@@ -229,7 +229,7 @@ export class AppModel {
             //first check if the build.bat file is created
             let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
             this.copybuildmacos(currentdir);
-            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\build.bat release", newline);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
         }else if(toolchainType === MARSDEV){
             this.terminal.sendText("make clean release", newline);
         }
@@ -254,19 +254,25 @@ export class AppModel {
             return false;
         }
     }
+
     /**
      * Compiles the project and run using the current emulator command path.
      * In this case, the emulator is not running in background.
      */
     private compileAndRunMacosProject(): boolean{
-        this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\build.bat release", false);
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === SGDK_GENDEV){
+        this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
+        }else if(toolchainType === MARSDEV){
+         this.terminal.sendText("make clean release",false);
+        }
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
-        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
         let currentromfile = (toolchainType === SGDK_GENDEV)? "$(pwd)/out/rom.bin": "$(pwd)/out.bin";
         this.terminal.sendText(genspath+ " "+ currentromfile, true);
         return true;
     }
+
     /**
      * Compiles and run the current project.
      * NOTE: In darwin (MACOs) the emulator is running in foreground.

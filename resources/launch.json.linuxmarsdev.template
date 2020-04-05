@@ -9,9 +9,9 @@
             "name": "Debug with gdb remote",
             "request": "launch",
             "type": "cppdbg",
-            "program": "${workspaceRoot}/out.bin",
+            "program": "${workspaceRoot}/out.elf",
             "sourceFileMap": {
-                "d:\\apps\\sgdk\\src\\": "${env:MARSDEV}/sgdk/SGDK/src",
+                "d:\\apps\\sgdk\\src\\": "${env:HOME}/mars/sgdk/SGDK/src",
             },
             "args": [],
             "stopAtEntry": true,
@@ -20,7 +20,7 @@
             "externalConsole": false,
             "MIMode": "gdb",
             "launchCompleteCommand": "exec-continue",
-            "miDebuggerPath": "${env:MARSDEV}/m68k-elf/bin/m68k-elf-gdb",
+            "miDebuggerPath": "${env:HOME}/mars/m68k-elf/bin/m68k-elf-gdb",
             "miDebuggerArgs": "-ex \"target remote | blastem ${workspaceRoot}/out.bin -D \"", //change blastem with your emulator.
             "setupCommands": [
                 {
