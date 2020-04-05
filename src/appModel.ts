@@ -262,6 +262,8 @@ export class AppModel {
     private compileAndRunMacosProject(): boolean{
         let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
         if(toolchainType === SGDK_GENDEV){
+        let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+        this.copybuildmacos(currentdir);
         this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
         }else if(toolchainType === MARSDEV){
          this.terminal.sendText("make clean release",false);
