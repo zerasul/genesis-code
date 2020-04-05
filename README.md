@@ -17,6 +17,8 @@ With this extension, you can use easily a few commands for help you create aweso
 * Create project: Select a folder and create a Hello World project ready for compile and run.
 * Set Gens Command: Update the configuration and adds the command path to run Gens Emulator.
 * SGDK Resource Files Code Completion.
+* Added remote debugging configuration for use with GDB.
+* Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
 
 ![vscodegif](vscodegif.gif)
 
