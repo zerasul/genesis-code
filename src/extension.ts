@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// adding a status bar element 
 	// Add code completion for sgdk files
 	let codecompletion=vscode.languages.registerCompletionItemProvider('Sgdk Resource File',{
-		provideCompletionItems(document:vscode.TextDocument,position: vscode.Position, token:vscode.CancellationToken, context: vscode.CompletionContext){
+		provideCompletionItems(document:vscode.TextDocument,position: vscode.Position, token:vscode.CancellationToken, newcontext: vscode.CompletionContext){
 			
 
 			return codeprovider;

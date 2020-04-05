@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.41.0"
+		"vscode": "^1.43.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -82,10 +82,11 @@
 						"default": "gens",
 						"description": "Set the Gens Emulator command path"
 					},
-					"toolchaintType":{
+					"toolchainType":{
 						"title": "ToolChain Type",
 						"type": "string",
 						"enum": ["sgdk/gendev", "marsdev"],
+						"enumDescriptions": ["Uses SGDK Library or GENDEV on Linux", "Uses MarsDev Toolchain"],
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
 					}
