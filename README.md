@@ -51,7 +51,7 @@ You can select the toolchain type for use with genesis code:
 
 ### 1.2.0
 
-* Added [Marsdev](https://github.com/andwn/marsdev) toolchain compatibility. Now you can use the marsdev toolchain with genesis code. For more information please see [Genesis code Documentation Web].
+* Added [Marsdev](https://github.com/andwn/marsdev) toolchain compatibility. Now you can use the marsdev toolchain with genesis code. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/).
 * Added configuration for debugging. Now when you create a new project a launch.json is created. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/)
 * Now you can select your toolchain from the genesis code Settings; SGDK/GENDEV toolchain or MARSDEV toolchain.
 * Added Compile with Debug Options command.
