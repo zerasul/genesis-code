@@ -16,6 +16,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Compile & Run command: first compile and later run the rom.bin file in an emulator.
 * Create project: Select a folder and create a Hello World project ready for compile and run.
 * Set Gens Command: Update the configuration and adds the command path to run Gens Emulator.
+* Compile For debug command: Compile the project with debug options.
 * SGDK Resource Files Code Completion.
 * Added remote debugging configuration for use with GDB.
 * Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
@@ -54,7 +55,7 @@ You can select the toolchain type for use with genesis code:
 ### 1.2.0
 
 * Added [Marsdev](https://github.com/andwn/marsdev) toolchain compatibility. Now you can use the marsdev toolchain with genesis code. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/).
-* Added configuration for debugging. Now when you create a new project a launch.json is created. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/)
+* Added configuration for debugging. Now when you create a new project a launch.json is created. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/debug/).
 * Now you can select your toolchain from the genesis code Settings; SGDK/GENDEV toolchain or MARSDEV toolchain.
 * Added Compile with Debug Options command.
 * Updated dependencies and improving code.
