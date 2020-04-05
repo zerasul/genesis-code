@@ -21,7 +21,7 @@
             "MIMode": "gdb",
             "launchCompleteCommand": "exec-continue",
             "miDebuggerPath": "${env:MARSDEV}/m68k-elf/bin/m68k-elf-gdb",
-            "miDEbuggerArs": "-ex \"target remote | blastem ${workspaceRoot}/out.bin -D \"" //change blastem with your emulator.
+            "miDebuggerArgs": "-ex \"target remote | blastem ${workspaceRoot}/out.bin -D \"", //change blastem with your emulator.
             "setupCommands": [
                 {
                     "text": "set directories '${workspaceFolder};$cwd;$cdir'"

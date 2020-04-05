@@ -176,7 +176,7 @@ export class AppModel {
                 let sourcefile = Path.join(extensionPath,"resources", "launch.json.windowsmarsdev.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
             }
-        }else if(platform === 'Linux'){
+        }else if(platform === 'linux'){
             if(toolchainType === MARSDEV){
                 let sourcefile = Path.join(extensionPath,"resources", "launch.json.linuxmarsdev.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
