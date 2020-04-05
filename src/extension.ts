@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// adding a status bar element 
 	// Add code completion for sgdk files
 	let codecompletion=vscode.languages.registerCompletionItemProvider('Sgdk Resource File',{
-		provideCompletionItems(document:vscode.TextDocument,position: vscode.Position, token:vscode.CancellationToken, context: vscode.CompletionContext){
+		provideCompletionItems(document:vscode.TextDocument,position: vscode.Position, token:vscode.CancellationToken, newcontext: vscode.CompletionContext){
 			
 
 			return codeprovider;
@@ -79,6 +79,10 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposableCompileAndRun = vscode.commands.registerCommand('extension.compileandrunproject', () => {
 		appModel.compileAndRunProject();
 	});
+
+	let disposableCompile4debugging = vscode.commands.registerCommand('extension.compile4debug', () => {
+		appModel.compileForDebugging();
+	});
 	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
@@ -88,6 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposablesetpath);
 	context.subscriptions.push(disposableCompileAndRun);
 	context.subscriptions.push(codecompletion);
+	context.subscriptions.push(disposableCompile4debugging);
 }
 
 

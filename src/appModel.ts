@@ -1,17 +1,31 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
-import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
+
+/**
+ * Use of SGDK or GENDEV toolchains
+ */
+const SGDK_GENDEV="sgdk/gendev";
+
+/**
+ * Use of MARSDEV toolchain
+ */
+const MARSDEV="marsdev";
+
 
 /**
  * AppModel class; this class have all the internalFunctionality for use with SGDK tasks.
  */
 export class AppModel {
 	
+	
     // Terminal opened for use with SGDK
      terminal: vscode.Terminal;
      statusBar: vscode.StatusBarItem| undefined;
      extensionPath: string;
+
+     
+
      /**
       * class constructor
       * @param extensionPath extension Path
@@ -32,25 +46,37 @@ export class AppModel {
     public cleanProject(): boolean
     {
         console.log(process.platform.toString());
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
         if(process.platform.toString() === 'win32')
 		{
 			//Windows
-           this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen clean\n");
-            
+            if(toolchainType === SGDK_GENDEV){
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen clean\n");
+            }else if(toolchainType === MARSDEV){
+                this.terminal.sendText("make clean");
+            }
             return true;
 		}else if(process.platform.toString() === 'linux')
 		{
 			//linux
            
-            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
+            if(toolchainType === SGDK_GENDEV){
+                this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
+            }else if(toolchainType === MARSDEV){
+                    this.terminal.sendText("make clean");
+            }
             
             return true;
 		}else if(process.platform.toString() === 'darwin'){
+            if(toolchainType === SGDK_GENDEV){
             // MacOs using Wine
             //first check if the build.bat file is created
             let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
             this.copybuildmacos(currentdir);
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat clean");
+            }else if(toolchainType === MARSDEV){
+                this.terminal.sendText("make clean");
+            }
             return true;
         }else
 		{
@@ -111,9 +137,104 @@ export class AppModel {
         let mainctemppath=Path.join(this.extensionPath,"resources","mainc.template");
         let maincpath =Path.join(rootPath.fsPath,"src","main.c");
         fs.copyFileSync(mainctemppath,maincpath);
+        //add launch.json file with debuging configuration.
+        let vscodedirpath = Path.join(rootPath.fsPath, ".vscode");
+        if(!fs.existsSync(vscodedirpath)){
+            fs.mkdirSync(vscodedirpath);
+            this.createlaunchjsonfile(this.extensionPath,vscodedirpath);
+        }
+        //add Makefile for marsdev toolchain projects
+        let makefiletemppath = Path.join(this.extensionPath,"resources","Makefile.template");
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === MARSDEV){
+            fs.copyFileSync(makefiletemppath, Path.join(rootPath.fsPath, "Makefile"));
+            //add boot directory
+            fs.mkdirSync(Path.join(rootPath.fsPath, "boot"));
+            fs.copyFileSync(Path.join(this.extensionPath,"resources","boot","sega.s.template"), Path.join(rootPath.fsPath,"boot", "sega.s"));
+            fs.copyFileSync(Path.join(this.extensionPath,"resources","boot","rom_head.c.template"), Path.join(rootPath.fsPath,"boot", "rom_head.c"));
+        }
         //add git repository to the project
         this.terminal.sendText("cd "+ rootPath.fsPath+" && git init");
         return rootPath;
+    }
+
+    /**
+     * Add a launch.json file with the debug task configuration. 
+     * 
+     * NOTE: on Linux Systems with SGDK/GENDEV toolchain the file is not created.
+     * @param extensionPath Extension Folder Path.
+     * @param vscodepath .voscodepath folder path.
+     */
+    private createlaunchjsonfile(extensionPath: string, vscodepath: string) {
+        let platform = process.platform.toString();
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(platform === 'win32'){
+            if(toolchainType === SGDK_GENDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "launch.json.windowssgdk.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }else if(toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "launch.json.windowsmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }
+        }else if(platform === 'linux'){
+            if(toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "launch.json.linuxmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }
+        }else if(platform === 'darwin'){
+            if(toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "launch.json.linuxmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }else if(toolchainType === SGDK_GENDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "launch.json.macossgdk.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }
+        }
+    }
+
+    /**
+     * Run the compile command on windows systems
+     * @param newline add a newline at the end of the command.
+     */
+    private compileWindowsProject(newline: boolean = true): boolean{
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === SGDK_GENDEV){
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen",newline);
+        }else if(toolchainType === MARSDEV){
+            this.terminal.sendText("make clean release", newline);
+        }
+
+        return true;
+    }
+
+    /**
+     * Run the compile command on Linux systems
+     * @param newline add a newline at the end of the command.
+     */
+    private compileLinuxProject(newline: boolean = true): boolean{
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === SGDK_GENDEV){
+            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen",newline);
+        }else if(toolchainType === MARSDEV){
+            this.terminal.sendText("make clean release", newline);
+        }
+
+        return true;
+    }
+
+    private compileMacOsProject(newline: boolean=true):boolean{
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === SGDK_GENDEV){
+            // MacOs using Wine
+            //first check if the build.bat file is created
+            let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+            this.copybuildmacos(currentdir);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
+        }else if(toolchainType === MARSDEV){
+            this.terminal.sendText("make clean release", newline);
+        }
+
+        return true;
     }
 
     /**
@@ -123,35 +244,37 @@ export class AppModel {
     public compileProject(newline : boolean = true): boolean {
         let platform = process.platform.toString();
         if (platform === 'win32'){
-            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen",newline);
-            return true;
+            return this.compileWindowsProject(newline);
         } else if (platform === 'linux'){
-            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen",newline);
-            return true;
+            return this.compileLinuxProject(newline);
         }else if(platform === 'darwin'){
-            // MacOs using Wine
-            //first check if the build.bat file is created
-            let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
-            this.copybuildmacos(currentdir);
-            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
-            return true;
-        
+            return this.compileMacOsProject(newline);
         } else {
             vscode.window.showWarningMessage("Operating System not yet supported");
             return false;
         }
     }
+
     /**
      * Compiles the project and run using the current emulator command path.
      * In this case, the emulator is not running in background.
      */
     private compileAndRunMacosProject(): boolean{
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(toolchainType === SGDK_GENDEV){
+        let currentdir = (vscode.workspace.workspaceFolders!== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
+        this.copybuildmacos(currentdir);
         this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
+        }else if(toolchainType === MARSDEV){
+         this.terminal.sendText("make clean release",false);
+        }
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
-        this.terminal.sendText(genspath+ " "+ "$(pwd)/out/rom.bin", true);
+        let currentromfile = (toolchainType === SGDK_GENDEV)? "$(pwd)/out/rom.bin": "$(pwd)/out.bin";
+        this.terminal.sendText(genspath+ " "+ currentromfile, true);
         return true;
     }
+
     /**
      * Compiles and run the current project.
      * NOTE: In darwin (MACOs) the emulator is running in foreground.
@@ -192,8 +315,9 @@ export class AppModel {
     public runProject(newline:boolean=true): boolean {
        
         let currentPath = (vscode.workspace.workspaceFolders !== undefined)? vscode.workspace.workspaceFolders[0].uri: undefined;
-       
-        let rompath = (currentPath!== undefined)?Path.join(currentPath.fsPath, "out", "rom.bin"):undefined; 
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        let currentRomFile = (toolchainType === MARSDEV)? "out.bin": Path.join("out","rom.bin");
+        let rompath = (currentPath!== undefined)?Path.join(currentPath.fsPath, currentRomFile):undefined; 
         
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
         
@@ -217,5 +341,49 @@ export class AppModel {
     {
         this.terminal.dispose();
         
+    }
+    /**
+     * Compile the project with debug options creating the symbols table.
+     */
+    public compileForDebugging() {
+        let platform = process.platform.toString();
+        if (platform === 'win32'){
+            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen debug");
+        }else if(platform === 'linux'){
+            this.compile4DebugLinux();
+        }else if(platform === 'darwin'){
+            this.compile4DebugMacOs();
+        }else{
+            vscode.window.showWarningMessage("Operating System not yet supported");
+        }
+    }
+
+    /**
+     * Call the compile command with debug options on MacOs Systems.
+     */
+    private compile4DebugMacOs() {
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        
+        if(toolchainType === SGDK_GENDEV){
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat debug");
+        }else if(toolchainType === MARSDEV){
+            this.terminal.sendText("make clean debug");
+        }
+    }
+    
+    /**
+     * Call the compile command with debug options on Linux Systems.
+     * 
+     * NOTE: This command its not working on SGDK/GENDEV toolchains, only MARSDEV toolchain its compatible.
+     */
+    private compile4DebugLinux(){
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+
+        if(toolchainType === SGDK_GENDEV){
+            vscode.window.showWarningMessage("Toolchain SGDK/GENDEV can't compile for Debugging. Change to Marsdev on configuration.");
+        }else if(toolchainType === MARSDEV){
+            this.terminal.sendText("make clean debug");
+        }
+
     }
 }

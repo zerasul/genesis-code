@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug with gdb remote",
+            "request": "launch",
+            "type": "cppdbg",
+            "program": "${workspaceRoot}/out.elf",
+            "sourceFileMap": {
+                "d:\\apps\\sgdk\\src\\": "${env:HOME}/mars/sgdk/SGDK/src",
+            },
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "launchCompleteCommand": "exec-continue",
+            "miDebuggerPath": "${env:HOME}/mars/m68k-elf/bin/m68k-elf-gdb",
+            "miDebuggerArgs": "-ex \"target remote | blastem ${workspaceRoot}/out.bin -D \"", //change blastem with your emulator.
+            "setupCommands": [
+                {
+                    "text": "set directories '${workspaceFolder};$cwd;$cdir'"
+                }
+            ]
+        }
+    ]
+}

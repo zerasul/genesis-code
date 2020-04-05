@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.41.0"
+		"vscode": "^1.43.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -51,6 +51,10 @@
 			{
 				"command": "extension.compileandrunproject",
 				"title": "Genesis Code: Compile & Run Project"
+			},
+			{
+				"command": "extension.compile4debug",
+				"title": "Genesis Code: Compile For Debugging"
 			}
 		],
 		"languages": [
@@ -77,6 +81,14 @@
 						"type": "string",
 						"default": "gens",
 						"description": "Set the Gens Emulator command path"
+					},
+					"toolchainType":{
+						"title": "ToolChain Type",
+						"type": "string",
+						"enum": ["sgdk/gendev", "marsdev"],
+						"enumDescriptions": ["Uses SGDK Library or GENDEV on Linux", "Uses MarsDev Toolchain"],
+						"default": "sgdk/gendev",
+						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
 					}
 				}
 			}
@@ -92,16 +104,16 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.6",
-		"@types/node": "^13.1.2",
-		"@types/vscode": "^1.41.0",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.9.8",
+		"@types/vscode": "^1.43.0",
 		"glob": "^7.1.6",
-		"mocha": "^6.2.2",
-		"tslint": "^5.20.1",
-		"typescript": "^3.7.4",
+		"mocha": "^7.1.1",
+		"tslint": "^6.1.0",
+		"typescript": "^3.8.3",
 		"vscode-test": "^1.3.0",
 		"nyc": "^14.1.1",
-		"yarn": "^1.21.1"
+		"yarn": "^1.22.4"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
