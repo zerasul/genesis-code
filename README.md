@@ -34,11 +34,28 @@ You can set it via command , or using the settings configuration.
 
 **NOTE**: You can use another emulators like [Blastem](https://www.retrodev.com/blastem/).
 
+You can select the toolchain type for use with genesis code:
+
+* SGDK/GENDEV: the SGDK libs and GENDEV (On Linux) will be used with Genesis Code.
+* MARSDEV: The MARSDEV project will be used with Genesis Code.
+
+![genesiscodeconfigtoolchain](genesiscodeconfigtoolchain.png)
+
 ## Known Issues
 
 * In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
+* In linux systems, you can't compile with debug options using SGDK/GENDEV toolchain.
+* In Linux Systems, when you create a new project there is no launch.json file for SGDK/GENDEV toolchain.
 
 ## Release Notes
+
+### 1.2.0
+
+* Added [Marsdev](https://github.com/andwn/marsdev) toolchain compatibility. Now you can use the marsdev toolchain with genesis code. For more information please see [Genesis code Documentation Web].
+* Added configuration for debugging. Now when you create a new project a launch.json is created. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/)
+* Now you can select your toolchain from the genesis code Settings; SGDK/GENDEV toolchain or MARSDEV toolchain.
+* Added Compile with Debug Options command.
+* Updated dependencies and improving code.
 
 ### 1.1.1
 
