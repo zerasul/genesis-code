@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.2.0
+
+* [Added Compatibility with MarsDev Toolchain](https://github.com/zerasul/genesis-code/issues/117)
+* [Added debug linking configuration](https://github.com/zerasul/genesis-code/issues/66)
+* [Added new configuration for select Toolchain](https://github.com/zerasul/genesis-code/issues/117)
+* Updated some outdated dependencies
+
 ## 1.1.1
 
 * [Fixed a typo error on main.c file](https://github.com/zerasul/genesis-code/issues/62)
