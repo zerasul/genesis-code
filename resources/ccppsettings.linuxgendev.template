@@ -1,0 +1,7 @@
+{ 
+    "C_Cpp.default.includePath": ["${env:GENDEV}/sgdk/inc",
+    "${env:GENDEV}/sgdk/res",
+    "res",
+    "inc"
+]
+}
