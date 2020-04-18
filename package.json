@@ -82,11 +82,17 @@
 						"default": "gens",
 						"description": "Set the Gens Emulator command path"
 					},
-					"toolchainType":{
+					"toolchainType": {
 						"title": "ToolChain Type",
 						"type": "string",
-						"enum": ["sgdk/gendev", "marsdev"],
-						"enumDescriptions": ["Uses SGDK Library or GENDEV on Linux", "Uses MarsDev Toolchain"],
+						"enum": [
+							"sgdk/gendev",
+							"marsdev"
+						],
+						"enumDescriptions": [
+							"Uses SGDK Library or GENDEV on Linux",
+							"Uses MarsDev Toolchain"
+						],
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
 					}
