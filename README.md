@@ -52,6 +52,13 @@ You can select the toolchain type for use with genesis code:
 
 ## Release Notes
 
+### 1.2.1
+
+* Updated for use with SGDK 1.50; added new features for SGDK Resource Files autocompletion (for use with the last version of rescomp tool).
+* Now when you create a new Project a settings.json file is created with the default include paths.
+* Added Debuggers category to Package.json.
+* Updated some dependencies and updating package-lock.json.
+
 ### 1.2.0
 
 * Added [Marsdev](https://github.com/andwn/marsdev) toolchain compatibility. Now you can use the marsdev toolchain with genesis code. For more information please see [Genesis code Documentation Web](https://zerasul.github.io/genesis-code-docs/).
