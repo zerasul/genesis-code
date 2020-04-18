@@ -153,6 +153,8 @@ export class AppModel {
             fs.copyFileSync(Path.join(this.extensionPath,"resources","boot","sega.s.template"), Path.join(rootPath.fsPath,"boot", "sega.s"));
             fs.copyFileSync(Path.join(this.extensionPath,"resources","boot","rom_head.c.template"), Path.join(rootPath.fsPath,"boot", "rom_head.c"));
         }
+        //add settings.json with the include paths.
+        this.createSettingsJsonFile(this.extensionPath,vscodedirpath);
         //add git repository to the project
         this.terminal.sendText("cd "+ rootPath.fsPath+" && git init");
         return rootPath;
@@ -188,6 +190,36 @@ export class AppModel {
             }else if(toolchainType === SGDK_GENDEV){
                 let sourcefile = Path.join(extensionPath,"resources", "launch.json.macossgdk.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodepath, "launch.json"));
+            }
+        }
+    }
+
+    private createSettingsJsonFile(extensionPath: string, vscodepath: string){
+        let platform = process.platform.toString();
+        let toolchainType=vscode.workspace.getConfiguration().get("toolchainType");
+        if(platform === 'win32'){
+            if( toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.windowsmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            }else if(toolchainType === SGDK_GENDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.windowssgdk.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            }
+        }else if(platform === 'linux'){
+            if( toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.linuxmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            }else if(toolchainType === SGDK_GENDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.linuxgendev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            }
+        }else if(platform === 'darwin'){
+            if( toolchainType === MARSDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.linuxmarsdev.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            }else if(toolchainType === SGDK_GENDEV){
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.macossgdk.template");
+                fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
             }
         }
     }

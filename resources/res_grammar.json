@@ -55,11 +55,14 @@
                 },
                 {
                     "include": "#outrate"
+                },
+                {
+                    "include": "#align"
                 }
             ]
         },
         "resourceType": {
-            "match": "BITMAP|PALETTE|TILESET|MAP|IMAGE|SPRITE|XGM|WAV|BIN",
+            "match": "BITMAP|PALETTE|TILESET|MAP|IMAGE|SPRITE|XGM|WAV|BIN|ALIGN|UNGROUP",
             "name": "keyword.resourceType"
         },
         "resourceName": {
@@ -152,5 +155,6 @@
                 }
             ]
         }
+        
     }
 }
