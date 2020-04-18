@@ -179,6 +179,18 @@
             "kind":"STRUCT",
             "text": "XGM ",
             "doc":"XGM music with 4 channels 8 bits samples driver."
+        },
+        {
+            "label": "ALIGN",
+            "kind": "KEYWORD",
+            "text": "ALIGN ",
+            "doc": "Align *binary* data for the *whole* resource file so you can have only ALIGN directive per resource (.res) file.\nALIGN function is useful when using bank switch for ROM larger than 4MB, it allows to avoid having a block of data crossing 2 data banks."
+        },
+        {
+            "label": "UNGROUP",
+            "kind": "KEYWORD",
+            "text": "UNGROUP ",
+            "doc": "Using UNGROUP function allow to disable that feature, that might be useful to help in bank data separation when using the bank switch mechanism."
         }
     ]
 }
