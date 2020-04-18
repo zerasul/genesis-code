@@ -218,7 +218,7 @@ export class AppModel {
                 let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.linuxmarsdev.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
             }else if(toolchainType === SGDK_GENDEV){
-                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.windowssgdk.template");
+                let sourcefile = Path.join(extensionPath,"resources", "ccppsettings.macossgdk.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
             }
         }
