@@ -1,6 +1,6 @@
 { 
     "C_Cpp.default.includePath": ["${env:HOME}/mars/sgdk/SGDK/inc",
-    "${env:SGDK}/mars/sgdk/SGDK/res",
+    "${env:HOME}/mars/sgdk/SGDK/res",
     "res",
     "inc"
 ]
