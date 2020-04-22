@@ -1,6 +1,6 @@
 # Genesis-code Extension
 
-[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project)
+[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <a href="https://www.buymeacoffee.com/zerasul" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="width: 130px !important;" ></a>
 
 Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) projects for create homebrew games for the Sega 16 bits console.
 
@@ -98,8 +98,7 @@ Initial Release:
 
 -----------------------------------------------------------------------------------------------------------
 
-You can support this project using Buy Me a Coffee. 
+You can support this project using [Buy Me a Coffee](https://www.buymeacoffee.com/zerasul). 
 
-<a href="https://www.buymeacoffee.com/zerasul" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
 **Enjoy!**
