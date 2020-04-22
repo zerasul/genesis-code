@@ -98,5 +98,8 @@ Initial Release:
 
 -----------------------------------------------------------------------------------------------------------
 
+You can support this project using Buy Me a Coffee. 
+
+<a href="https://www.buymeacoffee.com/zerasul" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
 **Enjoy!**
