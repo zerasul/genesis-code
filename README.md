@@ -52,6 +52,12 @@ You can select the toolchain type for use with genesis code:
 
 ## Release Notes
 
+### 1.2.2
+
+* Updated for use with SGDK 1.51; added new features for SGDK Resource Files autocompletion (for use with the last version of rescomp tool).
+* Fixed some bugs and improved code.
+* Updated some dependencies and updating package-lock.json.
+
 ### 1.2.1
 
 * Updated for use with SGDK 1.50; added new features for SGDK Resource Files autocompletion (for use with the last version of rescomp tool).
@@ -98,7 +104,6 @@ Initial Release:
 
 -----------------------------------------------------------------------------------------------------------
 
-You can support this project using [Buy Me a Coffee](https://www.buymeacoffee.com/zerasul). 
-
+You can support this project using [Buy Me a Coffee](https://www.buymeacoffee.com/zerasul).
 
 **Enjoy!**
