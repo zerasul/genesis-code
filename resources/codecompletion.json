@@ -1,184 +1,184 @@
 {
-    "items":[
+    "items": [
         {
-            "label":"BITMAP",
+            "label": "BITMAP",
             "kind": "KEYWORD",
             "text": "BITMAP ",
             "doc": "Bitmapped image type resource, used for the Bitmap SGDK engine"
         },
         {
-            "label":"PALETTE",
-            "kind":"KEYWORD",
+            "label": "PALETTE",
+            "kind": "KEYWORD",
             "text": "PALETTE ",
             "doc": "Palette type resource, used as color input for Bitmap, Image or Sprite resource."
         },
         {
-            "label":"TILESET",
-            "kind":"KEYWORD",
+            "label": "TILESET",
+            "kind": "KEYWORD",
             "text": "TILESET ",
             "doc": "Tileset type resource, contains tiles data which are used by Image or Sprite resource."
         },
         {
-            "label":"MAP",
-            "kind":"KEYWORD",
+            "label": "MAP",
+            "kind": "KEYWORD",
             "text": "MAP ",
             "doc": "Map type resource"
         },
         {
-            "label":"IMAGE",
-            "kind":"KEYWORD",
+            "label": "IMAGE",
+            "kind": "KEYWORD",
             "text": "IMAGE ",
             "doc": "Image type resource, internally contains Palette, Tileset and Map data and can be used to draw a complete background."
         },
         {
-            "label":"SPRITE",
-            "kind":"KEYWORD",
+            "label": "SPRITE",
+            "kind": "KEYWORD",
             "text": "SPRITE ",
             "doc": "Sprite type resource, used to handle sprites with the SGDK Sprite engine."
         },
         {
-            "label":"XGM",
-            "kind":"KEYWORD",
+            "label": "XGM",
+            "kind": "KEYWORD",
             "text": "XGM ",
             "doc": "XGM music type resource"
         },
         {
-            "label":"WAV",
-            "kind":"KEYWORD",
+            "label": "WAV",
+            "kind": "KEYWORD",
             "text": "WAV ",
             "doc": "WAV sound type resource (.wav file), used to play sample sound data."
         },
         {
-            "label":"BIN",
-            "kind":"KEYWORD",
+            "label": "BIN",
+            "kind": "KEYWORD",
             "text": "BIN ",
             "doc": "Any binary data file which do not need any specific conversion or processing."
         },
         {
             "label": "BEST",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "BEST ",
             "doc": "Uses Best Compresion"
         },
         {
             "label": "AUTO",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "AUTO ",
             "doc": "Uses Auto Compresion. BEST by default if possible"
         },
         {
             "label": "NONE",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "NONE ",
             "doc": "Don't use compression"
         },
         {
             "label": "APLIB",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "APLIB ",
             "doc": "Use APLIB Compression (good compression ratio but slow)"
         },
         {
             "label": "FAST",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "FAST ",
             "doc": "Use FAST Compression (average compression ratio but fast)"
         },
         {
             "label": "LZ4W",
-            "kind":"PROPERTY",
+            "kind": "PROPERTY",
             "text": "LZ4W ",
             "doc": "Use LZ4W Compression (average compression ratio but fast)"
         },
         {
             "label": "AUTO",
-            "kind":"TEXT",
+            "kind": "TEXT",
             "text": "AUTO ",
             "doc": "Auto Timming"
         },
         {
             "label": "NTSC",
-            "kind":"TEXT",
+            "kind": "TEXT",
             "text": "NTSC ",
             "doc": "NTSC Timming"
         },
         {
             "label": "PAL",
-            "kind":"TEXT",
+            "kind": "TEXT",
             "text": "PAL ",
             "doc": "PAL Timming"
         },
         {
             "label": "ALL",
-            "kind":"TEXT",
+            "kind": "TEXT",
             "text": "ALL ",
             "doc": "Map Optimization ALL: find duplicate and flipped tile"
         },
         {
             "label": "DUPLICATE",
-            "kind":"TEXT",
+            "kind": "TEXT",
             "text": "DUPLICATE ",
             "doc": "Map Optimization DUPLICATE: find duplicate only"
         },
         {
-            "label":"CIRCLE",
-            "kind":"VARIABLE",
+            "label": "CIRCLE",
+            "kind": "VARIABLE",
             "text": "CIRCLE ",
             "doc": "Circle collision"
         },
         {
-            "label":"BOX",
-            "kind":"VARIABLE",
+            "label": "BOX",
+            "kind": "VARIABLE",
             "text": "BOX ",
             "doc": "Box collision"
         },
         {
-            "label":"NONE",
-            "kind":"VARIABLE",
+            "label": "NONE",
+            "kind": "VARIABLE",
             "text": "NONE ",
             "doc": "No collision (default)"
         },
         {
-            "label":"BALANCED",
-            "kind":"VARIABLE",
+            "label": "BALANCED",
+            "kind": "VARIABLE",
             "text": "BALANCED ",
             "doc": "Balanced Sprite Optimization: balance between used tiles and hardware sprites (default)."
         },
         {
-            "label":"TILE",
-            "kind":"VARIABLE",
+            "label": "TILE",
+            "kind": "VARIABLE",
             "text": "TILE ",
             "doc": "reduce the number of tiles at the expense of more hardware sprite"
         },
         {
             "label": "SPRITE",
-            "kind":"VARIABLE",
+            "kind": "VARIABLE",
             "text": "SPRITE ",
-            "doc":"reduce the number of hardware sprite (using bigger sprite) at the expense of more used tiles"
+            "doc": "reduce the number of hardware sprite (using bigger sprite) at the expense of more used tiles"
         },
         {
             "label": "PCM",
-            "kind":"STRUCT",
+            "kind": "STRUCT",
             "text": "PCM ",
-            "doc":"Single channel 8 bits signed sample driver."
+            "doc": "Single channel 8 bits signed sample driver."
         },
         {
             "label": "2ADPCM",
-            "kind":"STRUCT",
+            "kind": "STRUCT",
             "text": "2ADPCM ",
-            "doc":"2 channels 4 bits ADPCM sample driver."
+            "doc": "2 channels 4 bits ADPCM sample driver."
         },
         {
             "label": "4PCM",
-            "kind":"STRUCT",
+            "kind": "STRUCT",
             "text": "4PCM ",
-            "doc":"4 channels 8 bits signed sample driver with volume support."
+            "doc": "4 channels 8 bits signed sample driver with volume support."
         },
         {
             "label": "XGM",
-            "kind":"STRUCT",
+            "kind": "STRUCT",
             "text": "XGM ",
-            "doc":"XGM music with 4 channels 8 bits samples driver."
+            "doc": "XGM music with 4 channels 8 bits samples driver."
         },
         {
             "label": "ALIGN",
@@ -191,6 +191,12 @@
             "kind": "KEYWORD",
             "text": "UNGROUP ",
             "doc": "Using UNGROUP function allow to disable that feature, that might be useful to help in bank data separation when using the bank switch mechanism."
+        },
+        {
+            "label": "NONE",
+            "kind": "STRUCT",
+            "text": "NONE ",
+            "doc": "no optimization (cover the whole sprite frame)"
         }
     ]
 }

@@ -2,12 +2,18 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.2.2
+
+* [Updated for use with SGDK 1.51](https://github.com/zerasul/genesis-code/issues/128)
+* [Improved code and fixed some bugs](https://github.com/zerasul/genesis-code/issues/133)
+* Updated some outdated Dependencies
+
 ## 1.2.1
 
 * [Updated for use with SGDK 1.50](https://github.com/zerasul/genesis-code/issues/122)
 * [Added Debuggers Category to Package.json](https://github.com/zerasul/genesis-code/issues/121)
 * [Added include path settings on new project creation](https://github.com/zerasul/genesis-code/issues/123)
-* [Updated some outdated Depdencies]
+* [Updated some outdated Dependencies]
 
 ## 1.2.0
 

@@ -12,7 +12,7 @@ export function run(): Promise<void> {
 		}*/
 	});
 	mocha.useColors(true);
-	
+
 	const testsRoot = path.resolve(__dirname, '..');
 
 	return new Promise((c, e) => {
@@ -33,8 +33,8 @@ export function run(): Promise<void> {
 						c();
 					}
 				});
-			} catch (err) {
-				e(err);
+			} catch (ex) {
+				e(ex);
 			}
 		});
 	});
