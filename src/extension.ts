@@ -1,3 +1,9 @@
+/**
+ * (C) 2020. This code is under MIT license.
+ * You can get a copy of the license with this software.
+ * For more information please see https://opensource.org/licenses/MIT 
+ */
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';

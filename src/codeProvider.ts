@@ -1,3 +1,8 @@
+/**
+ * (C) 2020. This code is under MIT license.
+ * You can get a copy of the license with this software.
+ * For more information please see https://opensource.org/licenses/MIT 
+ */
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -5,13 +10,13 @@ import * as path from 'path';
 /**
  * Class CodeProvider: Provides Code Completion for SGDK Resource Files.
  */
-export class CodeProvider{
+export class CodeProvider {
 
 
     /**
      * Singletone Instance
      */
-    private static instance: CodeProvider|undefined;
+    private static instance: CodeProvider | undefined;
 
     /**
      * Extension Context
@@ -27,21 +32,21 @@ export class CodeProvider{
      * get the current code completion Items. if it not loaded previously, create a new codeProvider Instance
      * @param context Extension Context
      */
-    public static getCodeProviderInstance(context: vscode.ExtensionContext):vscode.ProviderResult<vscode.CompletionItem[]>{
-        
-        if(this.instance===undefined){
-            this.instance= new CodeProvider(context.extensionPath);
+    public static getCodeProviderInstance(context: vscode.ExtensionContext): vscode.ProviderResult<vscode.CompletionItem[]> {
+
+        if (this.instance === undefined) {
+            this.instance = new CodeProvider(context.extensionPath);
         }
 
         return this.instance.getCodeProviderItems();
     }
-     
+
     /**
      * Class constructor. Loads the current codeCompletionItems from the codecompletion.json file.
      * @param context Extension context
      */
-    constructor(extensionPath: string){
-        this.extensionPath=extensionPath;
+    constructor(extensionPath: string) {
+        this.extensionPath = extensionPath;
         //loads the codecompletion from the jsonfile.
         this.codeCompletionItems = this.loadCodeProviderItems();
     }
@@ -51,30 +56,30 @@ export class CodeProvider{
      * 
      * @returns the CodeCompletionList with the content of codecompletion.json file
      */
-    private loadCodeProviderItems():vscode.CompletionList{
-      
-       let jsoncodefile= fs.readFileSync(path.join(this.extensionPath,"resources","codecompletion.json"));
+    private loadCodeProviderItems(): vscode.CompletionList {
 
-       let jsonobj=JSON.parse(jsoncodefile.toString());
-       let completionitems = new vscode.CompletionList;
-       jsonobj.items.forEach((item: { label: string; text:string; doc:string; kind:string}) => {
-           let comitem = new vscode.CompletionItem(item.label);
-           comitem.insertText = item.text;
-           comitem.kind= this.getcomItemKind(item.kind);
-           comitem.documentation= new vscode.MarkdownString(item.doc);
-           completionitems.items.push(comitem);
-       });
+        let jsoncodefile = fs.readFileSync(path.join(this.extensionPath, "resources", "codecompletion.json"));
 
-       return completionitems;
+        let jsonobj = JSON.parse(jsoncodefile.toString());
+        let completionitems = new vscode.CompletionList;
+        jsonobj.items.forEach((item: { label: string; text: string; doc: string; kind: string }) => {
+            let comitem = new vscode.CompletionItem(item.label);
+            comitem.insertText = item.text;
+            comitem.kind = this.getcomItemKind(item.kind);
+            comitem.documentation = new vscode.MarkdownString(item.doc);
+            completionitems.items.push(comitem);
+        });
+
+        return completionitems;
     }
 
     /**
      * Get the CompletionItemKind from the String of the json loaded.
      * @param strKind String with the kind of CodeCompletionItem.
      */
-    private getcomItemKind(strKind:string):vscode.CompletionItemKind{
+    private getcomItemKind(strKind: string): vscode.CompletionItemKind {
 
-        switch(strKind){
+        switch (strKind) {
             case "KEYWORD":
                 return vscode.CompletionItemKind.Keyword;
             case "PROPERTY":
@@ -92,6 +97,6 @@ export class CodeProvider{
      * get the current completionItemList
      */
     public getCodeProviderItems(): vscode.CompletionItem[] {
-        return  this.codeCompletionItems.items;
+        return this.codeCompletionItems.items;
     }
 }
