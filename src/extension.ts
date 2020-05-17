@@ -87,6 +87,21 @@ export function activate(context: vscode.ExtensionContext) {
 		appModel.compileForDebugging();
 	});
 
+	let disposableimportTmx = vscode.commands.registerCommand('extension.tmximport', () => {
+		vscode.window.showOpenDialog({
+			canSelectFiles: true,
+			canSelectFolders: false,
+			canSelectMany: false,
+			filters: {
+				'TmxFiles': ['tmx']
+			}
+		}).then(f => {
+			if (f !== undefined) {
+				appModel.importTmxFile(f[0]);
+			}
+		});
+	});
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
@@ -96,6 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposableCompileAndRun);
 	context.subscriptions.push(codecompletion);
 	context.subscriptions.push(disposableCompile4debugging);
+	context.subscriptions.push(disposableimportTmx);
 }
 
 

@@ -6,6 +6,7 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
+import { TmxParser } from './TmxParser';
 
 /**
  * Use of SGDK or GENDEV toolchains
@@ -416,5 +417,13 @@ export class AppModel {
             this.terminal.sendText("make clean debug");
         }
 
+    }
+
+    public importTmxFile(tmxFilePath: vscode.Uri) {
+        let tmx = TmxParser.parseTmxFile(tmxFilePath.fsPath);
+        let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
+        if (currentdir !== undefined) {
+            tmx.writeHeaderFile(Path.join(currentdir.fsPath, "res"), Path.join(this.extensionPath, "resources", "headerfile.h.template"));
+        }
     }
 }
