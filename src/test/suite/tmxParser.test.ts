@@ -16,5 +16,6 @@ suite('TmxParser Test', () => {
         tmx.writeHeaderFile(Path.join(__dirname, '../../../src/test/suite/'), Path.join(__dirname, '../../../resources/headerfile.h.template'));
         let file = fs.readFileSync(Path.join(__dirname, '../../../src/test/suite/ejemplo1Map.h'));
         assert.ok(file.toLocaleString().indexOf('Capa de patrones 1') >= 0);
+        fs.unlinkSync(Path.join(__dirname, '../../../src/test/suite/ejemplo1Map.h'));
     });
 });
