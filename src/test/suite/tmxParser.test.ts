@@ -7,8 +7,8 @@ suite('TmxParser Test', () => {
 
     test('tmxParser', () => {
         let tmx = TmxParser.parseTmxFile(Path.join(__dirname, '../../../src/test/suite/ejemplo1.tmx'));
-        assert.equal(tmx.map.version, "1.2");
-        assert.equal(tmx.map.layer[0].id, 1);
+        assert.equal(tmx.map['@_version'], "1.2");
+        assert.equal(tmx.map.layer['@_id'], 1);
     });
 
     test('writeCHeader', () => {

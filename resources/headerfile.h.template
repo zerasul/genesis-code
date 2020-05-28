@@ -9,13 +9,32 @@
 
 #include <genesis.h>
 
-struct Layer
+struct {{file}}Layer
 {
     u16 id;
     char *name;
     u16 *data;
     u16 numData;
 };
+
+struct {{file}}Object
+{
+    u16 id;
+    u16 x;
+    u16 y;
+    u16 width;
+    u16 height;
+};
+
+struct {{file}}ObjectGroup
+{
+    u16 id;
+    char * name;
+    u8 numObjects;
+    {{file}}Object *objects;
+};
+
+
 
 struct {{file}}MapStruct
 {
@@ -24,23 +43,21 @@ struct {{file}}MapStruct
     u16 tilewidth={{tilewidth}};
     u16 tilehegiht{{tileheight}};
     u8 numLayers={{numLayers}};
-    Layer layers[{{numLayers}}];
+    {{file}}Layer layers[{{numLayers}}];
+    u8 numObjects;
+    {{file}}ObjectGroup objectgroups[{{numObjects}}];
 }{{file}}Map;
 
 
 
 
-{{file}}MapStruct InitMapInstance({{file}}MapStruct *mapstruct)
+void InitMapInstance({{file}}MapStruct *mapstruct)
 {
+//Layers
+{{LayerInfo}}
 
-
-Layer mylayer;
-mylayer.id = {{layerid}};
-mylayer.name = "{{name}}";
-u16 mapdata[{{numData}}]={{data}};
-mylayer.data = mapdata;
-mylayer.numData = {{numData}};
-mapstruct->layers[0] = mylayer;
+//Objects
+{{ObjectInfo}}
 
 }
 #endif
