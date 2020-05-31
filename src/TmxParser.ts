@@ -9,13 +9,27 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 
-const LAYERTEMPLATE = '{{file}}Layer mylayer{{index}};\n\
+const LAYERTEMPLATE = 'Layer mylayer{{index}};\n\
 mylayer{{index}}.id = {{layerid}};\n\
 mylayer{{index}}.name = "{{name}}";\n\
 u16 mapdata{{index}}[{{numData}}]={{data}};\n\
 mylayer{{index}}.data = mapdata{{index}};\n\
 mylayer{{index}}.numData = {{numData}};\n\
-mapstruct->layers[{{index}}] = mylayer{{index}};\n';
+layers[{{index}}] = mylayer{{index}};\n';
+
+const OBJECTTEMPLATE = 'ObjectGroup myobjectgroup{{index}};\n\
+myobjectgroup{{index}}.id={{objectgropupid}};\n\
+myobjectgroup{{index}}.name="{{objectgroupname}}";\n\
+myobjectgroup{{index}}.numObjects={{nobjs}};\n\
+objectgroups[{{index}}]=myobjectgroup{{index}};\n\
+Object myobjects{{index}}[{{nobjs}}];\n';
+
+const OBJSTEMPLATE = 'Object myobject{{index}};\n\
+myobject{{index}}.id={{objid}};\n\
+myobject{{index}}.x={{objx}};\n\
+myobject{{index}}.y={{objy}};\n\
+myobject{{index}}.width={{objwidth}};\n\
+myobject{{index}}.height={{objheight}};\n';
 
 /**
  * Class tmxParser: this class reads a TMX File and parse it into a C Header File.
@@ -143,7 +157,51 @@ export class TMX {
 
         strfile = strfile.replace(new RegExp("{{LayerInfo}}", 'g'), strlayer);
 
+        let nobjgroups = 1;
+        if (this.map.objectgroup !== undefined) {
+            if (this.map.objectgroup.constructor === Array) {
+                nobjgroups = this.map.objectgroup.length;
+            }
+        } else {
+            nobjgroups = 0;
+        }
 
+        strfile = strfile.replace(new RegExp("{{numobjectgroups}}", 'g'), nobjgroups.toString());
+        let strobjgroup = '';
+        for (let index = 0; index < nobjgroups; index++) {
+            let objgroup = this.map.objectgroup;
+            if (this.map.objectgroup.constructor === Array) {
+                objgroup = this.map.objectgroup[index];
+            }
+            let curobjgroup = OBJECTTEMPLATE;
+            curobjgroup = curobjgroup.replace(new RegExp("{{index}}", 'g'), index.toString());
+            curobjgroup = curobjgroup.replace(new RegExp("{{objectgropupid}}", 'g'), objgroup['@_id']);
+            curobjgroup = curobjgroup.replace(new RegExp('{{objectgroupname}}', 'g'), objgroup['@_name']);
+            let nobjs = 1;
+            if (objgroup.object.constructor === Array) {
+                let nobjs = objgroup.object.length;
+            }
+            curobjgroup = curobjgroup.replace(new RegExp('{{nobjs}}', 'g'), nobjs.toString());
+            for (let index1 = 0; index1 < nobjs; index1++) {
+                let obj = objgroup.object;
+                if (obj.constructor === Array) {
+                    obj = objgroup.object[index1];
+                }
+                let curobj = OBJSTEMPLATE;
+                curobj = curobj.replace(new RegExp("{{index}}", 'g'), index1.toString());
+                curobj = curobj.replace(new RegExp("{{objid}}", 'g'), obj['@_id']);
+                curobj = curobj.replace(new RegExp("{{objx}}", 'g'), obj['@_x']);
+                curobj = curobj.replace(new RegExp("{{objy}}", 'g'), obj['@_y']);
+                curobj = curobj.replace(new RegExp("{{objwidth}}", 'g'), obj['@_width']);
+                curobj = curobj.replace(new RegExp("{{objheight}}", 'g'), obj['@_height']);
+                let arrayobj = "myobjectgroup{{index}}.objects[{{index1}}]=myobjects{{index1}};\n".replace(new RegExp("{{index}}", 'g'), index.toString());
+                arrayobj = arrayobj.replace(new RegExp("{{index1}}", 'g'), index1.toString());
+                curobj += arrayobj;
+                curobjgroup += curobj;
+            }
+            strobjgroup += curobjgroup;
+        }
+        strfile = strfile.replace(new RegExp("{{ObjectInfo}}", 'g'), strobjgroup);
         fs.writeFileSync(path.join(directoryPath, this.file + "Map.h"), strfile, {
             flag: 'w'
         });

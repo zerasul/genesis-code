@@ -3,13 +3,15 @@
 // Date: {{date}}
 // File: {{file}}
 
-#ifndef _{{fileMap}}STRUCT
-
-#define _{{fileMap}}STRUCT 0
-
 #include <genesis.h>
 
-struct {{file}}Layer
+#ifndef _TILEMAPSTRUCT
+
+#define _TILEMAPSTRUCT 0
+
+
+
+struct Layer
 {
     u16 id;
     char *name;
@@ -17,7 +19,7 @@ struct {{file}}Layer
     u16 numData;
 };
 
-struct {{file}}Object
+struct Object
 {
     u16 id;
     u16 x;
@@ -26,38 +28,56 @@ struct {{file}}Object
     u16 height;
 };
 
-struct {{file}}ObjectGroup
+struct ObjectGroup
 {
     u16 id;
     char * name;
     u8 numObjects;
-    {{file}}Object *objects;
+    Object *objects;
 };
 
 
 
-struct {{file}}MapStruct
+struct MapStruct
 {
-    u16 width={{width}};
-    u16 height={{height}};
-    u16 tilewidth={{tilewidth}};
-    u16 tilehegiht{{tileheight}};
-    u8 numLayers={{numLayers}};
-    {{file}}Layer layers[{{numLayers}}];
+    u16 width;
+    u16 height;
+    u16 tilewidth;
+    u16 tilehegiht;
+    u8 numLayers;
+    Layer* layers;
     u8 numObjects;
-    {{file}}ObjectGroup objectgroups[{{numObjects}}];
+    ObjectGroup* objectgroups;
 }{{file}}Map;
 
+#endif
 
+#ifndef _{{fileMap}}
 
+#define _{{fileMap}} 0
 
-void InitMapInstance({{file}}MapStruct *mapstruct)
+void Init{{file}}MapInstance(MapStruct *mapstruct)
 {
+
+mapstruct->width={{width}};
+mapstruct->height={{height}};
+mapstruct->tilewidth={{tilewidth}};
+mapstruct->tilehegiht={{tileheight}};
+mapstruct->numLayers={{numLayers}};
+
+Layer layers[{{numLayers}}];
+
 //Layers
 {{LayerInfo}}
 
+mapstruct->layers=layers;
+
 //Objects
+ObjectGroup objectgroups[{{numobjectgroups}}];
+mapstruct->numObjects={{numobjectgroups}};
 {{ObjectInfo}}
+
+mapstruct->objectgroups=objectgroups;
 
 }
 #endif
