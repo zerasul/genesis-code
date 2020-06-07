@@ -168,38 +168,42 @@ export class TMX {
 
         strfile = strfile.replace(new RegExp("{{numobjectgroups}}", 'g'), nobjgroups.toString());
         let strobjgroup = '';
-        for (let index = 0; index < nobjgroups; index++) {
-            let objgroup = this.map.objectgroup;
-            if (this.map.objectgroup.constructor === Array) {
-                objgroup = this.map.objectgroup[index];
-            }
-            let curobjgroup = OBJECTTEMPLATE;
-            curobjgroup = curobjgroup.replace(new RegExp("{{index}}", 'g'), index.toString());
-            curobjgroup = curobjgroup.replace(new RegExp("{{objectgropupid}}", 'g'), objgroup['@_id']);
-            curobjgroup = curobjgroup.replace(new RegExp('{{objectgroupname}}', 'g'), objgroup['@_name']);
-            let nobjs = 1;
-            if (objgroup.object.constructor === Array) {
-                let nobjs = objgroup.object.length;
-            }
-            curobjgroup = curobjgroup.replace(new RegExp('{{nobjs}}', 'g'), nobjs.toString());
-            for (let index1 = 0; index1 < nobjs; index1++) {
-                let obj = objgroup.object;
-                if (obj.constructor === Array) {
-                    obj = objgroup.object[index1];
+        if (nobjgroups > 0) {
+            strobjgroup += "ObjectGroup objectgroups[" + nobjgroups.toString() + "];\n";
+            for (let index = 0; index < nobjgroups; index++) {
+                let objgroup = this.map.objectgroup;
+                if (this.map.objectgroup.constructor === Array) {
+                    objgroup = this.map.objectgroup[index];
                 }
-                let curobj = OBJSTEMPLATE;
-                curobj = curobj.replace(new RegExp("{{index}}", 'g'), index1.toString());
-                curobj = curobj.replace(new RegExp("{{objid}}", 'g'), obj['@_id']);
-                curobj = curobj.replace(new RegExp("{{objx}}", 'g'), obj['@_x']);
-                curobj = curobj.replace(new RegExp("{{objy}}", 'g'), obj['@_y']);
-                curobj = curobj.replace(new RegExp("{{objwidth}}", 'g'), obj['@_width']);
-                curobj = curobj.replace(new RegExp("{{objheight}}", 'g'), obj['@_height']);
-                let arrayobj = "myobjectgroup{{index}}.objects[{{index1}}]=myobjects{{index1}};\n".replace(new RegExp("{{index}}", 'g'), index.toString());
-                arrayobj = arrayobj.replace(new RegExp("{{index1}}", 'g'), index1.toString());
-                curobj += arrayobj;
-                curobjgroup += curobj;
+                let curobjgroup = OBJECTTEMPLATE;
+                curobjgroup = curobjgroup.replace(new RegExp("{{index}}", 'g'), index.toString());
+                curobjgroup = curobjgroup.replace(new RegExp("{{objectgropupid}}", 'g'), objgroup['@_id']);
+                curobjgroup = curobjgroup.replace(new RegExp('{{objectgroupname}}', 'g'), objgroup['@_name']);
+                let nobjs = 1;
+                if (objgroup.object.constructor === Array) {
+                    let nobjs = objgroup.object.length;
+                }
+                curobjgroup = curobjgroup.replace(new RegExp('{{nobjs}}', 'g'), nobjs.toString());
+                for (let index1 = 0; index1 < nobjs; index1++) {
+                    let obj = objgroup.object;
+                    if (obj.constructor === Array) {
+                        obj = objgroup.object[index1];
+                    }
+                    let curobj = OBJSTEMPLATE;
+                    curobj = curobj.replace(new RegExp("{{index}}", 'g'), index.toString());
+                    curobj = curobj.replace(new RegExp("{{objid}}", 'g'), obj['@_id']);
+                    curobj = curobj.replace(new RegExp("{{objx}}", 'g'), obj['@_x']);
+                    curobj = curobj.replace(new RegExp("{{objy}}", 'g'), obj['@_y']);
+                    curobj = curobj.replace(new RegExp("{{objwidth}}", 'g'), obj['@_width']);
+                    curobj = curobj.replace(new RegExp("{{objheight}}", 'g'), obj['@_height']);
+                    let arrayobj = "myobjectgroup{{index}}.objects=myobjects{{index1}};\n".replace(new RegExp("{{index}}", 'g'), index.toString());
+                    arrayobj = arrayobj.replace(new RegExp("{{index1}}", 'g'), index1.toString());
+                    curobj += arrayobj;
+                    curobjgroup += curobj;
+                }
+                strobjgroup += curobjgroup;
             }
-            strobjgroup += curobjgroup;
+            strobjgroup += "mapstruct->objectgroups=objectgroups;\n";
         }
         strfile = strfile.replace(new RegExp("{{ObjectInfo}}", 'g'), strobjgroup);
         fs.writeFileSync(path.join(directoryPath, this.file + "Map.h"), strfile, {

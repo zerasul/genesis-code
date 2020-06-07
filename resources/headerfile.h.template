@@ -73,11 +73,12 @@ Layer layers[{{numLayers}}];
 mapstruct->layers=layers;
 
 //Objects
-ObjectGroup objectgroups[{{numobjectgroups}}];
+
 mapstruct->numObjects={{numobjectgroups}};
+
 {{ObjectInfo}}
 
-mapstruct->objectgroups=objectgroups;
+
 
 }
 #endif
