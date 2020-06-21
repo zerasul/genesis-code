@@ -31,6 +31,13 @@ myobject{{index}}.y={{objy}};\n\
 myobject{{index}}.width={{objwidth}};\n\
 myobject{{index}}.height={{objheight}};\n';
 
+
+export abstract class TiledParser {
+
+    public abstract parseFile(file: string): TMX;
+
+}
+
 /**
  * Class tmxParser: this class reads a TMX File and parse it into a C Header File.
  * 
@@ -38,7 +45,7 @@ myobject{{index}}.height={{objheight}};\n';
  * 
  * @author Victor Suarez <zerasul@gmail.com>
  */
-export class TmxParser {
+export class TmxXMLParser extends TiledParser {
 
     /**
      * Parse a TMX file and return the TMX information
@@ -46,27 +53,34 @@ export class TmxParser {
      * 
      * @returns TMX Object Information
      */
-    public static parseTmxFile(file: string): TMX {
+    public parseFile(file: string): TMX {
         let content = fs.readFileSync(file).toLocaleString();
         let json = xmlparser.parse(content, { ignoreAttributes: false, ignoreNameSpace: true });
         //GetMapName
         let start = file.lastIndexOf(path.sep) + 1;
         let filename = file.substr(start, file.lastIndexOf(".") - start);
-        let tmx = this.parseJSON(json);
+        let tmx = new TMXXmlFile();
+        tmx.map = json;
         tmx.file = filename;
+
         return tmx;
     }
 
-    /**
-     * Parse a json with the TMX information
-     * @param json json object with the TMX information
-     * 
-     * @returns TMX object information 
-     */
-    public static parseJSON(json: any): TMX {
-        let tmx = new TMX();
-        tmx.map = json;
 
+
+}
+
+export class TmxJsonFileParser extends TmxXMLParser {
+
+    parseFile(file: string) {
+        let content = fs.readFileSync(file).toLocaleString();
+        let json = JSON.parse(content);
+        //GetMapName
+        let start = file.lastIndexOf(path.sep) + 1;
+        let filename = file.substr(start, file.lastIndexOf(".") - start);
+        let tmx = new TMXJsonFile();
+        tmx.map = json;
+        tmx.file = filename;
         return tmx;
     }
 
@@ -79,10 +93,21 @@ export class TmxParser {
  * 
  * @author Victor Suarez <zerasul@gmail.com>
  */
-export class TMX {
-    private _map: any;
+export abstract class TMX {
+    protected _map: any;
 
-    private _file: string = '';
+    protected _file: string = '';
+
+    abstract get map(): any;
+    abstract set map(v: any);
+    abstract get file(): string;
+    abstract set file(v: string);
+
+    public abstract writeCHeaderFile(directoryPath: string, templatePath: string): void;
+}
+
+export class TMXXmlFile extends TMX {
+
 
 
     public get map(): any {
@@ -104,7 +129,7 @@ export class TMX {
     }
 
 
-    public writeHeaderFile(directoryPath: string, templatePath: string) {
+    public writeCHeaderFile(directoryPath: string, templatePath: string) {
         let strfile = fs.readFileSync(templatePath).toLocaleString();
         let currdate = new Date();
         let formatedDate = currdate.getFullYear() + "-" + (currdate.getMonth() + 1) + "-" + currdate.getDate();
@@ -210,4 +235,86 @@ export class TMX {
             flag: 'w'
         });
     }
+}
+
+export class TMXJsonFile extends TMX {
+
+
+
+
+    public get map(): any {
+        return this._map;
+    }
+
+    public set map(v: any) {
+        this._map = v;
+    }
+
+
+    public get file(): string {
+        return this._file;
+    }
+
+
+    public set file(v: string) {
+        this._file = v;
+    }
+
+    public writeCHeaderFile(directoryPath: string, templatePath: string): void {
+        let strfile = fs.readFileSync(templatePath).toLocaleString();
+        let currdate = new Date();
+        let formatedDate = currdate.getFullYear() + "-" + (currdate.getMonth() + 1) + "-" + currdate.getDate();
+        strfile = strfile.replace(new RegExp("{{date}}"), formatedDate);
+        strfile = strfile.replace(new RegExp("{{file}}", 'g'), this.file);
+        strfile = strfile.replace(new RegExp("{{fileMap}}", 'g'), this.file.toUpperCase());
+        strfile = strfile.replace(new RegExp("{{width}}", 'g'), this.map.width);
+        strfile = strfile.replace(new RegExp("{{height}}", 'g'), this.map.height);
+        strfile = strfile.replace(new RegExp("{{tilewidth}}", 'g'), this.map.tilewidth);
+        strfile = strfile.replace(new RegExp("{{tileheight}}", 'g'), this.map.tileheight);
+        strfile = strfile.replace(new RegExp("{{numLayers}}", 'g'), this.map.layers.length.toString());
+        let strlayer = '';
+        for (let index = 0; index < this.map.layers.length; index++) {
+            let layer = this.map.layers[index];
+
+
+
+            let curlayer = LAYERTEMPLATE;
+            curlayer = curlayer.replace(new RegExp("{{file}}", 'g'), this.file);
+            curlayer = curlayer.replace(new RegExp("{{layerid}}", 'g'), layer.id);
+            curlayer = curlayer.replace(new RegExp("{{name}}", 'g'), layer.name);
+            let numData = 1;
+            let csv = '';
+            //CSV
+            if (layer.encoding === 'csv' || layer.encoding === undefined) {
+                for (let i = 0; i < layer.data.length; i++) {
+                    csv += layer.data[i].toString() + ",";
+                }
+                csv = csv.substring(0, csv.lastIndexOf(','));
+                numData = layer.data.length;
+            } else {
+                //Base 64
+                if (layer.encoding === 'base64') {
+                    let buff = new Buffer(layer.data, 'base64');
+                    for (let index = 0; index < buff.length; index += 4) {
+                        csv += buff.readUInt32LE(index) + ",";
+                    }
+                    csv = csv.substring(0, csv.lastIndexOf(",") - 2);
+                    numData = csv.split(",").length;
+                }
+            }
+            curlayer = curlayer.replace(new RegExp("{{data}}", 'g'), "{" + csv + "}");
+            curlayer = curlayer.replace(new RegExp("{{numData}}", 'g'), numData.toString());
+            curlayer = curlayer.replace(new RegExp("{{index}}", 'g'), index.toString());
+            strlayer += curlayer;
+        }
+
+        strfile = strfile.replace(new RegExp("{{LayerInfo}}", 'g'), strlayer);
+        strfile = strfile.replace(new RegExp("{{numobjectgroups}}", 'g'), "0");
+        strfile = strfile.replace(new RegExp("{{ObjectInfo}}", 'g'), "");
+
+        fs.writeFileSync(path.join(directoryPath, this.file + "Map.h"), strfile, {
+            flag: 'w'
+        });
+    }
+
 }
