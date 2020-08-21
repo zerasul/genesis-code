@@ -285,24 +285,30 @@ export class TMXJsonFile extends TMX {
             let numData = 1;
             let csv = '';
             //CSV
-            if (layer.encoding === 'csv' || layer.encoding === undefined) {
-                for (let i = 0; i < layer.data.length; i++) {
-                    csv += layer.data[i].toString() + ",";
-                }
-                csv = csv.substring(0, csv.lastIndexOf(','));
-                numData = layer.data.length;
-            } else {
-                //Base 64
-                if (layer.encoding === 'base64') {
-                    let buff = new Buffer(layer.data, 'base64');
-                    for (let index = 0; index < buff.length; index += 4) {
-                        csv += buff.readUInt32LE(index) + ",";
+            if (layer.data !== undefined) {
+                if (layer.encoding === 'csv' || layer.encoding === undefined) {
+                    for (let i = 0; i < layer.data.length; i++) {
+                        csv += layer.data[i].toString() + ",";
                     }
-                    csv = csv.substring(0, csv.lastIndexOf(",") - 2);
-                    numData = csv.split(",").length;
+                    csv = csv.substring(0, csv.lastIndexOf(','));
+                    numData = layer.data.length;
+                } else {
+                    //Base 64
+                    if (layer.encoding === 'base64') {
+                        let buff = new Buffer(layer.data, 'base64');
+                        for (let index = 0; index < buff.length; index += 4) {
+                            csv += buff.readUInt32LE(index) + ",";
+                        }
+                        csv = csv.substring(0, csv.lastIndexOf(",") - 2);
+                        numData = csv.split(",").length;
+                    }
                 }
+                curlayer = curlayer.replace(new RegExp("{{data}}", 'g'), "{" + csv + "}");
+            } else {
+                curlayer = curlayer.replace(new RegExp("{{data}}", 'g'), "{}");
             }
-            curlayer = curlayer.replace(new RegExp("{{data}}", 'g'), "{" + csv + "}");
+
+
             curlayer = curlayer.replace(new RegExp("{{numData}}", 'g'), numData.toString());
             curlayer = curlayer.replace(new RegExp("{{index}}", 'g'), index.toString());
             strlayer += curlayer;
