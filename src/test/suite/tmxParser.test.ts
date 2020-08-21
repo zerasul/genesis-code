@@ -33,5 +33,6 @@ suite('TmxParser Test', () => {
         let parser = new TmxJsonFileParser();
         let tmx = parser.parseFile(Path.join(__dirname, '../../../src/test/suite/ejemplo1.json'));
         tmx.writeCHeaderFile(Path.join(__dirname, '../../../src/test/suite/'), Path.join(__dirname, '../../../resources/headerfile.h.template'));
+        fs.unlinkSync(Path.join(__dirname, '../../../src/test/suite/ejemplo1Map.h'));
     });
 });
