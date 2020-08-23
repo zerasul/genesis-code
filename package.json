@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.48.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -60,6 +60,10 @@
 			{
 				"command": "extension.tmximport",
 				"title": "Genesis Code: Import TMX File"
+			},
+			{
+				"command": "extension.tmxjsonimport",
+				"title": "Genesis Code: Import Json TMX File"
 			}
 		],
 		"languages": [

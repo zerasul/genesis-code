@@ -102,6 +102,21 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	});
 
+	let disposableImportJsonTmx = vscode.commands.registerCommand('extension.tmxjsonimport', () => {
+		vscode.window.showOpenDialog({
+			canSelectFiles: true,
+			canSelectFolders: false,
+			canSelectMany: false,
+			filters: {
+				'TmxJsonFiles': ['json']
+			}
+		}).then(f => {
+			if (f !== undefined) {
+				appModel.importJsonTmxFile(f[0]);
+			}
+		});
+	});
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
@@ -112,6 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(codecompletion);
 	context.subscriptions.push(disposableCompile4debugging);
 	context.subscriptions.push(disposableimportTmx);
+	context.subscriptions.push(disposableImportJsonTmx);
 }
 
 

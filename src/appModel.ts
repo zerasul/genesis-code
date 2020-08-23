@@ -6,7 +6,7 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
-import { TiledParser, TmxXMLParser } from './TmxParser';
+import { TiledParser, TmxXMLParser, TMXJsonFile, TmxJsonFileParser } from './TmxParser';
 
 /**
  * Use of SGDK or GENDEV toolchains
@@ -422,6 +422,15 @@ export class AppModel {
     public importTmxFile(tmxFilePath: vscode.Uri) {
         let parser = new TmxXMLParser();
         let tmx = parser.parseFile(tmxFilePath.fsPath);
+        let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
+        if (currentdir !== undefined) {
+            tmx.writeCHeaderFile(Path.join(currentdir.fsPath, "res"), Path.join(this.extensionPath, "resources", "headerfile.h.template"));
+        }
+    }
+
+    public importJsonTmxFile(tmxJsonFilePath: vscode.Uri) {
+        let parser = new TmxJsonFileParser();
+        let tmx = parser.parseFile(tmxJsonFilePath.fsPath);
         let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
         if (currentdir !== undefined) {
             tmx.writeCHeaderFile(Path.join(currentdir.fsPath, "res"), Path.join(this.extensionPath, "resources", "headerfile.h.template"));
