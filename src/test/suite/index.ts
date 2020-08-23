@@ -11,7 +11,7 @@ export function run(): Promise<void> {
 			mochaFile: './file.xml'
 		}*/
 	});
-	mocha.useColors(true);
+
 
 	const testsRoot = path.resolve(__dirname, '..');
 
