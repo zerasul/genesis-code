@@ -282,7 +282,7 @@ export class TMXJsonFile extends TMX {
             curlayer = curlayer.replace(new RegExp("{{file}}", 'g'), this.file);
             curlayer = curlayer.replace(new RegExp("{{layerid}}", 'g'), layer.id);
             curlayer = curlayer.replace(new RegExp("{{name}}", 'g'), layer.name);
-            let numData = 1;
+            let numData = 0;
             let csv = '';
             //CSV
             if (layer.data !== undefined) {
@@ -312,9 +312,12 @@ export class TMXJsonFile extends TMX {
             curlayer = curlayer.replace(new RegExp("{{numData}}", 'g'), numData.toString());
             curlayer = curlayer.replace(new RegExp("{{index}}", 'g'), index.toString());
             strlayer += curlayer;
+
         }
 
         strfile = strfile.replace(new RegExp("{{LayerInfo}}", 'g'), strlayer);
+
+
         strfile = strfile.replace(new RegExp("{{numobjectgroups}}", 'g'), "0");
         strfile = strfile.replace(new RegExp("{{ObjectInfo}}", 'g'), "");
 
