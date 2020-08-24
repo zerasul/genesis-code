@@ -9,6 +9,16 @@ import * as fs from 'fs';
 import { TiledParser, TmxXMLParser, TMXJsonFile, TmxJsonFileParser } from './TmxParser';
 
 /**
+ * Configuration key for toolchaintype
+ */
+const TOOLCHAINTYPE = "toolchainType";
+
+/**
+ * Configuration key for custom makefile
+ */
+const MAKEFILE = "custom-makefile";
+
+/**
  * Use of SGDK or GENDEV toolchains
  */
 const SGDK_GENDEV = "sgdk/gendev";
@@ -17,6 +27,16 @@ const SGDK_GENDEV = "sgdk/gendev";
  * Use of MARSDEV toolchain
  */
 const MARSDEV = "marsdev";
+
+/**
+ * DEFAULT MAKEFILE for Windows Systems 
+ */
+const DEFAULT_WIN_SGDK_MAKEFILE = "%GDK%\\makefile.gen";
+
+/**
+ * DEFAULT MAKEFILE for GenDev Systems
+ */
+const DEFAULT_GENDEV_SGDK_MAKEFILE = "$GENDEV/sgdk/mkfiles/makefile.gen";
 
 
 /**
@@ -51,11 +71,13 @@ export class AppModel {
      */
     public cleanProject(): boolean {
         console.log(process.platform.toString());
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (process.platform.toString() === 'win32') {
             //Windows
             if (toolchainType === SGDK_GENDEV) {
-                this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen clean\n");
+                let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+                this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " clean\n");
             } else if (toolchainType === MARSDEV) {
                 this.terminal.sendText("make clean");
             }
@@ -64,7 +86,8 @@ export class AppModel {
             //linux
 
             if (toolchainType === SGDK_GENDEV) {
-                this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen clean\n");
+                let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
+                this.terminal.sendText("make -f " + cmakefile + " clean\n");
             } else if (toolchainType === MARSDEV) {
                 this.terminal.sendText("make clean");
             }
@@ -146,7 +169,7 @@ export class AppModel {
         }
         //add Makefile for marsdev toolchain projects
         let makefiletemppath = Path.join(this.extensionPath, "resources", "Makefile.template");
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (toolchainType === MARSDEV) {
             fs.copyFileSync(makefiletemppath, Path.join(rootPath.fsPath, "Makefile"));
             //add boot directory
@@ -170,7 +193,7 @@ export class AppModel {
      */
     private createlaunchjsonfile(extensionPath: string, vscodepath: string) {
         let platform = process.platform.toString();
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (platform === 'win32') {
             if (toolchainType === SGDK_GENDEV) {
                 let sourcefile = Path.join(extensionPath, "resources", "launch.json.windowssgdk.template");
@@ -197,7 +220,7 @@ export class AppModel {
 
     private createSettingsJsonFile(extensionPath: string, vscodepath: string) {
         let platform = process.platform.toString();
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (platform === 'win32') {
             if (toolchainType === MARSDEV) {
                 let sourcefile = Path.join(extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
@@ -230,9 +253,11 @@ export class AppModel {
      * @param newline add a newline at the end of the command.
      */
     private compileWindowsProject(newline: boolean = true): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
-            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen", newline);
+            let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+            this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile, newline);
         } else if (toolchainType === MARSDEV) {
             this.terminal.sendText("make clean release", newline);
         }
@@ -245,9 +270,11 @@ export class AppModel {
      * @param newline add a newline at the end of the command.
      */
     private compileLinuxProject(newline: boolean = true): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
-            this.terminal.sendText("make -f $GENDEV/sgdk/mkfiles/makefile.gen", newline);
+            let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
+            this.terminal.sendText("make -f " + cmakefile, newline);
         } else if (toolchainType === MARSDEV) {
             this.terminal.sendText("make clean release", newline);
         }
@@ -379,8 +406,11 @@ export class AppModel {
      */
     public compileForDebugging() {
         let platform = process.platform.toString();
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+
         if (platform === 'win32') {
-            this.terminal.sendText("%GDK%\\bin\\make -f %GDK%\\makefile.gen debug");
+            let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+            this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " debug");
         } else if (platform === 'linux') {
             this.compile4DebugLinux();
         } else if (platform === 'darwin') {

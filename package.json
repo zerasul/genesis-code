@@ -104,6 +104,12 @@
 						],
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
+					},
+					"custom-makefile": {
+						"title": "Custom MakeFile",
+						"type": "string",
+						"default": "",
+						"description": "Set the Custom Makefile for use. leaves empty for default SGDK or GENDEV Makefile"
 					}
 				}
 			}
