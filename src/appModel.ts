@@ -73,41 +73,39 @@ export class AppModel {
         console.log(process.platform.toString());
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
-        if (process.platform.toString() === 'win32') {
-            //Windows
-            if (toolchainType === SGDK_GENDEV) {
+
+        if (toolchainType === SGDK_GENDEV) {
+            if (process.platform.toString() === 'win32') {
+                //Windows
+
                 let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
                 this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " clean\n");
-            } else if (toolchainType === MARSDEV) {
-                this.terminal.sendText("make clean");
-            }
-            return true;
-        } else if (process.platform.toString() === 'linux') {
-            //linux
 
-            if (toolchainType === SGDK_GENDEV) {
+                return true;
+            } else if (process.platform.toString() === 'linux') {
+                //linux
                 let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
                 this.terminal.sendText("make -f " + cmakefile + " clean\n");
-            } else if (toolchainType === MARSDEV) {
-                this.terminal.sendText("make clean");
-            }
+                return true;
+            } else if (process.platform.toString() === 'darwin') {
 
-            return true;
-        } else if (process.platform.toString() === 'darwin') {
-            if (toolchainType === SGDK_GENDEV) {
                 // MacOs using Wine
                 //first check if the build.bat file is created
                 let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
                 this.copybuildmacos(currentdir);
                 this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat clean");
-            } else if (toolchainType === MARSDEV) {
-                this.terminal.sendText("make clean");
+
+                return true;
+            } else {
+                vscode.window.showWarningMessage("Operating System not yet supported");
+                return false;
             }
-            return true;
         } else {
-            vscode.window.showWarningMessage("Operating System not yet supported");
-            return false;
+            let mkfile = (makefile !== "") ? "-f " + makefile : " ";
+            this.terminal.sendText("make " + mkfile + "clean");
+            return true;
         }
+
     }
 
     /**
@@ -259,7 +257,8 @@ export class AppModel {
             let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
             this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile, newline);
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean release", newline);
+            let mkfile = (makefile !== "") ? "-f " + makefile : " ";
+            this.terminal.sendText("make " + mkfile + "clean release", newline);
         }
 
         return true;
@@ -276,14 +275,16 @@ export class AppModel {
             let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
             this.terminal.sendText("make -f " + cmakefile, newline);
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean release", newline);
+            let mkfile = (makefile !== "") ? "-f " + makefile : " ";
+            this.terminal.sendText("make " + mkfile + "clean release", newline);
         }
 
         return true;
     }
 
     private compileMacOsProject(newline: boolean = true): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
             // MacOs using Wine
             //first check if the build.bat file is created
@@ -291,7 +292,8 @@ export class AppModel {
             this.copybuildmacos(currentdir);
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean release", newline);
+            let mkfile = (makefile !== "") ? "-f " + makefile : " ";
+            this.terminal.sendText("make " + mkfile + "clean release", newline);
         }
 
         return true;
@@ -320,13 +322,16 @@ export class AppModel {
      * In this case, the emulator is not running in background.
      */
     private compileAndRunMacosProject(): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
             let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
             this.copybuildmacos(currentdir);
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean release", false);
+            let mkfile = (makefile !== "") ? "-f " + makefile : " ";
+            this.terminal.sendText("make " + mkfile + "clean release", false);
+
         }
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
@@ -424,12 +429,13 @@ export class AppModel {
      * Call the compile command with debug options on MacOs Systems.
      */
     private compile4DebugMacOs() {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
-
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat debug");
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean debug");
+            let mkfile = (makefile !== "") ? "-f" + makefile + " " : "";
+            this.terminal.sendText("make " + mkfile + "clean debug");
         }
     }
 
@@ -439,12 +445,13 @@ export class AppModel {
      * NOTE: This command its not working on SGDK/GENDEV toolchains, only MARSDEV toolchain its compatible.
      */
     private compile4DebugLinux() {
-        let toolchainType = vscode.workspace.getConfiguration().get("toolchainType");
-
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
             vscode.window.showWarningMessage("Toolchain SGDK/GENDEV can't compile for Debugging. Change to Marsdev on configuration.");
         } else if (toolchainType === MARSDEV) {
-            this.terminal.sendText("make clean debug");
+            let mkfile = (makefile !== "") ? "-f" + makefile + " " : "";
+            this.terminal.sendText("make " + mkfile + "clean debug");
         }
 
     }

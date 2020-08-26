@@ -109,7 +109,7 @@
 						"title": "Custom MakeFile",
 						"type": "string",
 						"default": "",
-						"description": "Set the Custom Makefile for use. leaves empty for default SGDK or GENDEV Makefile"
+						"description": "Set the Custom Makefile for use. leaves empty for default SGDK, GENDEV or MARSDEV Makefile"
 					}
 				}
 			}
