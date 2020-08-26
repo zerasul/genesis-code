@@ -110,6 +110,24 @@
 						"type": "string",
 						"default": "",
 						"description": "Set the Custom Makefile for use. leaves empty for default SGDK, GENDEV or MARSDEV Makefile"
+					},
+					"MARSDEV": {
+						"title": "MARSDEV environment variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $MARSDEV environment variable. leave empty for use system default"
+					},
+					"GENDEV": {
+						"title": "GENDEV n variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $GENDEV environment variable. leave empty for use system default"
+					},
+					"GDK": {
+						"title": "GDK environment variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $GDK environment variable. leave empty for use system default"
 					}
 				}
 			}
