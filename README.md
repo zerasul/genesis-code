@@ -21,7 +21,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added remote debugging configuration for use with GDB.
 * Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
 * Import TMX file command: Uses a [TMX file format](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/) for generate a C header file for your projects.
-* Import Json TMX file command: USes a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/ for generate a C Header file for Your project).
+* Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project).
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 
