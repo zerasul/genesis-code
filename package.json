@@ -118,7 +118,7 @@
 						"description": "Set the $MARSDEV environment variable. leave empty for use system default"
 					},
 					"GENDEV": {
-						"title": "GENDEV n variable",
+						"title": "GENDEV environment variable",
 						"type": "string",
 						"default": "",
 						"description": "Set the $GENDEV environment variable. leave empty for use system default"
