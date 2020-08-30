@@ -20,6 +20,10 @@ With this extension, you can use easily a few commands for help you create aweso
 * SGDK Resource Files Code Completion.
 * Added remote debugging configuration for use with GDB.
 * Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
+* Import TMX file command: Uses a [TMX file format](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/) for generate a C header file for your projects.
+* Import Json TMX file command: USes a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/ for generate a C Header file for Your project).
+* Added configuration for use alternative MakeFile.
+* Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 
 ![vscodegif](vscodegif.gif)
 
@@ -44,6 +48,14 @@ You can select the toolchain type for use with genesis code:
 
 ![genesiscodeconfigtoolchain](genesiscodeconfigtoolchain.png)
 
+You can set an alternative MakeFile on the configuration panel. When the compile or clean command is called the alternative Makefile will be used instead the default makefile.
+
+![genesiscodemakefile](makefile.png)
+
+Also, you can set an alternative value for the environment variables of GDK, GENDEV or MARSDEV.
+
+![envvariables](envvariables.png)
+
 ## Known Issues
 
 * In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
@@ -51,6 +63,14 @@ You can select the toolchain type for use with genesis code:
 * In Linux Systems, when you create a new project there is no launch.json file for SGDK/GENDEV toolchain.
 
 ## Release Notes
+
+### 1.3.0
+
+* Added import TMX file command; it generates a C Header File with the information of the TMX file. For more info about the TMX format, please see [Tiled Documentation](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/).
+* Added import Json Tmx File command; it generates a C Header File with the information of the json TMX file. For more info about the json Tmx Format, please see [Tiled Documentation](https://doc.mapeditor.org/en/stable/reference/json-map-format/).
+* Added custom makefile configuration; now you can set an alternartive for the default makefile.
+* Added configuration for GDK, GENDEV or MARSDEV custom variables.
+* Updated some dependencies and improved code.
 
 ### 1.2.2
 
