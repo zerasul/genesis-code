@@ -131,7 +131,7 @@ export class AppModel {
         } else {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean");
+            this.terminal.sendText("make " + mkfile + " clean");
             return true;
         }
 
@@ -307,7 +307,7 @@ export class AppModel {
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean release", newline);
+            this.terminal.sendText("make " + mkfile + " clean release", newline);
         }
 
         return true;
@@ -351,7 +351,7 @@ export class AppModel {
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean release", newline);
+            this.terminal.sendText("make " + mkfile + " clean release", newline);
         }
 
         return true;
@@ -471,14 +471,20 @@ export class AppModel {
     public compileForDebugging() {
         let platform = process.platform.toString();
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
-
+        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (platform === 'win32') {
-            let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
-            let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
-            if (gdk !== "") {
-                this.terminal.sendText("set GDK=" + gdk, true);
+            if(toolchainType === SGDK_GENDEV){
+                let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+                let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+                if (gdk !== "") {
+                    this.terminal.sendText("set GDK=" + gdk, true);
+                }
+                this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " debug");
+            }else if(toolchainType === MARSDEV){
+                this.setmardevenv(process.platform.toString());
+                let mkfile = (makefile !== "") ? "-f " + makefile + " " : "";
+                this.terminal.sendText("make " + mkfile + " clean debug");
             }
-            this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " debug");
         } else if (platform === 'linux') {
             this.compile4DebugLinux();
         } else if (platform === 'darwin') {
@@ -498,8 +504,8 @@ export class AppModel {
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat debug");
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
-            let mkfile = (makefile !== "") ? "-f" + makefile + " " : "";
-            this.terminal.sendText("make " + mkfile + "clean debug");
+            let mkfile = (makefile !== "") ? "-f " + makefile + " " : "";
+            this.terminal.sendText("make " + mkfile + " clean debug");
         }
     }
 
