@@ -61,6 +61,7 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 * In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
 * In linux systems, you can't compile with debug options using SGDK/GENDEV toolchain.
 * In Linux Systems, when you create a new project there is no launch.json file for SGDK/GENDEV toolchain.
+* On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
 
