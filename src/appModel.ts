@@ -131,7 +131,7 @@ export class AppModel {
         } else {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean");
+            this.terminal.sendText("make " + mkfile + " clean");
             return true;
         }
 
@@ -330,7 +330,7 @@ export class AppModel {
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean release", newline);
+            this.terminal.sendText("make " + mkfile + " clean release", newline);
         }
 
         return true;
