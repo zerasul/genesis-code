@@ -1,3 +1,9 @@
+/**
+ * (C) 2020. This code is under MIT license.
+ * You can get a copy of the license with this software.
+ * For more information please see https://opensource.org/licenses/MIT 
+ */
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -81,6 +87,36 @@ export function activate(context: vscode.ExtensionContext) {
 		appModel.compileForDebugging();
 	});
 
+	let disposableimportTmx = vscode.commands.registerCommand('extension.tmximport', () => {
+		vscode.window.showOpenDialog({
+			canSelectFiles: true,
+			canSelectFolders: false,
+			canSelectMany: false,
+			filters: {
+				'TmxFiles': ['tmx']
+			}
+		}).then(f => {
+			if (f !== undefined) {
+				appModel.importTmxFile(f[0]);
+			}
+		});
+	});
+
+	let disposableImportJsonTmx = vscode.commands.registerCommand('extension.tmxjsonimport', () => {
+		vscode.window.showOpenDialog({
+			canSelectFiles: true,
+			canSelectFolders: false,
+			canSelectMany: false,
+			filters: {
+				'TmxJsonFiles': ['json']
+			}
+		}).then(f => {
+			if (f !== undefined) {
+				appModel.importJsonTmxFile(f[0]);
+			}
+		});
+	});
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
@@ -90,6 +126,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposableCompileAndRun);
 	context.subscriptions.push(codecompletion);
 	context.subscriptions.push(disposableCompile4debugging);
+	context.subscriptions.push(disposableimportTmx);
+	context.subscriptions.push(disposableImportJsonTmx);
 }
 
 

@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.2.2",
+	"version": "1.3.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.49.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -56,6 +56,14 @@
 			{
 				"command": "extension.compile4debug",
 				"title": "Genesis Code: Compile For Debugging"
+			},
+			{
+				"command": "extension.tmximport",
+				"title": "Genesis Code: Import TMX File"
+			},
+			{
+				"command": "extension.tmxjsonimport",
+				"title": "Genesis Code: Import Json TMX File"
 			}
 		],
 		"languages": [
@@ -96,6 +104,30 @@
 						],
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
+					},
+					"custom-makefile": {
+						"title": "Custom MakeFile",
+						"type": "string",
+						"default": "",
+						"description": "Set the Custom Makefile for use. leaves empty for default SGDK, GENDEV or MARSDEV Makefile"
+					},
+					"MARSDEV": {
+						"title": "MARSDEV environment variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $MARSDEV environment variable. leave empty for use system default"
+					},
+					"GENDEV": {
+						"title": "GENDEV environment variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $GENDEV environment variable. leave empty for use system default"
+					},
+					"GDK": {
+						"title": "GDK environment variable",
+						"type": "string",
+						"default": "",
+						"description": "Set the $GDK environment variable. leave empty for use system default"
 					}
 				}
 			}
@@ -110,17 +142,18 @@
 		"coverage": "nyc --reporter=lcov --reporter=text node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.13.4",
-		"@types/vscode": "^1.44.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.3",
+		"@types/node": "^14.11.2",
+		"@types/vscode": "^1.49.0",
+		"fast-xml-parser": "^3.17.4",
 		"glob": "^7.1.6",
-		"mocha": "^7.1.2",
-		"tslint": "^6.1.2",
-		"typescript": "^3.8.3",
-		"vscode-test": "^1.3.0",
-		"nyc": "^14.1.1",
-		"yarn": "^1.22.4"
+		"mocha": "^8.1.3",
+		"nyc": "^15.1.0",
+		"tslint": "^6.1.3",
+		"typescript": "^4.0.3",
+		"vscode-test": "^1.4.0",
+		"yarn": "^1.22.10"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"

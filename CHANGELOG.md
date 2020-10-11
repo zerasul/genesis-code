@@ -2,6 +2,14 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.3.0
+
+* [Adding configuration for use GDK, GENDEV or MARSDEV alternate environment variables](https://github.com/zerasul/genesis-code/issues/136)
+* [Adding configuration for use alternative makefile](https://github.com/zerasul/genesis-code/issues/137)
+* [Added import TMX file command](https://github.com/zerasul/genesis-code/issues/132)
+* [Added import Json Tmx File command](https://github.com/zerasul/genesis-code/issues/132)
+* updated some outdated dependencies and improved code
+
 ## 1.2.2
 
 * [Updated for use with SGDK 1.51](https://github.com/zerasul/genesis-code/issues/128)

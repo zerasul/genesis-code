@@ -1,0 +1,84 @@
+//This file is generated from a TMX file using Genesis Code extension For vscode
+//for more info please see Genesis Code Web Page: https://zerasul.github.io/genesis-code-docs
+// Date: {{date}}
+// File: {{file}}
+
+#include <genesis.h>
+
+#ifndef _TILEMAPSTRUCT
+
+#define _TILEMAPSTRUCT 0
+
+
+
+struct Layer
+{
+    u16 id;
+    char *name;
+    u16 *data;
+    u16 numData;
+};
+
+struct Object
+{
+    u16 id;
+    u16 x;
+    u16 y;
+    u16 width;
+    u16 height;
+};
+
+struct ObjectGroup
+{
+    u16 id;
+    char * name;
+    u8 numObjects;
+    Object *objects;
+};
+
+
+
+struct MapStruct
+{
+    u16 width;
+    u16 height;
+    u16 tilewidth;
+    u16 tilehegiht;
+    u8 numLayers;
+    Layer* layers;
+    u8 numObjects;
+    ObjectGroup* objectgroups;
+}{{file}}Map;
+
+#endif
+
+#ifndef _{{fileMap}}
+
+#define _{{fileMap}} 0
+
+void Init{{file}}MapInstance(MapStruct *mapstruct)
+{
+
+mapstruct->width={{width}};
+mapstruct->height={{height}};
+mapstruct->tilewidth={{tilewidth}};
+mapstruct->tilehegiht={{tileheight}};
+mapstruct->numLayers={{numLayers}};
+
+Layer layers[{{numLayers}}];
+
+//Layers
+{{LayerInfo}}
+
+mapstruct->layers=layers;
+
+//Objects
+
+mapstruct->numObjects={{numobjectgroups}};
+
+{{ObjectInfo}}
+
+
+
+}
+#endif
