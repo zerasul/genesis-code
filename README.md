@@ -29,7 +29,7 @@ With this extension, you can use easily a few commands for help you create aweso
 
 ## Requirements
 
-To use this extension you need to install SGDK(windows) or GENDEV(linux) projects on your system and configure the GDK or GENDEV enviroment variables.
+To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK or GENDEV enviroment variables.
 
 ## Extension Settings
 
