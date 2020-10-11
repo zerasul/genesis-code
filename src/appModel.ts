@@ -389,7 +389,7 @@ export class AppModel {
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-            this.terminal.sendText("make " + mkfile + "clean release", false);
+            this.terminal.sendText("make " + mkfile + " clean release", false);
 
         }
         this.terminal.sendText(" && ", false);
@@ -501,6 +501,8 @@ export class AppModel {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         if (toolchainType === SGDK_GENDEV) {
+            let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
+            this.copybuildmacos(currentdir);
             this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat debug");
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
