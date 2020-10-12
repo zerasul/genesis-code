@@ -65,6 +65,11 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 
 ## Release Notes
 
+### 1.3.1
+
+* Fixed a bug with some dependencies (Import TMX format ins't works).
+* Fixed some code smells reported by sonar.
+
 ### 1.3.0
 
 * Added import TMX file command; it generates a C Header File with the information of the TMX file. For more info about the TMX format, please see [Tiled Documentation](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/).
