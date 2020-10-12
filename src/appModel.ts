@@ -6,8 +6,7 @@
 import * as vscode from 'vscode';
 import * as Path from 'path';
 import * as fs from 'fs';
-import { TiledParser, TmxXMLParser, TMXJsonFile, TmxJsonFileParser } from './TmxParser';
-import { platform } from 'process';
+import { TmxXMLParser, TmxJsonFileParser } from './TmxParser';
 
 /**
  * Configuration key for toolchaintype

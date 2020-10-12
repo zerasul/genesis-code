@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { TmxXMLParser, TmxJsonFileParser, TMXJsonFile } from '../../TmxParser';
+import { TmxXMLParser, TmxJsonFileParser } from '../../TmxParser';
 import * as Path from 'path';
 import * as fs from 'fs';
 
