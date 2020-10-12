@@ -8,29 +8,27 @@ import * as xmlparser from 'fast-xml-parser';
 import * as fs from 'fs';
 import * as path from 'path';
 
+const LAYERTEMPLATE = 'Layer mylayer{{index}};\n' +
+'mylayer{{index}}.id = {{layerid}};\n' +
+'mylayer{{index}}.name = "{{name}}";\n' +
+'u16 mapdata{{index}}[{{numData}}]={{data}};\n' +
+'mylayer{{index}}.data = mapdata{{index}};\n' +
+'mylayer{{index}}.numData = {{numData}};\n' +
+'layers[{{index}}] = mylayer{{index}};\n';
 
-const LAYERTEMPLATE = 'Layer mylayer{{index}};\n\
-mylayer{{index}}.id = {{layerid}};\n\
-mylayer{{index}}.name = "{{name}}";\n\
-u16 mapdata{{index}}[{{numData}}]={{data}};\n\
-mylayer{{index}}.data = mapdata{{index}};\n\
-mylayer{{index}}.numData = {{numData}};\n\
-layers[{{index}}] = mylayer{{index}};\n';
+const OBJECTTEMPLATE = 'ObjectGroup myobjectgroup{{index}};\n' +
+'myobjectgroup{{index}}.id={{objectgropupid}};\n' +
+'myobjectgroup{{index}}.name="{{objectgroupname}}";\n' +
+'myobjectgroup{{index}}.numObjects={{nobjs}};\n' +
+'objectgroups[{{index}}]=myobjectgroup{{index}};\n' +
+'Object myobjects{{index}}[{{nobjs}}];\n';
 
-const OBJECTTEMPLATE = 'ObjectGroup myobjectgroup{{index}};\n\
-myobjectgroup{{index}}.id={{objectgropupid}};\n\
-myobjectgroup{{index}}.name="{{objectgroupname}}";\n\
-myobjectgroup{{index}}.numObjects={{nobjs}};\n\
-objectgroups[{{index}}]=myobjectgroup{{index}};\n\
-Object myobjects{{index}}[{{nobjs}}];\n';
-
-const OBJSTEMPLATE = 'Object myobject{{index}};\n\
-myobject{{index}}.id={{objid}};\n\
-myobject{{index}}.x={{objx}};\n\
-myobject{{index}}.y={{objy}};\n\
-myobject{{index}}.width={{objwidth}};\n\
-myobject{{index}}.height={{objheight}};\n';
-
+const OBJSTEMPLATE = 'Object myobject{{index}};\n' +
+'myobject{{index}}.id={{objid}};\n' +
+'myobject{{index}}.x={{objx}};\n' +
+'myobject{{index}}.y={{objy}};\n' +
+'myobject{{index}}.width={{objwidth}};\n' +
+'myobject{{index}}.height={{objheight}};\n';
 
 export abstract class TiledParser {
 
@@ -65,9 +63,6 @@ export class TmxXMLParser extends TiledParser {
 
         return tmx;
     }
-
-
-
 }
 
 export class TmxJsonFileParser extends TmxXMLParser {
@@ -83,7 +78,6 @@ export class TmxJsonFileParser extends TmxXMLParser {
         tmx.file = filename;
         return tmx;
     }
-
 }
 
 /**
@@ -108,8 +102,6 @@ export abstract class TMX {
 
 export class TMXXmlFile extends TMX {
 
-
-
     public get map(): any {
         return this._map.map;
     }
@@ -118,16 +110,13 @@ export class TMXXmlFile extends TMX {
         this._map = v;
     }
 
-
     public get file(): string {
         return this._file;
     }
 
-
     public set file(v: string) {
         this._file = v;
     }
-
 
     public writeCHeaderFile(directoryPath: string, templatePath: string) {
         let strfile = fs.readFileSync(templatePath).toLocaleString();
@@ -153,7 +142,6 @@ export class TMXXmlFile extends TMX {
                 layer = this.map.layer[index];
             }
 
-
             let curlayer = LAYERTEMPLATE;
             curlayer = curlayer.replace(new RegExp("{{file}}", 'g'), this.file);
             curlayer = curlayer.replace(new RegExp("{{layerid}}", 'g'), layer['@_id']);
@@ -167,13 +155,14 @@ export class TMXXmlFile extends TMX {
                 //Base 64
                 if (layer.data['@_encoding'] === 'base64') {
                     let buff = new Buffer(layer.data['#text'], 'base64');
-                    for (let index = 0; index < buff.length; index += 4) {
-                        csv += buff.readUInt32LE(index) + ",";
+                    for (let bufferIndex = 0; bufferIndex < buff.length; bufferIndex += 4) {
+                        csv += buff.readUInt32LE(bufferIndex) + ",";
                     }
                     csv = csv.substring(0, csv.lastIndexOf(",") - 2);
                     numData = csv.split(",").length;
                 }
             }
+
             curlayer = curlayer.replace(new RegExp("{{data}}", 'g'), "{" + csv + "}");
             curlayer = curlayer.replace(new RegExp("{{numData}}", 'g'), numData.toString());
             curlayer = curlayer.replace(new RegExp("{{index}}", 'g'), index.toString());
@@ -205,9 +194,7 @@ export class TMXXmlFile extends TMX {
                 curobjgroup = curobjgroup.replace(new RegExp("{{objectgropupid}}", 'g'), objgroup['@_id']);
                 curobjgroup = curobjgroup.replace(new RegExp('{{objectgroupname}}', 'g'), objgroup['@_name']);
                 let nobjs = 1;
-                if (objgroup.object.constructor === Array) {
-                    let nobjs = objgroup.object.length;
-                }
+                
                 curobjgroup = curobjgroup.replace(new RegExp('{{nobjs}}', 'g'), nobjs.toString());
                 for (let index1 = 0; index1 < nobjs; index1++) {
                     let obj = objgroup.object;
@@ -239,9 +226,6 @@ export class TMXXmlFile extends TMX {
 
 export class TMXJsonFile extends TMX {
 
-
-
-
     public get map(): any {
         return this._map;
     }
@@ -250,11 +234,9 @@ export class TMXJsonFile extends TMX {
         this._map = v;
     }
 
-
     public get file(): string {
         return this._file;
     }
-
 
     public set file(v: string) {
         this._file = v;
@@ -277,7 +259,6 @@ export class TMXJsonFile extends TMX {
             let layer = this.map.layers[index];
 
 
-
             let curlayer = LAYERTEMPLATE;
             curlayer = curlayer.replace(new RegExp("{{file}}", 'g'), this.file);
             curlayer = curlayer.replace(new RegExp("{{layerid}}", 'g'), layer.id);
@@ -296,8 +277,8 @@ export class TMXJsonFile extends TMX {
                     //Base 64
                     if (layer.encoding === 'base64') {
                         let buff = new Buffer(layer.data, 'base64');
-                        for (let index = 0; index < buff.length; index += 4) {
-                            csv += buff.readUInt32LE(index) + ",";
+                        for (let bufferIndex = 0; bufferIndex < buff.length; bufferIndex += 4) {
+                            csv += buff.readUInt32LE(bufferIndex) + ",";
                         }
                         csv = csv.substring(0, csv.lastIndexOf(",") - 2);
                         numData = csv.split(",").length;
@@ -312,12 +293,9 @@ export class TMXJsonFile extends TMX {
             curlayer = curlayer.replace(new RegExp("{{numData}}", 'g'), numData.toString());
             curlayer = curlayer.replace(new RegExp("{{index}}", 'g'), index.toString());
             strlayer += curlayer;
-
         }
 
         strfile = strfile.replace(new RegExp("{{LayerInfo}}", 'g'), strlayer);
-
-
         strfile = strfile.replace(new RegExp("{{numobjectgroups}}", 'g'), "0");
         strfile = strfile.replace(new RegExp("{{ObjectInfo}}", 'g'), "");
 
@@ -325,5 +303,4 @@ export class TMXJsonFile extends TMX {
             flag: 'w'
         });
     }
-
 }
