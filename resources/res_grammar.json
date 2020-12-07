@@ -27,6 +27,9 @@
                     "include": "#compression"
                 },
                 {
+                    "include": "#comment"
+                },
+                {
                     "include": "#timing"
                 },
                 {
@@ -103,7 +106,12 @@
             "match": "BEST|AUTO|NONE|APLIB|FAST|LZ4W",
             "name": "keyword.control.compresion"
         },
-        "timing": {
+        "comment": {
+            "begin": "\\#",
+            "end": "\\\n",
+            "name": "comment.line.number-sign"
+        },
+	    "timing": {
             "match": "AUTO|NTSC|PAL",
             "name": "keyword.control.timing"
         },
