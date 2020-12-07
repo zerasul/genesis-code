@@ -393,7 +393,7 @@ export class AppModel {
         }
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
-        let currentromfile = (toolchainType === SGDK_GENDEV) ? "$(pwd)/out/rom.bin" : "$(pwd)/out.bin";
+        let currentromfile = (toolchainType === SGDK_GENDEV) ? "\"$(pwd)/out/rom.bin\"" : "\"$(pwd)/out.bin\"";
         this.terminal.sendText(genspath + " " + currentromfile, true);
         return true;
     }
@@ -444,7 +444,7 @@ export class AppModel {
 
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
 
-        let command = genspath + " " + rompath;
+        let command = genspath + " \"" + rompath+"\"";
         let platfm = process.platform.toString();
         if (platfm === 'win32') {
             //Run command on background in cmd
