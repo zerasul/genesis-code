@@ -64,6 +64,10 @@
 			{
 				"command": "extension.tmxjsonimport",
 				"title": "Genesis Code: Import Json TMX File"
+			},
+			{
+				"command": "extension.aboutgenscode",
+				"title": "Genesis Code: About"
 			}
 		],
 		"languages": [
