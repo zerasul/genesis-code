@@ -22,7 +22,7 @@
             "label": "MAP",
             "kind": "KEYWORD",
             "text": "MAP ",
-            "doc": "Map type resource"
+            "doc": "Take an image as input and transform it in SGDK Map structure."
         },
         {
             "label": "IMAGE",
