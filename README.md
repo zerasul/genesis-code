@@ -24,6 +24,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project).
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
+* Added Genesis Code: About for open more information about the extension.
 
 ![vscodegif](vscodegif.gif)
 
@@ -64,6 +65,15 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.3.2
+
+* Added Support for SGDK 1.60 Map resources in res files.
+* Changed default main.c generation for use the new functions for SGDK 1.60.
+* Added comment higthlingthing on res files.
+* Fixed a bug that the Run command dosen't works if the path have spaces characters.
+* Added Genesis Code: About command. This command shows information about Genesis Code extension.
+* Updated some dependencies.
 
 ### 1.3.1
 

@@ -2,6 +2,14 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.3.2
+
+* [Added SGDK 1.60 support](https://github.com/zerasul/genesis-code/issues/239).
+* [Added About genesis Code command](https://github.com/zerasul/genesis-code/issues/207).
+* [Fixed a bug when the run command is called and the path of the rom have spaces](https://github.com/zerasul/genesis-code/issues/75).
+* [Added comment Syntax Hihghlighting on res files](https://github.com/zerasul/genesis-code/issues/233).
+* Updated Some dependencies.
+
 ## 1.3.1
 
 * [Fixed a bug with some dependencies (Import TMX format ins't works)](https://github.com/zerasul/genesis-code/issues/216)
