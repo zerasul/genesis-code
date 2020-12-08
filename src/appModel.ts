@@ -220,7 +220,7 @@ export class AppModel {
         //add settings.json with the include paths.
         this.createSettingsJsonFile(this.extensionPath, vscodedirpath);
         //add git repository to the project
-        this.terminal.sendText("cd " + rootPath.fsPath + " && git init");
+        this.terminal.sendText("cd \"" + rootPath.fsPath + "\" && git init");
         return rootPath;
     }
 
