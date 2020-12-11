@@ -22,7 +22,7 @@
             "label": "MAP",
             "kind": "KEYWORD",
             "text": "MAP ",
-            "doc": "Map type resource"
+            "doc": "map type resource, internally contains Palette, Tileset and encoded map optimized to draw large background/plane."
         },
         {
             "label": "IMAGE",

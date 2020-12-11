@@ -27,6 +27,9 @@
                     "include": "#compression"
                 },
                 {
+                    "include": "#comment"
+                },
+                {
                     "include": "#timing"
                 },
                 {
@@ -58,6 +61,9 @@
                 },
                 {
                     "include": "#align"
+                },
+                {
+                    "include": "#tileset_id"
                 }
             ]
         },
@@ -66,6 +72,10 @@
             "name": "keyword.resourceType"
         },
         "resourceName": {
+            "match": "\\.",
+            "name": "variable.parameter.resource.name"
+        },
+        "tileset_id": {
             "match": "\\.",
             "name": "variable.parameter.resource.name"
         },
@@ -96,7 +106,12 @@
             "match": "BEST|AUTO|NONE|APLIB|FAST|LZ4W",
             "name": "keyword.control.compresion"
         },
-        "timing": {
+        "comment": {
+            "begin": "\\#",
+            "end": "\\\n",
+            "name": "comment.line.number-sign"
+        },
+	    "timing": {
             "match": "AUTO|NTSC|PAL",
             "name": "keyword.control.timing"
         },

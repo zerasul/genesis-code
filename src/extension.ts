@@ -9,6 +9,8 @@
 import * as vscode from 'vscode';
 import { AppModel } from './appModel';
 import { CodeProvider } from './codeProvider';
+import * as Path from 'path';
+import * as fs from 'fs';
 
 
 let appModel: AppModel;
@@ -117,6 +119,14 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	});
 
+	let disposableAbout = vscode.commands.registerCommand('extension.aboutgenscode', () =>{
+		const column = vscode.window.activeTextEditor? vscode.window.activeTextEditor.viewColumn:undefined;
+		const panel = vscode.window.createWebviewPanel('about', "About Genesis Code",column || vscode.ViewColumn.One,{enableScripts:true});
+		const strabouthtmlpath = Path.join(context.extensionPath , "resources", "about.html");
+		panel.webview.html= fs.readFileSync(strabouthtmlpath).toLocaleString();
+		panel.reveal();
+	});
+
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
@@ -128,6 +138,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposableCompile4debugging);
 	context.subscriptions.push(disposableimportTmx);
 	context.subscriptions.push(disposableImportJsonTmx);
+	context.subscriptions.push(disposableAbout);
 }
 
 
