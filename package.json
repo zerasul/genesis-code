@@ -159,7 +159,7 @@
 		"yarn": "^1.22.10"
 	},
 	"dependencies": {
-		"fast-xml-parser": "^3.17.6"
+		"fast-xml-parser": "^3.18.0"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
