@@ -28,7 +28,7 @@
             "label": "IMAGE",
             "kind": "KEYWORD",
             "text": "IMAGE ",
-            "doc": "Image type resource, internally contains Palette, Tileset and Map data and can be used to draw a complete background."
+            "doc": "image type resource, internally contains Palette, Tileset and Tilemap data and can be used to draw a complete background (small)"
         },
         {
             "label": "SPRITE",
@@ -40,7 +40,7 @@
             "label": "XGM",
             "kind": "KEYWORD",
             "text": "XGM ",
-            "doc": "XGM music type resource"
+            "doc": "XGM music type resource (.vgm or .xgm file), used to play music."
         },
         {
             "label": "WAV",
@@ -197,6 +197,19 @@
             "kind": "STRUCT",
             "text": "NONE ",
             "doc": "no optimization (cover the whole sprite frame)"
+        },
+        {
+            "label": "ALIGN",
+            "kind": "FUNCTION",
+            "text": "ALIGN ",
+            "doc": "align *binary* data for the whole resource file using"
+        },
+        {
+            "label": "UNGROUP",
+            "kind": "FUNCTION",
+            "text": "UNGROUP ",
+            "doc": "by default rescomp will group data export by type, using UNGROUP allow to disable that feature."
         }
+        
     ]
 }
