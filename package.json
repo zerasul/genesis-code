@@ -45,7 +45,6 @@
 					{
 						"filenamePattern": "*.jpeg"
 					}
-
 				],
 				"priority": "default"
 			}
@@ -181,7 +180,8 @@
 		"yarn": "^1.22.10"
 	},
 	"dependencies": {
-		"fast-xml-parser": "^3.19.0"
+		"fast-xml-parser": "^3.19.0",
+		"image-size": "0.9.7"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
