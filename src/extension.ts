@@ -11,6 +11,7 @@ import { AppModel } from './appModel';
 import { CodeProvider } from './codeProvider';
 import * as Path from 'path';
 import * as fs from 'fs';
+import { ImagePreviewProvider } from './imagePreviewProvider';
 
 
 let appModel: AppModel;
@@ -127,6 +128,8 @@ export function activate(context: vscode.ExtensionContext) {
 		panel.reveal();
 	});
 
+	let diposablecursomEditor = vscode.window.registerCustomEditorProvider("genesiscode.imageViewer",
+	new ImagePreviewProvider());
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
@@ -139,6 +142,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposableimportTmx);
 	context.subscriptions.push(disposableImportJsonTmx);
 	context.subscriptions.push(disposableAbout);
+	context.subscriptions.push(diposablecursomEditor);
 }
 
 

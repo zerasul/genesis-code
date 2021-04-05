@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -28,6 +28,28 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"customEditors": [
+			{
+				"viewType": "genesiscode.imageViewer",
+				"displayName": "SGDK Image Preview",
+				"selector": [
+					{
+						"filenamePattern": "*.bmp"
+					},
+					{
+						"filenamePattern": "*.png"
+					},
+					{
+						"filenamePattern": "*.jpg"
+					},
+					{
+						"filenamePattern": "*.jpeg"
+					}
+
+				],
+				"priority": "default"
+			}
+		],
 		"commands": [
 			{
 				"command": "extension.cleancode",
