@@ -129,7 +129,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let diposablecursomEditor = vscode.window.registerCustomEditorProvider("genesiscode.imageViewer",
-	new ImagePreviewProvider());
+	new ImagePreviewProvider(context));
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposablecreate);
 	context.subscriptions.push(disposableCompile);
