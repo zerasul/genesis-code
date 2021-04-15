@@ -181,7 +181,7 @@
 	},
 	"dependencies": {
 		"fast-xml-parser": "^3.19.0",
-		"image-size": "0.9.7",
+		"image-size": "1.0.0",
 		"get-rgba-palette": "^2.0.1",
 		"get-image-pixels": "^1.0.1"
 	},
