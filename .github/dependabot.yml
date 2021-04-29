@@ -1,0 +1,27 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  target-branch: develop
+  ignore:
+  - dependency-name: nyc
+    versions:
+    - ">= 15.0.a, < 15.1"
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.25
+    - 14.14.26
+    - 14.14.36
+    - 14.14.39
+    - 14.14.41
+    - 15.0.0
+  - dependency-name: "@types/vscode"
+    versions:
+    - 1.54.0
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
