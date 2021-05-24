@@ -5,9 +5,9 @@ trigger:
 strategy:
   matrix:
     linux:
-      imageName: 'ubuntu-16.04'
+      imageName: 'ubuntu-18.04'
     mac:
-      imageName: 'macos-10.14'
+      imageName: 'macos-10.15'
     windows:
       imageName: 'vs2017-win2016'
 
@@ -18,7 +18,7 @@ steps:
 
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
 - bash: |
