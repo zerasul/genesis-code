@@ -20,6 +20,15 @@
             float: right;
             padding: 2em;
         }
+        .grid-container{
+            display: inline-grid;
+            grid-template-columns: auto auto auto auto;
+            row-gap: 1em;
+        }
+        .grid-element{
+            width:15px;
+            padding:20px;
+        }
     </style>
     
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +47,9 @@
         <li><strong>Tiles Width: </strong>{{tilesw}} Tiles</li>
         <li><strong>Tiles Height: </strong>{{tilesh}} Tiles</li>
     </ul>
-    </div><div id="palette"><h2>Image Palette</h2></div>
+    </div><div id="palette"><h2>Image Palette</h2>
+        Loading Palette...
+    </div>
     </div>
     </div>
     </body></html>
