@@ -167,7 +167,7 @@
 		"coverage": "nyc --reporter=lcov --reporter=text node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.3",
+		"@types/glob": "^7.1.4",
 		"@types/mocha": "^9.0.0",
 		"@types/node": "^15.6.1",
 		"@types/vscode": "^1.56.0",
