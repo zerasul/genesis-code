@@ -53,11 +53,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}).then(r => {
 			if (r !== undefined) {
 				let uripath = appModel.createProject(r[0]);
-				let sucess = vscode.commands.executeCommand('vscode.openFolder', uripath);
+				vscode.commands.executeCommand('vscode.openFolder', uripath).
+				then((value) => 
+					{if(value)
+						{vscode.window.showInformationMessage("Created New SGDK Project");}});
 
-				if (sucess) {
-					vscode.window.showInformationMessage("Created New SGDK Project");
-				}
 			}
 		});
 	});
