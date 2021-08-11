@@ -46,7 +46,7 @@
 						"filenamePattern": "*.jpeg"
 					}
 				],
-				"priority": "default"
+				"priority": "option"
 			}
 		],
 		"commands": [
