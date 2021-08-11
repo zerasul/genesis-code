@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.3.3
+
+* [Added SGDK 1.65 Support](https://github.com/zerasul/genesis-code/issues/277).
+* [Updating use of Wine for Wine64 (Only MacOs)](https://github.com/zerasul/genesis-code/issues/243)
+* [Added Bitmap Viewer for Bmp,Png and JPEG images](https://github.com/zerasul/genesis-code/issues/206).
+* Updated Some Dependencies.
+
 ## 1.3.2
 
 * [Added SGDK 1.60 support](https://github.com/zerasul/genesis-code/issues/239).

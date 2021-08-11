@@ -25,6 +25,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
+* Added BitmapViewer.
 
 ![vscodegif](vscodegif.gif)
 
@@ -57,6 +58,12 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 
 ![envvariables](envvariables.png)
 
+## Bitmap Viewer
+
+Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
+
+![bitmapviewer](bitmapv.PNG)
+
 ## Known Issues
 
 * In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
@@ -65,6 +72,12 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.3.3
+
+* Added SGDK 1.65 Support.
+* Updating use of Wine for Wine64 (Only MacOs).
+* Added Bitmap Viewer for Bmp,Png and JPEG images.
 
 ### 1.3.2
 
