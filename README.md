@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span> [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
 
-Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) projects for create homebrew games for the Sega 16 bits console.
+Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) or [MARSDEV](https://github.com/andwn/marsdev) projects for create homebrew games for the Sega 16 bits console.
 
 For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/)
 
@@ -25,12 +25,13 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
+* Added BitmapViewer.
 
 ![vscodegif](vscodegif.gif)
 
 ## Requirements
 
-To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK or GENDEV enviroment variables.
+To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables.
 
 ## Extension Settings
 
@@ -57,6 +58,12 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 
 ![envvariables](envvariables.png)
 
+## Bitmap Viewer
+
+Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
+
+![bitmapviewer](bitmapv.PNG)
+
 ## Known Issues
 
 * In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
@@ -65,6 +72,12 @@ Also, you can set an alternative value for the environment variables of GDK, GEN
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.3.3
+
+* Added SGDK 1.65 Support.
+* Updating use of Wine for Wine64 (Only MacOs).
+* Added Bitmap Viewer for Bmp,Png and JPEG images.
 
 ### 1.3.2
 

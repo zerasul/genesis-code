@@ -1,0 +1,55 @@
+<html><head>
+
+    <style>
+        body #content{
+            display: flex;
+        }
+        #image{
+            max-width: 50%;
+            
+        }
+        #image img{
+            padding-top: 1em;
+            padding-left: 2em;
+            
+        }
+        #left h2{
+            padding-left: 1em;
+        }
+        #left{
+            float: right;
+            padding: 2em;
+        }
+        .grid-container{
+            display: inline-grid;
+            grid-template-columns: auto auto auto auto;
+            row-gap: 1em;
+        }
+        .grid-element{
+            width:15px;
+            padding:20px;
+        }
+    </style>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head><body>
+    <h1>{{filename}}</h1>
+    <div id="content">
+    <div id="image">
+    <img src="{{imageuri}}" alt="image" />
+    </div>
+    <div id="left">
+    <div id="details">
+    <h2>Image Details</h2>
+    <ul>
+        <li><strong>Width: </strong>{{width}} Pixels</li>
+        <li><strong>Height: </strong>{{height}} Pixels</li>
+        <li><strong>Tiles Width: </strong>{{tilesw}} Tiles</li>
+        <li><strong>Tiles Height: </strong>{{tilesh}} Tiles</li>
+    </ul>
+    </div><div id="palette"><h2>Image Palette</h2>
+        Loading Palette...
+    </div>
+    </div>
+    </div>
+    </body></html>

@@ -88,6 +88,8 @@ export class CodeProvider {
                 return vscode.CompletionItemKind.Variable;
             case "STRUCT":
                 return vscode.CompletionItemKind.Struct;
+            case "FUNCTION":
+                return vscode.CompletionItemKind.Function
             case "TEXT":
             default:
                 return vscode.CompletionItemKind.Text;

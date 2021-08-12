@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.51.0"
+		"vscode": "^1.59.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -28,6 +28,27 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"customEditors": [
+			{
+				"viewType": "genesiscode.imageViewer",
+				"displayName": "SGDK Image Preview",
+				"selector": [
+					{
+						"filenamePattern": "*.bmp"
+					},
+					{
+						"filenamePattern": "*.png"
+					},
+					{
+						"filenamePattern": "*.jpg"
+					},
+					{
+						"filenamePattern": "*.jpeg"
+					}
+				],
+				"priority": "option"
+			}
+		],
 		"commands": [
 			{
 				"command": "extension.cleancode",
@@ -146,20 +167,23 @@
 		"coverage": "nyc --reporter=lcov --reporter=text node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.4",
-		"@types/node": "^14.14.3",
-		"@types/vscode": "^1.51.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.2.1",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/vscode": "^1.59.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.0.3",
 		"nyc": "^15.1.0",
 		"tslint": "^6.1.3",
-		"typescript": "^4.0.3",
-		"vscode-test": "^1.4.1",
-		"yarn": "^1.22.10"
+		"typescript": "^4.3.5",
+		"vscode-test": "^1.6.1",
+		"yarn": "^1.22.11",
+		"@swc/core": "^1.2.76",
+		"@swc/wasm": "^1.2.76"
 	},
 	"dependencies": {
-		"fast-xml-parser": "^3.17.4"
+		"@zerasul/image-read-helper": "^0.0.1",
+		"fast-xml-parser": "^3.19.0",
+		"@types/node": "^16.4.13"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"

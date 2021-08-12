@@ -120,7 +120,7 @@ export class AppModel {
                 //first check if the build.bat file is created
                 let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
                 this.copybuildmacos(currentdir);
-                this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat clean");
+                this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat clean");
 
                 return true;
             } else {
@@ -346,7 +346,7 @@ export class AppModel {
             //first check if the build.bat file is created
             let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
             this.copybuildmacos(currentdir);
-            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", newline);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat release", newline);
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
@@ -384,7 +384,7 @@ export class AppModel {
         if (toolchainType === SGDK_GENDEV) {
             let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
             this.copybuildmacos(currentdir);
-            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat release", false);
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat release", false);
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
@@ -502,7 +502,7 @@ export class AppModel {
         if (toolchainType === SGDK_GENDEV) {
             let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
             this.copybuildmacos(currentdir);
-            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine cmd /C %cd%\\\\build.bat debug");
+            this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat debug");
         } else if (toolchainType === MARSDEV) {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile + " " : "";
