@@ -15,7 +15,7 @@
 		"retrodev"
 	],
 	"engines": {
-		"vscode": "^1.51.0"
+		"vscode": "^1.59.0"
 	},
 	"categories": [
 		"Programming Languages",
@@ -169,7 +169,6 @@
 	"devDependencies": {
 		"@types/glob": "^7.1.4",
 		"@types/mocha": "^9.0.0",
-		"@types/node": "^16.4.13",
 		"@types/vscode": "^1.59.0",
 		"glob": "^7.1.7",
 		"mocha": "^9.0.3",
@@ -177,11 +176,14 @@
 		"tslint": "^6.1.3",
 		"typescript": "^4.3.5",
 		"vscode-test": "^1.6.1",
-		"yarn": "^1.22.11"
+		"yarn": "^1.22.11",
+		"@swc/core": "^1.2.76",
+		"@swc/wasm": "^1.2.76"
 	},
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
-		"fast-xml-parser": "^3.19.0"
+		"fast-xml-parser": "^3.19.0",
+		"@types/node": "^16.4.13"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
