@@ -178,7 +178,7 @@
 		"vscode-test": "^1.6.1",
 		"yarn": "^1.22.11",
 		"@swc/core": "^1.2.78",
-		"@swc/wasm": "^1.2.84"
+		"@swc/wasm": "^1.2.86"
 	},
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
