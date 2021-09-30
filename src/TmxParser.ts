@@ -210,7 +210,7 @@ export class TMXXmlFile extends TMX {
     } else {
       //Base 64
       if (layer.data["@_encoding"] === "base64") {
-        let buff = new Buffer(layer.data["#text"], "base64");
+        let buff = Buffer.from(layer.data["#text"], "base64");
         for (let bufferIndex = 0; bufferIndex < buff.length; bufferIndex += 4) {
           csv += buff.readUInt32LE(bufferIndex) + ",";
         }
@@ -295,7 +295,7 @@ export class TMXJsonFile extends TMX {
       csv = csv.substring(0, csv.lastIndexOf(","));
       numData = layer.data.length;
     } else if (layer.encoding === "base64") {
-      let buff = new Buffer(layer.data, "base64");
+      let buff = Buffer.from(layer.data, "base64");
       for (let bufferIndex = 0; bufferIndex < buff.length; bufferIndex += 4) {
         csv += buff.readUInt32LE(bufferIndex) + ",";
       }
