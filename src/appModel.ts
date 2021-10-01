@@ -97,7 +97,7 @@ export class AppModel {
             } else if (process.platform.toString() === 'linux') {
                 return this.cleanProject4Linux(makefile);
             } else if (process.platform.toString() === 'darwin') {
-                return this.cleanProjectforMac();
+                return this.cleanProject4Mac();
             } else {
                 vscode.window.showWarningMessage("Operating System not yet supported");
                 return false;
@@ -110,7 +110,7 @@ export class AppModel {
         }
 
   }
-  private cleanProjectforMac() {
+  private cleanProject4Mac() {
     let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
     if (gdk !== "") {
       this.terminal.sendText("set GDK_WIN=" + gdk, true);
