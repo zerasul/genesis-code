@@ -45,6 +45,11 @@ const SGDK_GENDEV = "sgdk/gendev";
 const MARSDEV = "marsdev";
 
 /**
+ *  Use of Docker toolchain
+ */
+const DOCKER = "docker";
+
+/**
  * DEFAULT MAKEFILE for Windows Systems
  */
 const DEFAULT_WIN_SGDK_MAKEFILE = "%GDK%\\makefile.gen";
@@ -318,6 +323,9 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        
+        } else if (toolchainType === DOCKER) {
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
         }
 
         return true;
@@ -341,10 +349,14 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        
+        } else if (toolchainType === DOCKER) {
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
         }
 
         return true;
     }
+   
     /**
      * Compile the project on MacOs and using wine
      * @param newline adds a new line when sending text to the terminal
@@ -362,6 +374,8 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        } else if (toolchainType === DOCKER) {
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
         }
 
         return true;
@@ -384,7 +398,7 @@ export class AppModel {
             return false;
         }
     }
-
+    
     /**
      * Compiles the project and run using the current emulator command path.
      * In this case, the emulator is not running in background.
@@ -400,8 +414,7 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", false);
-
-        }
+        } 
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
         let currentromfile = (toolchainType === SGDK_GENDEV) ? "\"$(pwd)/out/rom.bin\"" : "\"$(pwd)/out.bin\"";

@@ -121,11 +121,13 @@
 						"type": "string",
 						"enum": [
 							"sgdk/gendev",
-							"marsdev"
+							"marsdev",
+							"docker"
 						],
 						"enumDescriptions": [
 							"Uses SGDK Library or GENDEV on Linux",
-							"Uses MarsDev Toolchain"
+							"Uses MarsDev Toolchain",
+							"Used Docker for build with SGDK docker"
 						],
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
