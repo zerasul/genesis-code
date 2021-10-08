@@ -132,6 +132,12 @@
 						"default": "sgdk/gendev",
 						"description": "Defines the ToolChain to Use SGDK/Gendev type or use MarsDev Toolchain"
 					},
+					"dockerTag":{
+						"title": "Tag value for Docker",
+						"type": "string",
+						"default": "",
+						"description": "Defines tag value will use in a Docker build leaves empty for default no use tag"
+					},
 					"custom-makefile": {
 						"title": "Custom MakeFile",
 						"type": "string",
