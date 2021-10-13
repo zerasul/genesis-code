@@ -33,7 +33,6 @@ const GENDEV_ENV = "GENDEV";
  */
 const GDK_ENV = "GDK";
 
-
 /**
  * Use of SGDK or GENDEV toolchains
  */
@@ -50,7 +49,12 @@ const MARSDEV = "marsdev";
 const DOCKER = "docker";
 
 /**
- * DEFAULT MAKEFILE for Windows Systems
+ * Use tag value for a docker
+ */
+const DOCKERTAG = "dockerTag";
+
+/**
+ * DEFAULT MAKEFILE for Windows Systems 
  */
 const DEFAULT_WIN_SGDK_MAKEFILE = "%GDK%\\makefile.gen";
 
@@ -71,8 +75,6 @@ export class AppModel {
     terminal: vscode.Terminal;
     statusBar: vscode.StatusBarItem | undefined;
     extensionPath: string;
-
-
 
     /**
      * class constructor
@@ -312,6 +314,7 @@ export class AppModel {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
 
         if (toolchainType === SGDK_GENDEV) {
             let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
@@ -325,7 +328,8 @@ export class AppModel {
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         
         } else if (toolchainType === DOCKER) {
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
+            let dockerTag = tag !== "" ? ":"+tag : "";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
         }
 
         return true;
@@ -338,6 +342,7 @@ export class AppModel {
     private compileLinuxProject(newline: boolean = true): boolean {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         if (toolchainType === SGDK_GENDEV) {
             let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
             if (gendev !== "") {
@@ -351,7 +356,8 @@ export class AppModel {
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         
         } else if (toolchainType === DOCKER) {
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
+            let dockerTag = tag !== "" ? ":"+tag : "";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
         }
 
         return true;
@@ -364,6 +370,7 @@ export class AppModel {
     private compileMacOsProject(newline: boolean = true): boolean {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         if (toolchainType === SGDK_GENDEV) {
             // MacOs using Wine
             //first check if the build.bat file is created
@@ -375,7 +382,8 @@ export class AppModel {
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         } else if (toolchainType === DOCKER) {
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk", newline);
+            let dockerTag = tag !== "" ? ":"+tag : "";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
         }
 
         return true;
