@@ -328,8 +328,8 @@ export class AppModel {
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         
         } else if (toolchainType === DOCKER) {
-            let dockerTag = tag !== "" ? ":"+tag : "";
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
@@ -356,8 +356,8 @@ export class AppModel {
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         
         } else if (toolchainType === DOCKER) {
-            let dockerTag = tag !== "" ? ":"+tag : "";
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
@@ -382,8 +382,8 @@ export class AppModel {
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
         } else if (toolchainType === DOCKER) {
-            let dockerTag = tag !== "" ? ":"+tag : "";
-            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) sgdk"+dockerTag , newline);
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
