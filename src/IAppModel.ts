@@ -6,11 +6,15 @@
  import * as vscode from 'vscode';
  import * as Path from 'path';
  import { TmxJsonFileParser, TmxXMLParser } from './TmxParser';
+ import { AppModelBuilder } from './appModelBuilder';
+
 
  /**
   * AppModel: abstract classs with all the minimum methods needed for genesis code extension.
   */
 export abstract class AppModel{
+
+    
 
     /**
      * Terminal Object
@@ -33,12 +37,28 @@ export abstract class AppModel{
     /** Clean the current Project (Depends from selected Toolchain configuration) */
     public abstract cleanProject(): boolean;
 
+    /**
+     * Create a new Project
+     * @param rootPath Project Location
+     */
     public abstract createProject(rootPath: vscode.Uri):vscode.Uri;
 
-    public abstract compileProject(newLine:boolean):boolean;
+    /**
+     * Compile the current project
+     * @param newLine run the compile project with a new Line.
+     */
+    public abstract compileProject(newLine:boolean, withArg:string):boolean;
 
+    /**
+     * Compile the project and run the rom in an emulator
+     */
     public abstract compileAndRunProject():boolean;
 
+    /**
+     * Set the Emulator Run Path
+     * @param uri Emularor Run Path
+     * @returns True if the command was succesful
+     */
     public setRunPath(uri: string):boolean{
         vscode.workspace.getConfiguration().update("gens.path", uri, vscode.ConfigurationTarget.Global).then(
             r => {
@@ -47,10 +67,21 @@ export abstract class AppModel{
         return true;
     }
 
+    /**
+     * Run the current rom in an emulator
+     * @param newLine Run the command in a new Line
+     */
     public abstract runProject(newLine:boolean):boolean;
 
+    /**
+     * Compile the project with debug flag
+     */
     public abstract compileForDebugging():boolean;
 
+    /**
+     * Import a new TMX file and generate a new .h file
+     * @param tmxFilePath Tmx File path 
+     */
     public importTmxFile(tmxFilePath: vscode.Uri) {
         let parser = new TmxXMLParser();
         let tmx = parser.parseFile(tmxFilePath.fsPath);
@@ -60,6 +91,10 @@ export abstract class AppModel{
         }
     }
 
+    /**
+     * Import a new JSON TMX file and generate a new .h file
+     * @param tmxJsonFilePath 
+     */
     public importJsonTmxFile(tmxJsonFilePath: vscode.Uri) {
         let parser = new TmxJsonFileParser();
         let tmx = parser.parseFile(tmxJsonFilePath.fsPath);
@@ -69,8 +104,17 @@ export abstract class AppModel{
         }
     }
 
+    /**
+     * Deactivate the extension
+     */
     public deactivate() {
         this.terminal.dispose();
 
     }
+
+    public static builder(){
+        return new AppModelBuilder();
+    }
 }
+
+

@@ -11,37 +11,37 @@ import { TmxXMLParser, TmxJsonFileParser } from './TmxParser';
 /**
  * Configuration key for toolchaintype
  */
-const TOOLCHAINTYPE = "toolchainType";
+export const TOOLCHAINTYPE = "toolchainType";
 
 /**
  * Configuration key for custom makefile
  */
-const MAKEFILE = "custom-makefile";
+export const MAKEFILE = "custom-makefile";
 
 /**
  * Configuration key for MARSDEV
  */
-const MARSDEV_ENV = "MARSDEV";
+export const MARSDEV_ENV = "MARSDEV";
 
 /**
  * configuration key for GENDEV
  */
-const GENDEV_ENV = "GENDEV";
+export const GENDEV_ENV = "GENDEV";
 
 /**
  * configuration key for GDK
  */
-const GDK_ENV = "GDK";
+export const GDK_ENV = "GDK";
 
 /**
  * Use of SGDK or GENDEV toolchains
  */
-const SGDK_GENDEV = "sgdk/gendev";
+export const SGDK_GENDEV = "sgdk/gendev";
 
 /**
  * Use of MARSDEV toolchain
  */
-const MARSDEV = "marsdev";
+export const MARSDEV = "marsdev";
 
 /**
  *  Use of Docker toolchain

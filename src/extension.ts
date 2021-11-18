@@ -7,7 +7,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { AppModel } from './appModel';
+import { AppModel } from './IAppModel';
 import { CodeProvider } from './codeProvider';
 import * as Path from 'path';
 import * as fs from 'fs';
@@ -19,7 +19,8 @@ let appModel: AppModel;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	appModel = new AppModel(context.extensionPath);
+
+	appModel= AppModel.builder().setExtensionPath(context.extensionPath).build();
 	let codeprovider = CodeProvider.getCodeProviderInstance(context);
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -63,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	// Compiple Command;
 	let disposableCompile = vscode.commands.registerCommand('extension.compileproject', () => {
-		appModel.compileProject();
+		appModel.compileProject(true,'release');
 	});
 	//Set gens emulator path
 	let disposablesetpath = vscode.commands.registerCommand('extension.setrunpath', () => {
@@ -78,7 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	//Run the current rom with the gens emulator
 	let disposableRun = vscode.commands.registerCommand('extension.runproject', () => {
-		appModel.runProject();
+		appModel.runProject(true);
 	});
 
 	// Compiles and then run the current rom with the gens emulator
