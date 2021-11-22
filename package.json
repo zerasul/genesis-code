@@ -191,7 +191,7 @@
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
 		"fast-xml-parser": "^3.21.0",
-		"@types/node": "^16.9.6"
+		"@types/node": "^16.11.9"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"
