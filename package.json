@@ -94,9 +94,8 @@
 		"languages": [
 			{
 				"id": "Sgdk Resource File",
-				"extensions": [
-					".res"
-				]
+				"extensions": [".res"],
+				"configuration": "./resources/language-configuration.json"
 			}
 		],
 		"grammars": [
