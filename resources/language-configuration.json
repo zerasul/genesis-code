@@ -1,0 +1,16 @@
+{
+	"comments": {
+		// symbol used for single line comment. Remove this entry if your language does not support line comments
+		"lineComment": "#",
+	},
+	// symbols that are auto closed when typing
+	"autoClosingPairs": [
+		["\"", "\""]
+	],
+	"folding": {
+		"markers": {
+			"start": "(^\\s*#?region\\b)|(^\\s*#?pragma region\\b)",
+			"end": "(^\\s*#?endregion\\b)|(^\\s*#?pragma endregion\\b)"
+		}
+	}
+}
