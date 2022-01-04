@@ -73,6 +73,13 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 ## Release Notes
 
+### 1.3.4
+
+* SGDK resource files now have regions
+    * They start with *#region* / *#pragma region*
+    * They end with *#endregion* / *#pragma endregion*
+* Fixed some syntax highlighting errors related with numbers
+
 ### 1.3.3
 
 * Added SGDK 1.65 Support.

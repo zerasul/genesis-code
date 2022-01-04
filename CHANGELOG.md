@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.3.4
+
+* SGDK resource files now have regions
+    * They start with *#region* / *#pragma region*
+    * They end with *#endregion* / *#pragma endregion*
+* Fixed some syntax highlighting errors related with numbers
+
 ## 1.3.3
 
 * [Added SGDK 1.65 Support](https://github.com/zerasul/genesis-code/issues/277).
