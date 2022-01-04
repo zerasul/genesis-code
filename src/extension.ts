@@ -12,15 +12,18 @@ import { CodeProvider } from './codeProvider';
 import * as Path from 'path';
 import * as fs from 'fs';
 import { ImagePreviewProvider } from './imagePreviewProvider';
+import { CoreEngine } from './CoreEngine';
 
 
-let appModel: AppModel;
+let appModel: CoreEngine;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	appModel= AppModel.builder().setExtensionPath(context.extensionPath).build();
+	var terminal = vscode.window.createTerminal('gens.code');
+	
+	appModel= new CoreEngine(terminal,context.extensionPath);
 	let codeprovider = CodeProvider.getCodeProviderInstance(context);
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -40,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('extension.cleancode', () => {
 
 		console.log("current platform is: " + process.platform);
-		console.log(appModel.cleanProject());
+		console.log(appModel.clean());
 
 
 	});
@@ -53,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
 			canSelectMany: false
 		}).then(r => {
 			if (r !== undefined) {
-				let uripath = appModel.createProject(r[0]);
+				let uripath = appModel.create(r[0]);
 				vscode.commands.executeCommand('vscode.openFolder', uripath).
 				then((value) => 
 					{if(value)
@@ -64,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	// Compiple Command;
 	let disposableCompile = vscode.commands.registerCommand('extension.compileproject', () => {
-		appModel.compileProject(true,'release');
+		appModel.compile();
 	});
 	//Set gens emulator path
 	let disposablesetpath = vscode.commands.registerCommand('extension.setrunpath', () => {
@@ -79,16 +82,16 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	//Run the current rom with the gens emulator
 	let disposableRun = vscode.commands.registerCommand('extension.runproject', () => {
-		appModel.runProject(true);
+		appModel.run();
 	});
 
 	// Compiles and then run the current rom with the gens emulator
 	let disposableCompileAndRun = vscode.commands.registerCommand('extension.compileandrunproject', () => {
-		appModel.compileAndRunProject();
+		appModel.compileAndRun();
 	});
 
 	let disposableCompile4debugging = vscode.commands.registerCommand('extension.compile4debug', () => {
-		appModel.compileForDebugging();
+		appModel.compile4Debug();
 	});
 
 	let disposableimportTmx = vscode.commands.registerCommand('extension.tmximport', () => {
@@ -101,7 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}).then(f => {
 			if (f !== undefined) {
-				appModel.importTmxFile(f[0]);
+				appModel.tmxImport(f[0]);
 			}
 		});
 	});
@@ -116,7 +119,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}).then(f => {
 			if (f !== undefined) {
-				appModel.importJsonTmxFile(f[0]);
+				appModel.tmxJsonImport(f[0]);
 			}
 		});
 	});

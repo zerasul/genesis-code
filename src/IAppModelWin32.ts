@@ -23,7 +23,7 @@ export class AppModelWin32 extends AppModel{
     private compileDocker(newLine: boolean,withArg:string): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v "$PWD":/src -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        this.terminal.sendText(`docker run --rm -v "%CD%":/src ${dockerTag} ${withArg}` , newLine);
         return true;
     }
     private compileMarsdev(newLine: boolean, withArg:string): boolean {
@@ -38,11 +38,15 @@ export class AppModelWin32 extends AppModel{
         if(gdk!==""){
             this.terminal.sendText("set GDK=" + gdk, true);
         }
+        if(makefile===""){
+            makefile=constants.DEFAULT_WIN_SGDK_MAKEFILE;
+        }
         this.terminal.sendText(`%GDK%\\bin\\make -f ${makefile} ${withArg}`, newLine);
         return true;
     }
     public compileAndRunProject(): boolean {
         this.compileProject(false);
+        this.terminal.sendText(" && ",false);
         return this.runProject(true);
     }
     public runProject(newLine: boolean): boolean {
@@ -93,6 +97,7 @@ export class AppModelWin32 extends AppModel{
         //add launch.json file with debuging configuration.
         let vscodedirpath = Path.join(rootPath.fsPath, ".vscode");
         if(!fs.existsSync(vscodedirpath)){
+            fs.mkdirSync(vscodedirpath);
             let sourcefile = Path.join(this.extensionPath, "resources", "launch.json.windowssgdk.template");
             fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "launch.json"));
         }
@@ -140,7 +145,8 @@ export class AppModelWin32 extends AppModel{
     }
     private cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        this.terminal.sendText(`docker run --rm -v "%CD%":/src -u $(id -u):$(id -g) ${tag} clean` , true);
+        let dockerTag = tag !== "" ? tag : "sgdk";
+        this.terminal.sendText(`docker run --rm -v "%CD%":/src ${dockerTag} clean` , true);
         return true;
     }
 

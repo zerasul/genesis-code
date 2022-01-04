@@ -6,7 +6,6 @@
  import * as vscode from 'vscode';
  import * as Path from 'path';
  import { TmxJsonFileParser, TmxXMLParser } from './TmxParser';
- import { AppModelBuilder } from './appModelBuilder';
 
 
  /**
@@ -29,8 +28,8 @@ export abstract class AppModel{
      * class consctructor
      * @param extensionPath Extension Path
      */
-    constructor(extensionPath: string){
-        this.terminal=vscode.window.createTerminal('gens-code');
+    constructor(terminal:vscode.Terminal,extensionPath: string){
+        this.terminal=terminal;
         this.extensionPath=extensionPath;
     }
 
@@ -112,9 +111,7 @@ export abstract class AppModel{
 
     }
 
-    public static builder(){
-        return new AppModelBuilder();
-    }
+
 }
 
 

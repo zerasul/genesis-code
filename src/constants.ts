@@ -54,3 +54,18 @@ export const DEFAULT_WIN_SGDK_MAKEFILE = "%GDK%\\makefile.gen";
   * DEFAULT MAKEFILE for GenDev Systems
   */
 export const DEFAULT_GENDEV_SGDK_MAKEFILE = "$GENDEV/sgdk/mkfiles/makefile.gen";
+
+/**
+ * Windows Constant
+ */
+export const WIN32="win32";
+
+/**
+ * Linux Constant
+ */
+export const LINUX="linux";
+
+/**
+ * MacOs Constant
+ */
+export const MACOS="darwin";
