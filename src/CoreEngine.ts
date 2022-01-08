@@ -32,11 +32,17 @@ export class CoreEngine{
                 return this.internalCoreLinux.compileProject(true);
             case MACOS:
                 return this.internalCoreMacOs.compileProject(true);
+            default:
+                this.showUndefinedSOError();
+                return false;
            
         }
         return false;
     }
 
+    private showUndefinedSOError(){
+        vscode.window.showErrorMessage("Unsupported Operating System");
+    }
     public clean():boolean{
         switch(this.platform){
             case WIN32:
@@ -45,8 +51,10 @@ export class CoreEngine{
                 return this.internalCoreLinux.cleanProject();
             case MACOS:
                 return this.internalCoreMacOs.cleanProject();
+            default:
+                this.showUndefinedSOError();
+                return false;
         }
-        return false;
     }
 
     public create(rootPath:vscode.Uri): vscode.Uri| undefined{
@@ -57,8 +65,10 @@ export class CoreEngine{
                 return this.internalCoreLinux.createProject(rootPath);
             case MACOS:
                 return this.internalCoreMacOs.createProject(rootPath);
+            default:
+                this.showUndefinedSOError();
+                return undefined;
         }
-        return undefined;
     }
 
     public compileAndRun():boolean{
@@ -69,8 +79,10 @@ export class CoreEngine{
                 return this.internalCoreLinux.compileAndRunProject();
             case MACOS:
                 return this.internalCoreMacOs.compileAndRunProject();
+            default:
+                this.showUndefinedSOError();
+                return false;
         }
-        return false;
     }
 
     public run():boolean{
@@ -81,8 +93,10 @@ export class CoreEngine{
                 return this.internalCoreLinux.runProject(true);
             case MACOS:
                 return this.internalCoreMacOs.runProject(true);
+            default:
+                this.showUndefinedSOError();
+                return false;
         }
-        return false;
     }
 
     public compile4Debug():boolean{
@@ -93,8 +107,10 @@ export class CoreEngine{
                 return this.internalCoreLinux.compileForDebugging();
             case MACOS:
                 return this.internalCoreMacOs.compileForDebugging();
+            default:
+                this.showUndefinedSOError();
+                return false;
         }
-        return false;
     }
 
     public tmxImport(tmxFilePath:vscode.Uri){
