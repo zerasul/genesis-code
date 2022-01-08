@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { LINUX, WIN32 } from './constants';
+import { LINUX, MACOS, WIN32 } from './constants';
+import { AppModelDarwin } from './IAppModelDarwin';
 import { AppModelLinux } from './IAppModelLinux';
 import { AppModelWin32 } from './IAppModelWin32';
 
@@ -9,6 +10,7 @@ export class CoreEngine{
     private terminal:vscode.Terminal;
     private internalCoreWin32:AppModelWin32;
     private internalCoreLinux: AppModelLinux;
+    private internalCoreMacOs: AppModelDarwin;
     private platform: string;
 
     public constructor(terminal:vscode.Terminal, extensionPath: string){
@@ -18,6 +20,7 @@ export class CoreEngine{
         statusBar.show();
         this.internalCoreWin32=new AppModelWin32(this.terminal,extensionPath);
         this.internalCoreLinux=new AppModelLinux(this.terminal,extensionPath);
+        this.internalCoreMacOs=new AppModelDarwin(this.terminal,extensionPath);
         this.platform=process.platform.toString();
     }
 
@@ -27,6 +30,9 @@ export class CoreEngine{
                 return this.internalCoreWin32.compileProject(true);
             case LINUX:
                 return this.internalCoreLinux.compileProject(true);
+            case MACOS:
+                return this.internalCoreMacOs.compileProject(true);
+           
         }
         return false;
     }
@@ -37,6 +43,8 @@ export class CoreEngine{
                 return  this.internalCoreWin32.cleanProject();
             case LINUX:
                 return this.internalCoreLinux.cleanProject();
+            case MACOS:
+                return this.internalCoreMacOs.cleanProject();
         }
         return false;
     }
@@ -47,6 +55,8 @@ export class CoreEngine{
                 return  this.internalCoreWin32.createProject(rootPath);
             case LINUX:
                 return this.internalCoreLinux.createProject(rootPath);
+            case MACOS:
+                return this.internalCoreMacOs.createProject(rootPath);
         }
         return undefined;
     }
@@ -57,6 +67,8 @@ export class CoreEngine{
                 return  this.internalCoreWin32.compileAndRunProject();
             case LINUX:
                 return this.internalCoreLinux.compileAndRunProject();
+            case MACOS:
+                return this.internalCoreMacOs.compileAndRunProject();
         }
         return false;
     }
@@ -64,9 +76,11 @@ export class CoreEngine{
     public run():boolean{
         switch(this.platform){
             case WIN32:
-                return  this.internalCoreWin32.runProject(false);
+                return  this.internalCoreWin32.runProject(true);
             case LINUX:
-                return this.internalCoreLinux.runProject(false);
+                return this.internalCoreLinux.runProject(true);
+            case MACOS:
+                return this.internalCoreMacOs.runProject(true);
         }
         return false;
     }
@@ -77,6 +91,8 @@ export class CoreEngine{
                 return  this.internalCoreWin32.compileForDebugging();
             case LINUX:
                 return this.internalCoreLinux.compileForDebugging();
+            case MACOS:
+                return this.internalCoreMacOs.compileForDebugging();
         }
         return false;
     }

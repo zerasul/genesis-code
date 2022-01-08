@@ -85,7 +85,7 @@ export class AppModelLinux extends AppModel{
                 fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "launch.json"));
                 let settingssourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.linuxmarsdev.template");
                 fs.copyFileSync(settingssourcefile, Path.join(vscodedirpath, "settings.json"));
-            } else if (toolchainType === SGDK_GENDEV) {
+            } else if (toolchainType === SGDK_GENDEV || toolchainType===DOCKER) {
                 let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.linuxgendev.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
             }   
@@ -153,7 +153,7 @@ export class AppModelLinux extends AppModel{
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let romPath = (toolchainType=== MARSDEV)? "$PWD/rom.bin":"$PWD/out/rom.bin";
         let command = `${genspath} "${romPath}"`;
-        this.terminal.sendText(`${command} &`);
+        this.terminal.sendText(`${command} &`, newLine);
         return true;
     }
     public compileForDebugging(): boolean {
