@@ -1,7 +1,7 @@
 /**
  * (C) 2020. This code is under MIT license.
  * You can get a copy of the license with this software.
- * For more information please see https://opensource.org/licenses/MIT 
+ * For more information please see https://opensource.org/licenses/MIT
  */
 import * as vscode from 'vscode';
 import * as Path from 'path';
@@ -11,38 +11,47 @@ import { TmxXMLParser, TmxJsonFileParser } from './TmxParser';
 /**
  * Configuration key for toolchaintype
  */
-const TOOLCHAINTYPE = "toolchainType";
+export const TOOLCHAINTYPE = "toolchainType";
 
 /**
  * Configuration key for custom makefile
  */
-const MAKEFILE = "custom-makefile";
+export const MAKEFILE = "custom-makefile";
 
 /**
  * Configuration key for MARSDEV
  */
-const MARSDEV_ENV = "MARSDEV";
+export const MARSDEV_ENV = "MARSDEV";
 
 /**
  * configuration key for GENDEV
  */
-const GENDEV_ENV = "GENDEV";
+export const GENDEV_ENV = "GENDEV";
 
 /**
  * configuration key for GDK
  */
-const GDK_ENV = "GDK";
-
+export const GDK_ENV = "GDK";
 
 /**
  * Use of SGDK or GENDEV toolchains
  */
-const SGDK_GENDEV = "sgdk/gendev";
+export const SGDK_GENDEV = "sgdk/gendev";
 
 /**
  * Use of MARSDEV toolchain
  */
-const MARSDEV = "marsdev";
+export const MARSDEV = "marsdev";
+
+/**
+ *  Use of Docker toolchain
+ */
+const DOCKER = "docker";
+
+/**
+ * Use tag value for a docker
+ */
+const DOCKERTAG = "dockerTag";
 
 /**
  * DEFAULT MAKEFILE for Windows Systems 
@@ -67,8 +76,6 @@ export class AppModel {
     statusBar: vscode.StatusBarItem | undefined;
     extensionPath: string;
 
-
-
     /**
      * class constructor
      * @param extensionPath extension Path
@@ -92,37 +99,12 @@ export class AppModel {
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
 
         if (toolchainType === SGDK_GENDEV) {
-            if (process.platform.toString() === 'win32') {
-                //Windows
-                let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
-                if (gdk !== "") {
-                    this.terminal.sendText("set GDK=" + gdk, true);
-                }
-                let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
-                this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " clean\n");
-
-                return true;
+          if (process.platform.toString() === 'win32') {
+            return this.cleanProject4Win32(makefile);
             } else if (process.platform.toString() === 'linux') {
-                let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
-                if (gendev !== "") {
-                    this.terminal.sendText("export GENDEV=" + gendev, true);
-                }
-                //linux
-                let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-                this.terminal.sendText("make -f " + cmakefile + " clean\n");
-                return true;
+                return this.cleanProject4Linux(makefile);
             } else if (process.platform.toString() === 'darwin') {
-                let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
-                if (gdk !== "") {
-                    this.terminal.sendText("set GDK_WIN=" + gdk, true);
-                }
-                // MacOs using Wine
-                //first check if the build.bat file is created
-                let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
-                this.copybuildmacos(currentdir);
-                this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat clean");
-
-                return true;
+                return this.cleanProject4Mac();
             } else {
                 vscode.window.showWarningMessage("Operating System not yet supported");
                 return false;
@@ -134,7 +116,43 @@ export class AppModel {
             return true;
         }
 
+  }
+  private cleanProject4Mac() {
+    let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+    if (gdk !== "") {
+      this.terminal.sendText("set GDK_WIN=" + gdk, true);
     }
+    // MacOs using Wine
+    //first check if the build.bat file is created
+    let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
+    this.copybuildmacos(currentdir);
+    this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat clean");
+
+    return true;
+  }
+
+  private cleanProject4Linux(makefile: unknown) {
+    let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
+    if (gendev !== "") {
+      this.terminal.sendText("export GENDEV=" + gendev, true);
+    }
+    //linux
+    let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
+    this.terminal.sendText("make -f " + cmakefile + " clean\n");
+    return true;
+  }
+
+  private cleanProject4Win32(makefile:unknown) {
+    //Windows
+    let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+    if (gdk !== "") {
+      this.terminal.sendText("set GDK=" + gdk, true);
+    }
+    let cmakefile = makefile !== "" ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+    this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " clean\n");
+
+    return true;
+  }
     /**
      * set the MARSDEV environment variable (using configuration info)
      * @param os operating system
@@ -225,8 +243,8 @@ export class AppModel {
     }
 
     /**
-     * Add a launch.json file with the debug task configuration. 
-     * 
+     * Add a launch.json file with the debug task configuration.
+     *
      * NOTE: on Linux Systems with SGDK/GENDEV toolchain the file is not created.
      * @param extensionPath Extension Folder Path.
      * @param vscodepath .voscodepath folder path.
@@ -296,6 +314,7 @@ export class AppModel {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
 
         if (toolchainType === SGDK_GENDEV) {
             let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
@@ -307,6 +326,10 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        
+        } else if (toolchainType === DOCKER) {
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
@@ -319,6 +342,7 @@ export class AppModel {
     private compileLinuxProject(newline: boolean = true): boolean {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         if (toolchainType === SGDK_GENDEV) {
             let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
             if (gendev !== "") {
@@ -330,10 +354,15 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        
+        } else if (toolchainType === DOCKER) {
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
     }
+   
     /**
      * Compile the project on MacOs and using wine
      * @param newline adds a new line when sending text to the terminal
@@ -341,6 +370,7 @@ export class AppModel {
     private compileMacOsProject(newline: boolean = true): boolean {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+        let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         if (toolchainType === SGDK_GENDEV) {
             // MacOs using Wine
             //first check if the build.bat file is created
@@ -351,6 +381,9 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", newline);
+        } else if (toolchainType === DOCKER) {
+            let dockerTag = tag !== "" ? tag : "sgdk";
+            this.terminal.sendText("docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) "+dockerTag , newline);
         }
 
         return true;
@@ -373,7 +406,7 @@ export class AppModel {
             return false;
         }
     }
-
+    
     /**
      * Compiles the project and run using the current emulator command path.
      * In this case, the emulator is not running in background.
@@ -389,8 +422,7 @@ export class AppModel {
             this.setmardevenv(process.platform.toString());
             let mkfile = (makefile !== "") ? "-f " + makefile : " ";
             this.terminal.sendText("make " + mkfile + " clean release", false);
-
-        }
+        } 
         this.terminal.sendText(" && ", false);
         let genspath = vscode.workspace.getConfiguration().get("gens.path");
         let currentromfile = (toolchainType === SGDK_GENDEV) ? "\"$(pwd)/out/rom.bin\"" : "\"$(pwd)/out.bin\"";
@@ -469,21 +501,8 @@ export class AppModel {
      */
     public compileForDebugging() {
         let platform = process.platform.toString();
-        let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
-        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (platform === 'win32') {
-            if(toolchainType === SGDK_GENDEV){
-                let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
-                let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
-                if (gdk !== "") {
-                    this.terminal.sendText("set GDK=" + gdk, true);
-                }
-                this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " debug");
-            }else if(toolchainType === MARSDEV){
-                this.setmardevenv(process.platform.toString());
-                let mkfile = (makefile !== "") ? "-f " + makefile + " " : "";
-                this.terminal.sendText("make " + mkfile + " clean debug");
-            }
+            this.compile4DebugWin32();
         } else if (platform === 'linux') {
             this.compile4DebugLinux();
         } else if (platform === 'darwin') {
@@ -492,6 +511,23 @@ export class AppModel {
             vscode.window.showWarningMessage("Operating System not yet supported");
         }
     }
+
+  private compile4DebugWin32() {
+    let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
+    let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
+    if (toolchainType === SGDK_GENDEV) {
+      let gdk = vscode.workspace.getConfiguration().get(GDK_ENV);
+      let cmakefile = (makefile !== "") ? makefile : DEFAULT_WIN_SGDK_MAKEFILE;
+      if (gdk !== "") {
+        this.terminal.sendText("set GDK=" + gdk, true);
+      }
+      this.terminal.sendText("%GDK%\\bin\\make -f " + cmakefile + " debug");
+    } else if (toolchainType === MARSDEV) {
+      this.setmardevenv(process.platform.toString());
+      let mkfile = (makefile !== "") ? "-f " + makefile + " " : "";
+      this.terminal.sendText("make " + mkfile + " clean debug");
+    }
+  }
 
     /**
      * Call the compile command with debug options on MacOs Systems.
@@ -512,7 +548,7 @@ export class AppModel {
 
     /**
      * Call the compile command with debug options on Linux Systems.
-     * 
+     *
      * NOTE: This command its not working on SGDK/GENDEV toolchains, only MARSDEV toolchain its compatible.
      */
     private compile4DebugLinux() {

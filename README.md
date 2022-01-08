@@ -26,12 +26,13 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
 * Added BitmapViewer.
+* Added Docker Support.
 
 ![vscodegif](vscodegif.gif)
 
 ## Requirements
 
-To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables.
+To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables, or build a SGDK Docker Image.
 
 ## Extension Settings
 
@@ -47,6 +48,7 @@ You can select the toolchain type for use with genesis code:
 
 * SGDK/GENDEV: the SGDK libs and GENDEV (On Linux) will be used with Genesis Code.
 * MARSDEV: The MARSDEV project will be used with Genesis Code.
+* DOCKER: Use a SGDK Docker container for compiling.
 
 ![genesiscodeconfigtoolchain](genesiscodeconfigtoolchain.png)
 
@@ -57,6 +59,10 @@ You can set an alternative MakeFile on the configuration panel. When the compile
 Also, you can set an alternative value for the environment variables of GDK, GENDEV or MARSDEV.
 
 ![envvariables](envvariables.png)
+
+Now, you can define a custom docker image tag for generate a new container.
+
+![dockertag](dockertag.png)
 
 ## Bitmap Viewer
 
@@ -72,6 +78,17 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.4.0
+
+* Added Docker container Support.
+* Improved Code with a total Refactoring.
+* SGDK resource files now have regions
+    * They start with *#region* / *#pragma region*
+    * They end with *#endregion* / *#pragma endregion*
+* Fixed some syntax highlighting errors related with numbers
+
+**NOTE:** Thanks to our contributors on the HacktoberFest 2021 and for the last contributors with the File resource Grammar improvements.
 
 ### 1.3.3
 

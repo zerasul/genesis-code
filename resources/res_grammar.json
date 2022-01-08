@@ -27,6 +27,9 @@
                     "include": "#compression"
                 },
                 {
+                    "include": "#regions"
+                },
+                {
                     "include": "#comment"
                 },
                 {
@@ -92,7 +95,7 @@
             ]
         },
         "number": {
-            "match": "\\d",
+            "match": "([0-9]+\\\n)|(\\ +[0-9]+\\ )|(\t+[0-9]+\\ )|(\\ +[0-9]+\t)|(\t+[0-9]+\t)",
             "name": "constant.numeric.number"
         },
         "height": {
@@ -111,7 +114,12 @@
             "end": "\\\n",
             "name": "comment.line.number-sign"
         },
-	    "timing": {
+        "regions": {
+            "begin": "(\\#region)|(\\#endregion)|(\\#pragma region)|(\\#pragma endregion)",
+            "end": "\\\n",
+            "name": "markup.italic"
+        },
+        "timing": {
             "match": "AUTO|NTSC|PAL",
             "name": "keyword.control.timing"
         },
