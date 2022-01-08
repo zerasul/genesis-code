@@ -1,3 +1,8 @@
+/**
+ * (C) 2021. This code is under MIT license.
+ * You can get a copy of the license with this software.
+ * For more information please see https://opensource.org/licenses/MIT
+ */
 import { readFileSync} from 'fs';
 import * as Path from 'path';
 import * as vscode from 'vscode';
