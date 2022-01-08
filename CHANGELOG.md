@@ -2,12 +2,14 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
-## 1.3.4
+## 1.4.0
 
-* SGDK resource files now have regions
+* [Added Docker container Support](https://github.com/zerasul/genesis-code/issues/326).
+* [Improved Code with a total Refactoring](https://github.com/zerasul/genesis-code/issues/350).
+* [SGDK resource files now have regions](https://github.com/zerasul/genesis-code/pull/491)
     * They start with *#region* / *#pragma region*
     * They end with *#endregion* / *#pragma endregion*
-* Fixed some syntax highlighting errors related with numbers
+* [Fixed some syntax highlighting errors related with numbers](https://github.com/zerasul/genesis-code/pull/491)
 
 ## 1.3.3
 
