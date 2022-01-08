@@ -37,7 +37,6 @@ export class CoreEngine{
                 return false;
            
         }
-        return false;
     }
 
     private showUndefinedSOError(){
