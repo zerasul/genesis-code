@@ -176,7 +176,7 @@
 	"devDependencies": {
 		"@types/glob": "^7.2.0",
 		"@types/mocha": "^9.1.0",
-		"@types/vscode": "^1.59.0",
+		"@types/vscode": "^1.64.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.0",
 		"nyc": "^15.1.0",
