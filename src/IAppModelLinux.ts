@@ -120,8 +120,9 @@ export class AppModelLinux extends AppModel{
     compileDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
 
-        let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        let dockerTag = this.getDockerImageTag();
+        let dockerVolumeTag= this.getDockerVolumeTag();
+        this.terminal.sendText(`docker run --rm -v \"$PWD\":${dockerVolumeTag} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;
         }
 

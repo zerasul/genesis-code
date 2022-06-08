@@ -43,6 +43,12 @@ export const DOCKER = "docker";
  */
 export const DOCKERTAG = "dockerTag";
 
+export const DOCKERIMAGETYPE= "dockerImageType";
+
+export const DOCKERIMAGETYPESGDK= "SGDK";
+
+export const DOCKERIMAGETYPEDOGARATSU = do
+
 export const GENS_PATH= "gens.path";
 
 /**

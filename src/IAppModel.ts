@@ -6,6 +6,7 @@
  import * as vscode from 'vscode';
  import * as Path from 'path';
  import { TmxJsonFileParser, TmxXMLParser } from './TmxParser';
+import { DOCKERIMAGETYPE, DOCKERIMAGETYPEDOGARATSU, DOCKERIMAGETYPESGDK, DOCKERTAG } from './constants';
 
 
  /**
@@ -111,6 +112,30 @@ export abstract class AppModel{
 
     }
 
+    protected getDockerImageTag():any{
+        let tag= vscode.workspace.getConfiguration().get(DOCKERTAG);
+        if(tag !== undefined){
+            return tag;
+        }
+        let dockerImageType = vscode.workspace.getConfiguration().get(DOCKERIMAGETYPE,DOCKERIMAGETYPESGDK);
+        switch(dockerImageType){
+            case DOCKERIMAGETYPESGDK:
+                return "sgdk";
+            case DOCKERIMAGETYPEDOGARATSU:
+                return "-t registry.gitlab.com/doragasu/docker-sgdk";
+        } 
+        return "sgdk";
+    }
+
+    protected getDockerVolumeTag(){
+        let dockerImageType = vscode.workspace.getConfiguration().get(DOCKERIMAGETYPE,DOCKERIMAGETYPESGDK);
+        switch(dockerImageType){
+            case DOCKERIMAGETYPESGDK:
+                return "/src";
+            case DOCKERIMAGETYPEDOGARATSU:
+                return "/m68k";
+        } 
+    }
 
 }
 

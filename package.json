@@ -137,6 +137,20 @@
 						"default": "",
 						"description": "Defines tag value will use in a Docker build leaves empty for default no use tag"
 					},
+					"dockerImageType":{
+						"title": "Docker Image Type",
+						"description": "Docker Image Type; Uses Official SGDK image, or uses Dogaratsu Image.",
+						"type":"string",
+						"enum": [
+							"SGDK",
+							"Dogaratsu (SGDK)"
+						],
+						"enumDescriptions": [
+							"Uses Official SGDK Image",
+							"Uses Dogaratsu SGDK Image"
+						],
+						"default":"SGDK"
+					},
 					"custom-makefile": {
 						"title": "Custom MakeFile",
 						"type": "string",
