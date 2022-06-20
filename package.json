@@ -184,7 +184,7 @@
 		"typescript": "^4.7.3",
 		"vscode-test": "^1.6.1",
 		"yarn": "^1.22.18",
-		"@swc/core": "^1.2.197",
+		"@swc/core": "^1.2.204",
 		"@swc/wasm": "^1.2.198"
 	},
 	"dependencies": {
