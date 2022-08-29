@@ -6,7 +6,7 @@ strategy:
     linux:
       imageName: "ubuntu-latest"
     mac:
-      imageName: macos-latest'
+      imageName: "macos-latest"
     windows:
       imageName: "windows-latest"
 
