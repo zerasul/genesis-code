@@ -10,3 +10,5 @@ vsc-extension-quickstart.md
 **/*.ts
 coverage/**
 .nyc_output/
+.github/**
+azure-pipelines.yml
