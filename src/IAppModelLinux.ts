@@ -1,6 +1,6 @@
 import { constants } from "buffer";
 import * as vscode from "vscode";
-import { DEFAULT_GENDEV_SGDK_MAKEFILE, DOCKER, DOCKERTAG, GENDEV_ENV, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, WIN32 } from "./constants";
+import { DEFAULT_GENDEV_SGDK_MAKEFILE, DOCKER, DOCKERTAG, GENDEV_ENV, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, DORAGASU_IMAGE } from "./constants";
 import { AppModel } from "./IAppModel";
 import * as Path from 'path';
 import * as fs from 'fs';
@@ -28,7 +28,8 @@ export class AppModelLinux extends AppModel{
     cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) ${dockerTag} clean`);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
         return true;
     }    
     cleanProjectMarsDev(makefile:unknown): boolean {
@@ -121,7 +122,8 @@ export class AppModelLinux extends AppModel{
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
 
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;
         }
 
@@ -174,6 +176,17 @@ export class AppModelLinux extends AppModel{
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
         this.terminal.sendText(`make -f ${cmakefile} clean\n`);
         return true;    }
+    
+
+
+    private buildVolumeInfo():String{
+        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
+        let volumeInfo ="/src";
+        if(dogaratsu){
+            volumeInfo="/m68k -t";
+        }
+        return `\"$PWD\":${volumeInfo}`;
+    }
 }
 
 

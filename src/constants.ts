@@ -46,6 +46,11 @@ export const DOCKERTAG = "dockerTag";
 export const GENS_PATH= "gens.path";
 
 /**
+ * Doragasu Image
+ */
+export const DORAGASU_IMAGE = "doragasuImage";
+
+/**
  * DEFAULT MAKEFILE for Windows Systems 
  */
 export const DEFAULT_WIN_SGDK_MAKEFILE = "%GDK%\\makefile.gen";
@@ -69,3 +74,4 @@ export const LINUX="linux";
  * MacOs Constant
  */
 export const MACOS="darwin";
+

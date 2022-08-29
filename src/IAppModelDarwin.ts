@@ -1,6 +1,6 @@
 import path = require("path");
 import * as vscode from "vscode";
-import { DOCKER, DOCKERTAG, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE } from "./constants";
+import { DOCKER, DOCKERTAG, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, DORAGASU_IMAGE } from "./constants";
 import { AppModel } from "./IAppModel";
 import * as Path from "path";
 import * as fs from "fs";
@@ -40,7 +40,8 @@ export class AppModelDarwin extends AppModel{
     private cleanDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) ${dockerTag} clean`);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
         return true;
     }
 
@@ -169,7 +170,8 @@ export class AppModelDarwin extends AppModel{
     private compileProjectDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v \"$PWD\":/src -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;    
     }
     public compileAndRunProject(): boolean {
@@ -187,6 +189,15 @@ export class AppModelDarwin extends AppModel{
     }
     public compileForDebugging(): boolean {
       return this.compileProject(true,'debug');
+    }
+
+    private buildVolumeInfo():String{
+        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
+        let volumeInfo ="/src";
+        if(dogaratsu){
+            volumeInfo="/m68k -t";
+        }
+        return `\"$PWD\":${volumeInfo}`;
     }
 
 }

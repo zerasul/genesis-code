@@ -137,6 +137,12 @@
 						"default": "",
 						"description": "Defines tag value will use in a Docker build leaves empty for default no use tag"
 					},
+					"doragasuImage":{
+						"title": "Doragasu Image",
+						"type":"boolean",
+						"default":false,
+						"description": "Uses a Doragasu Gitlab Image"
+					},
 					"custom-makefile": {
 						"title": "Custom MakeFile",
 						"type": "string",
