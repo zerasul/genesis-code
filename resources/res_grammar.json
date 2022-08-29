@@ -71,7 +71,7 @@
             ]
         },
         "resourceType": {
-            "match": "BITMAP|PALETTE|TILESET|MAP|IMAGE|SPRITE|XGM|WAV|BIN|ALIGN|UNGROUP",
+            "match": "BITMAP|PALETTE|TILESET|TILEMAP|MAP|IMAGE|SPRITE|XGM|WAV|BIN|ALIGN|UNGROUP",
             "name": "keyword.resourceType"
         },
         "resourceName": {
@@ -124,7 +124,7 @@
             "name": "keyword.control.timing"
         },
         "mapopt": {
-            "match": "ALL|DUPLICATE",
+            "match": "NONE|ALL|DUPLICATE",
             "name": "keyword.operator.mapopt"
         },
         "mapbase": {
