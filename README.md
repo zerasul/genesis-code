@@ -64,6 +64,8 @@ Now, you can define a custom docker image tag for generate a new container.
 
 ![dockertag](dockertag.png)
 
+**NOTE:** If you want to use [Doragasu SGDK Docker Image](https://gitlab.com/doragasu/docker-sgdk), you can use the check in Configuration and you must add the current Docker Image Tag description (with the gitlab registry URL).
+
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
@@ -78,6 +80,14 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.4.1
+
+* Added Support for Dogarasu SGDK Docker Image.
+* Added Configuration Flag for Dogarasu SGDK Docker Image.
+* Fix Gens.code Multiples Instances Error.
+* Updated Rescomp Context Help Information for the Last Version of SGDK (Supports 1.70).
+* Updated Dependencies.
 
 ### 1.4.0
 

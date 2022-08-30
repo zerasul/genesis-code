@@ -21,7 +21,15 @@ let appModel: CoreEngine;
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	var terminal = vscode.window.createTerminal('gens.code');
+	let terminals = vscode.window.terminals.filter(terminal => terminal.name === 'gens.code');
+	if(terminals.length>1){
+		terminals.forEach((terminal,index) => {
+			if(index>0){
+				terminal.dispose();
+			}
+		});
+	}
+	let terminal = terminals.length>0? terminals[0]:vscode.window.createTerminal('gens.code');
 	
 	appModel= new CoreEngine(terminal,context.extensionPath);
 	let codeprovider = CodeProvider.getCodeProviderInstance(context);

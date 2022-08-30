@@ -2,6 +2,14 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.4.1
+
+* [Added Support for Dogarasu SGDK Docker Image](https://github.com/zerasul/genesis-code/issues/627).
+* [Fixed Bug for run in background Emulator in MacOs](https://github.com/zerasul/genesis-code/issues/52).
+* [Fix Gens.code Multiples Instances Error.](https://github.com/zerasul/genesis-code/issues/672).
+* [Updated Rescomp Context Help Information for the Last Version of SGDK (Supports 1.70)](https://github.com/zerasul/genesis-code/issues/545).
+* Updated Dependencies.
+
 ## 1.4.0
 
 * [Added Docker container Support](https://github.com/zerasul/genesis-code/issues/326).

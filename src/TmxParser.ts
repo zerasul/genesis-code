@@ -4,7 +4,7 @@
  * For more information please see https://opensource.org/licenses/MIT
  */
 
-import * as xmlparser from "fast-xml-parser";
+import { XMLParser } from 'fast-xml-parser';
 import * as fs from "fs";
 import * as path from "path";
 
@@ -53,10 +53,8 @@ export class TmxXMLParser extends TiledParser {
    */
   public parseFile(file: string): TMX {
     let content = fs.readFileSync(file).toLocaleString();
-    let json = xmlparser.parse(content, {
-      ignoreAttributes: false,
-      ignoreNameSpace: true,
-    });
+    let json = new XMLParser({
+      ignoreAttributes: false}).parse(content);
     //GetMapName
     let start = file.lastIndexOf(path.sep) + 1;
     let filename = file.substr(start, file.lastIndexOf(".") - start);
@@ -286,7 +284,7 @@ export class TMXJsonFile extends TMX {
   private getLayerData(layer: any) {
     let numData = 0;
     let csv: string | null = "";
-    if (layer.data === undefined) return { csv: null, numData };
+    if (layer.data === undefined){ return { csv: null, numData };}
     //CSV
     if (layer.encoding === "csv" || layer.encoding === undefined) {
       for (const layerData of layer.data) {

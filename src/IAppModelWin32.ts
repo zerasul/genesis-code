@@ -23,7 +23,8 @@ export class AppModelWin32 extends AppModel{
     private compileDocker(newLine: boolean,withArg:string): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v "%CD%":/src ${dockerTag} ${withArg}` , newLine);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
         return true;
     }
     private compileMarsdev(newLine: boolean, withArg:string): boolean {
@@ -146,7 +147,8 @@ export class AppModelWin32 extends AppModel{
     private cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
-        this.terminal.sendText(`docker run --rm -v "%CD%":/src ${dockerTag} clean` , true);
+        let volumeInfo = this.buildVolumeInfo();
+        this.terminal.sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
         return true;
     }
 
@@ -169,6 +171,15 @@ export class AppModelWin32 extends AppModel{
         let cmakefile = makefile !== "" ? makefile : constants.DEFAULT_WIN_SGDK_MAKEFILE;
         this.terminal.sendText(`%GDK%\\bin\\make -f ${cmakefile} clean\n`);
         return true;
+    }
+
+    private buildVolumeInfo():String{
+        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(constants.DORAGASU_IMAGE,false);
+        let volumeInfo ="/src";
+        if(dogaratsu){
+           volumeInfo="/m68k -t";
+        }
+        return `"%CD%":${volumeInfo}`;
     }
     
 

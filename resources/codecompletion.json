@@ -16,7 +16,13 @@
             "label": "TILESET",
             "kind": "KEYWORD",
             "text": "TILESET ",
-            "doc": "Tileset type resource, contains tiles data which are used by Image or Sprite resource."
+            "doc": "Tileset type resource can be an image or a TSX file; contains tiles data which are used by Image or Sprite resource."
+        },
+        {
+            "label": "TILEMAP",
+            "kind": "KEYWORD",
+            "text": "TILEMAP ",
+            "doc": "Tilemap type resource, contains raw tilemap data. It can be used to draw an image or complete (but small) plane background."
         },
         {
             "label": "MAP",
