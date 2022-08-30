@@ -284,7 +284,7 @@ export class TMXJsonFile extends TMX {
   private getLayerData(layer: any) {
     let numData = 0;
     let csv: string | null = "";
-    if (layer.data === undefined) return { csv: null, numData };
+    if (layer.data === undefined){ return { csv: null, numData };}
     //CSV
     if (layer.encoding === "csv" || layer.encoding === undefined) {
       for (const layerData of layer.data) {
