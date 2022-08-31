@@ -180,7 +180,7 @@
 		"coverage": "nyc --reporter=lcov --reporter=text node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.2.0",
+		"@types/glob": "^8.0.0",
 		"@types/mocha": "^9.1.1",
 		"@types/vscode": "^1.68.0",
 		"glob": "^8.0.3",
