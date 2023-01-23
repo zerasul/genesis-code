@@ -195,7 +195,7 @@
 	},
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
-		"fast-xml-parser": "^4.0.10",
+		"fast-xml-parser": "^4.0.14",
 		"@types/node": "^18.7.14"
 	},
 	"bugs": {
