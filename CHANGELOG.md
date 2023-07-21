@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.4.2
+
+* [Updating grammar for use SGDK 1.80 with the last documentation.](https://github.com/zerasul/genesis-code/issues/774)
+* [Fix Bug when create on Windows a new project the settings are not properly point to SGDK include Folders.](https://github.com/zerasul/genesis-code/issues/809)
+* [Fix Multiple Instances of gens.code error.](https://github.com/zerasul/genesis-code/issues/794)
+* Updated dependencies.
+
 ## 1.4.1
 
 * [Added Support for Dogarasu SGDK Docker Image](https://github.com/zerasul/genesis-code/issues/627).
