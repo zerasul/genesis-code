@@ -104,11 +104,13 @@ export class AppModelWin32 extends AppModel{
         }
         //add marsdev makefile
         let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
+        let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowssgdk.template");
         if(toolchainType===constants.MARSDEV){
-            this.createMakefileMarsDev(rootPath);
+            this.createMakefileMarsDev(rootPath);        
+            sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
+
         }
         //add settings.json
-        let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
         fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
         this.terminal.sendText(`cd "${rootPath.fsPath}" && git init`);
         return rootPath;
