@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
