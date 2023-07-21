@@ -51,7 +51,7 @@
                     "include": "#optsprt"
                 },
                 {
-                    "include": "#iterationsprt"
+                    "include": "#opt_level"
                 },
                 {
                     "include": "#optionsxgm"
@@ -160,7 +160,7 @@
                 }
             ]
         },
-        "iterationsprt": {
+        "opt_level": {
             "patterns": [
                 {
                     "include": "#number"
