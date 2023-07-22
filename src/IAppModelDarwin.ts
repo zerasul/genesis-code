@@ -27,28 +27,28 @@ export class AppModelDarwin extends AppModel{
     private cleanSGDKGenDev(): boolean {
         let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
         this.copybuildmacos(currentdir);
-        this.terminal.sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat clean && ",false);
-        this.terminal.sendText("echo 'This is a deprecated Feature. Change to Docker or Marsdev'");
+        this.getTerminal().sendText("WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat clean && ",false);
+        this.getTerminal().sendText("echo 'This is a deprecated Feature. Change to Docker or Marsdev'");
         return true;
     }
     private cleanMarsDev(makefile: unknown): boolean {
         this.setmarsdevenv();
         let make = (makefile!=='')?`-f ${makefile}`: ' ';
-        this.terminal.sendText(`make ${make} clean`);
+        this.getTerminal().sendText(`make ${make} clean`);
         return true;
     }
     private cleanDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
         return true;
     }
 
 
     private setmarsdevenv() {
         let marsdev = vscode.workspace.getConfiguration().get(MARSDEV_ENV);
-        this.terminal.sendText("export MARSDEV=" + marsdev, true);
+        this.getTerminal().sendText("export MARSDEV=" + marsdev, true);
     }
 
     /**
@@ -116,7 +116,7 @@ export class AppModelDarwin extends AppModel{
         }
         
          //add git repository to the project
-         this.terminal.sendText("cd \"" + rootPath.fsPath + "\" && git init");
+         this.getTerminal().sendText("cd \"" + rootPath.fsPath + "\" && git init");
         return rootPath;
     }
     private createsettingsjsonFile(vscodepath: string, extensionPath: string) {
@@ -156,27 +156,27 @@ export class AppModelDarwin extends AppModel{
     private compileProjectSGDK(newLine: boolean, withArg: string): boolean {
         let currentdir = (vscode.workspace.workspaceFolders !== undefined) ? vscode.workspace.workspaceFolders[0].uri : undefined;
         this.copybuildmacos(currentdir);            
-        this.terminal.sendText(`WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat release ${withArg}`, false);
-        this.terminal.sendText(" && echo 'This is a deprecated Feature. Change to Docker or Marsdev'", newLine);
+        this.getTerminal().sendText(`WINEPREFIX=$GENDEV/wine wine64 cmd /C %cd%\\\\build.bat release ${withArg}`, false);
+        this.getTerminal().sendText(" && echo 'This is a deprecated Feature. Change to Docker or Marsdev'", newLine);
         return true;
     }
     private compileProjectMarsDev(newLine: boolean, withArg: string): boolean {
         this.setmarsdevenv();
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         let mkfile = (makefile !== "") ? `-f ${makefile}` : " ";
-        this.terminal.sendText(`make ${mkfile}  clean ${withArg}`, newLine);
+        this.getTerminal().sendText(`make ${mkfile}  clean ${withArg}`, newLine);
         return true;
     }
     private compileProjectDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;    
     }
     public compileAndRunProject(): boolean {
         this.compileProject(false, 'release');
-        this.terminal.sendText(" && ");
+        this.getTerminal().sendText(" && ");
         return this.runProject(true);
     }
     public runProject(newLine: boolean): boolean {
@@ -184,7 +184,7 @@ export class AppModelDarwin extends AppModel{
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let romPath = (toolchainType=== MARSDEV)? "$PWD/rom.bin":"$PWD/out/rom.bin";
         let command = `${genspath} "${romPath}"`;
-        this.terminal.sendText(`${command} &`,newLine);
+        this.getTerminal().sendText(`${command} &`,newLine);
         return true;
     }
     public compileForDebugging(): boolean {

@@ -18,7 +18,7 @@ export abstract class AppModel{
     /**
      * Terminal Object
      */
-    protected terminal: vscode.Terminal;
+    protected terminal: vscode.Terminal|null;
     /**
      * extension Path
      */
@@ -28,9 +28,17 @@ export abstract class AppModel{
      * class consctructor
      * @param extensionPath Extension Path
      */
-    constructor(terminal:vscode.Terminal,extensionPath: string){
-        this.terminal=terminal;
+    constructor(extensionPath: string){
+        this.terminal=null;
         this.extensionPath=extensionPath;
+    }
+
+    protected getTerminal():vscode.Terminal{
+        if(this.terminal==null){
+            let terminals = vscode.window.terminals.filter(terminal => terminal.name === 'gens.code');
+            this.terminal= terminals.length>0?terminals[0]:vscode.window.createTerminal('gens.code');
+        }
+        return this.terminal;
     }
 
     /** Clean the current Project (Depends from selected Toolchain configuration) */
@@ -107,10 +115,11 @@ export abstract class AppModel{
      * Deactivate the extension
      */
     public deactivate() {
-        this.terminal.dispose();
+        this.terminal?.dispose();
 
     }
 
+   
 
 }
 
