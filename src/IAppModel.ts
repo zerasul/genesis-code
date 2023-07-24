@@ -38,6 +38,7 @@ export abstract class AppModel{
             let terminals = vscode.window.terminals.filter(terminal => terminal.name === 'gens.code');
             this.terminal= terminals.length>0?terminals[0]:vscode.window.createTerminal('gens.code');
         }
+        this.terminal.show(true);
         return this.terminal;
     }
 
