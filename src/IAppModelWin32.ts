@@ -7,8 +7,7 @@ import * as fs from 'fs';
 export class AppModelWin32 extends AppModel{
     
     public compileProject(newLine: boolean=true, withArg:string='release'): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
-
+        let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);     
         switch(toolchainType){
             case constants.SGDK_GENDEV:
                 return this.compilesgdk(newLine,withArg);
@@ -24,37 +23,37 @@ export class AppModelWin32 extends AppModel{
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
         return true;
     }
     private compileMarsdev(newLine: boolean, withArg:string): boolean {
         this.setMarsDevEnv();
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE);
-        this.terminal.sendText(`make ${makefile} clean ${withArg}`, newLine);
+        this.getTerminal().sendText(`make ${makefile} clean ${withArg}`, newLine);
         return true;
     }
     private compilesgdk(newLine: boolean, withArg:string): boolean {
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE, constants.DEFAULT_WIN_SGDK_MAKEFILE);
         let gdk = vscode.workspace.getConfiguration().get(constants.GDK_ENV);
         if(gdk!==""){
-            this.terminal.sendText("set GDK=" + gdk, true);
+            this.getTerminal().sendText("set GDK=" + gdk, true);
         }
         if(makefile===""){
             makefile=constants.DEFAULT_WIN_SGDK_MAKEFILE;
         }
-        this.terminal.sendText(`%GDK%\\bin\\make -f ${makefile} ${withArg}`, newLine);
+        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${makefile} ${withArg}`, newLine);
         return true;
     }
     public compileAndRunProject(): boolean {
         this.compileProject(false);
-        this.terminal.sendText(" && ",false);
+        this.getTerminal().sendText(" && ",false);
         return this.runProject(true);
     }
     public runProject(newLine: boolean): boolean {
         let genspath = vscode.workspace.getConfiguration().get(constants.GENS_PATH);
         let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
         let romPath = (toolchainType=== constants.MARSDEV)? "%CD%/rom.bin":"%CD%/out/rom.bin";
-        this.terminal.sendText(`START /B ${genspath} ${romPath}`);
+        this.getTerminal().sendText(`START /B ${genspath} ${romPath}`);
         return true;
     }
     public compileForDebugging(): boolean {
@@ -104,13 +103,15 @@ export class AppModelWin32 extends AppModel{
         }
         //add marsdev makefile
         let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
+        let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowssgdk.template");
         if(toolchainType===constants.MARSDEV){
-            this.createMakefileMarsDev(rootPath);
+            this.createMakefileMarsDev(rootPath);        
+            sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
+
         }
         //add settings.json
-        let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
         fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
-        this.terminal.sendText(`cd "${rootPath.fsPath}" && git init`);
+        this.getTerminal().sendText(`cd "${rootPath.fsPath}" && git init`);
         return rootPath;
     }
 
@@ -148,28 +149,28 @@ export class AppModelWin32 extends AppModel{
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
         return true;
     }
 
     private setMarsDevEnv(){
         let marsdev = vscode.workspace.getConfiguration().get(constants.MARSDEV_ENV);
-        this.terminal.sendText(`set MARSDEV=${marsdev}`, true);
+        this.getTerminal().sendText(`set MARSDEV=${marsdev}`, true);
     }
     private cleanProjectMarsDev(makefile: unknown): boolean {
         this.setMarsDevEnv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.terminal.sendText(`make ${mkfile} clean`);
+        this.getTerminal().sendText(`make ${mkfile} clean`);
         return true;
     }
 
     private cleanProjectSgdk(makefile:string):boolean{
         let gdk = vscode.workspace.getConfiguration().get(constants.GDK_ENV);
         if (gdk !== "") {
-            this.terminal.sendText(`set GDK=${gdk}`, true);
+            this.getTerminal().sendText(`set GDK=${gdk}`, true);
           }
         let cmakefile = makefile !== "" ? makefile : constants.DEFAULT_WIN_SGDK_MAKEFILE;
-        this.terminal.sendText(`%GDK%\\bin\\make -f ${cmakefile} clean\n`);
+        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${cmakefile} clean\n`);
         return true;
     }
 

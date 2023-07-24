@@ -29,19 +29,19 @@ export class AppModelLinux extends AppModel{
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
         return true;
     }    
     cleanProjectMarsDev(makefile:unknown): boolean {
         this.setmardevenv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.terminal.sendText(`make ${mkfile} clean`);
+        this.getTerminal().sendText(`make ${mkfile} clean`);
         return true;    }
 
     setmardevenv() {
         let marsdev = vscode.workspace.getConfiguration().get(MARSDEV_ENV);
 
-        this.terminal.sendText(`export MARSDEV=${marsdev}`,true);
+        this.getTerminal().sendText(`export MARSDEV=${marsdev}`,true);
     }
     public createProject(rootPath: vscode.Uri): vscode.Uri {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
@@ -101,7 +101,7 @@ export class AppModelLinux extends AppModel{
         }
         
          //add git repository to the project
-         this.terminal.sendText("cd \"" + rootPath.fsPath + "\" && git init");
+         this.getTerminal().sendText("cd \"" + rootPath.fsPath + "\" && git init");
          return rootPath;
     }
 
@@ -123,7 +123,7 @@ export class AppModelLinux extends AppModel{
 
         let dockerTag = tag !== "" ? tag : "sgdk";
         let volumeInfo = this.buildVolumeInfo();
-        this.terminal.sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;
         }
 
@@ -131,22 +131,22 @@ export class AppModelLinux extends AppModel{
 
         this.setmardevenv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.terminal.sendText(`make  ${mkfile} clean ${withArg}`, newLine);
+        this.getTerminal().sendText(`make  ${mkfile} clean ${withArg}`, newLine);
         return true;
     }
     compilesgdk(newLine: boolean, withArg: string, makefile:string): boolean {
         let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
         if (gendev !== "") {
-            this.terminal.sendText(`export GENDEV=${gendev}`, true);
+            this.getTerminal().sendText(`export GENDEV=${gendev}`, true);
         }
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-        this.terminal.sendText(`make -f ${cmakefile} ${withArg}`, newLine);   
+        this.getTerminal().sendText(`make -f ${cmakefile} ${withArg}`, newLine);   
         return true;
     }
     public compileAndRunProject(): boolean {
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         this.compileProject(false);
-        this.terminal.sendText(" && ");
+        this.getTerminal().sendText(" && ");
         this.runProject(true);
         return true;
     }
@@ -155,7 +155,7 @@ export class AppModelLinux extends AppModel{
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         let romPath = (toolchainType=== MARSDEV)? "$PWD/rom.bin":"$PWD/out/rom.bin";
         let command = `${genspath} "${romPath}"`;
-        this.terminal.sendText(`${command} &`, newLine);
+        this.getTerminal().sendText(`${command} &`, newLine);
         return true;
     }
     public compileForDebugging(): boolean {
@@ -170,11 +170,11 @@ export class AppModelLinux extends AppModel{
     private cleanProjectSgdk(makefile:unknown):boolean {
         let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
         if (gendev !== "") {
-          this.terminal.sendText(`export GENDEV=${gendev}`, true);
+          this.getTerminal().sendText(`export GENDEV=${gendev}`, true);
         }
         //linux
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-        this.terminal.sendText(`make -f ${cmakefile} clean\n`);
+        this.getTerminal().sendText(`make -f ${cmakefile} clean\n`);
         return true;    }
     
 

@@ -74,11 +74,19 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 ## Known Issues
 
-* In linux systems, you can't compile with debug options using SGDK/GENDEV toolchain.
+* In MacOs the _compile & Run project_ command, the emulator is not running in background. We are working in this issue.
+* In Linux systems, you can't compile with debug options using SGDK/GENDEV toolchain.
 * In Linux Systems, when you create a new project there is no launch.json file for SGDK/GENDEV toolchain.
-* On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Enviroment variables; this is due to the use of Wine.
+* On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Environment variables; this is due to the use of Wine.
 
 ## Release Notes
+
+### 1.4.2
+
+* Updating grammar for use SGDK 1.80 with the last documentation.
+* Fix Bug when create on Windows a new project the settings are not properly point to SGDK include Folders.
+* Fix Multiple Instances of gens.code error.
+* Updated dependencies.
 
 ### 1.4.1
 

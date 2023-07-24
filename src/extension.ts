@@ -7,7 +7,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { AppModel } from './IAppModel';
 import { CodeProvider } from './codeProvider';
 import * as Path from 'path';
 import * as fs from 'fs';
@@ -20,18 +19,8 @@ let appModel: CoreEngine;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	let terminals = vscode.window.terminals.filter(terminal => terminal.name === 'gens.code');
-	if(terminals.length>1){
-		terminals.forEach((terminal,index) => {
-			if(index>0){
-				terminal.dispose();
-			}
-		});
-	}
-	let terminal = terminals.length>0? terminals[0]:vscode.window.createTerminal('gens.code');
 	
-	appModel= new CoreEngine(terminal,context.extensionPath);
+	appModel= new CoreEngine(context.extensionPath);
 	let codeprovider = CodeProvider.getCodeProviderInstance(context);
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated

@@ -7,20 +7,19 @@ import { AppModelWin32 } from './IAppModelWin32';
 
 export class CoreEngine{
 
-    private terminal:vscode.Terminal;
     private internalCoreWin32:AppModelWin32;
     private internalCoreLinux: AppModelLinux;
     private internalCoreMacOs: AppModelDarwin;
     private platform: string;
 
-    public constructor(terminal:vscode.Terminal, extensionPath: string){
-        this.terminal=terminal;
+    
+    public constructor(extensionPath: string){
         let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
         statusBar.text = "Genesis Code Ready";
         statusBar.show();
-        this.internalCoreWin32=new AppModelWin32(this.terminal,extensionPath);
-        this.internalCoreLinux=new AppModelLinux(this.terminal,extensionPath);
-        this.internalCoreMacOs=new AppModelDarwin(this.terminal,extensionPath);
+        this.internalCoreWin32=new AppModelWin32(extensionPath);
+        this.internalCoreLinux=new AppModelLinux(extensionPath);
+        this.internalCoreMacOs=new AppModelDarwin(extensionPath);
         this.platform=process.platform.toString();
     }
 
@@ -125,6 +124,16 @@ export class CoreEngine{
     }
 
     public deactivate(){
-        this.terminal.dispose();
+        switch(this.platform){
+            case WIN32:
+                this.internalCoreWin32.deactivate();
+            case LINUX:
+                this.internalCoreLinux.deactivate();    
+            case MACOS:
+                this.internalCoreMacOs.deactivate();
+            default:
+                this.showUndefinedSOError();
+        }  
     }
+
 }
