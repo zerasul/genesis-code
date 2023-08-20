@@ -5,26 +5,65 @@ import { AppModelLinux } from './IAppModelLinux';
 import { AppModelWin32 } from './IAppModelWin32';
 
 
-export class CoreEngine{
+export class CoreEngine {
 
-    private internalCoreWin32:AppModelWin32;
+    private internalCoreWin32: AppModelWin32;
     private internalCoreLinux: AppModelLinux;
     private internalCoreMacOs: AppModelDarwin;
     private platform: string;
 
     
-    public constructor(extensionPath: string){
+    public constructor(extensionPath: string) {
+
         let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
         statusBar.text = "Genesis Code Ready";
+
+        //add status bar button to compile
+        let compileButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+        compileButton.text = "$(gear) Build";
+        compileButton.tooltip = "Compile Genesis Project";
+        compileButton.command = "genesis.compile";
+        compileButton.show();
+
+        //add status bar button to compile and run
+        let compileAndRunButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 2);
+        compileAndRunButton.text = "$(play) Play";
+        compileAndRunButton.tooltip = "Compile and Run Genesis Project";
+        compileAndRunButton.color = "statusBarItem.warningBackground";
+        compileAndRunButton.command = "genesis.compileAndRun";
+        compileAndRunButton.show();
+
+        //add status bar to compile for debug
+        let compileDebugButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 3);
+        compileDebugButton.text = "$(bug) Debug";
+        compileDebugButton.tooltip = "Compile Genesis Project for Debugging";
+        compileDebugButton.color = "statusBarItem.warningBackground";
+        compileDebugButton.command = "genesis.compileDebug";
+        compileDebugButton.show();
+
+        //add status bar button to clean project
+        let cleanButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+        cleanButton.text = "$(trashcan) Clean";
+        cleanButton.tooltip = "Clean Genesis Project";
+        cleanButton.command = "genesis.clean";
+        cleanButton.show();
+
         statusBar.show();
-        this.internalCoreWin32=new AppModelWin32(extensionPath);
-        this.internalCoreLinux=new AppModelLinux(extensionPath);
-        this.internalCoreMacOs=new AppModelDarwin(extensionPath);
-        this.platform=process.platform.toString();
+
+        this.internalCoreWin32 = new AppModelWin32(extensionPath);
+        this.internalCoreLinux = new AppModelLinux(extensionPath);
+        this.internalCoreMacOs = new AppModelDarwin(extensionPath);
+        this.platform = process.platform.toString();
+
+        vscode.commands.registerCommand('genesis.compile', () => { this.compile(); });
+        vscode.commands.registerCommand('genesis.compileAndRun', () => { this.compileAndRun(); });
+        vscode.commands.registerCommand('genesis.compileDebug', () => { this.compile4Debug(); });
+        vscode.commands.registerCommand('genesis.clean', () => { this.clean(); });
+
     }
 
-    public compile():boolean{
-        switch(this.platform){
+    public compile(): boolean {
+        switch (this.platform) {
             case WIN32:
                 return this.internalCoreWin32.compileProject(true);
             case LINUX:
@@ -34,17 +73,17 @@ export class CoreEngine{
             default:
                 this.showUndefinedSOError();
                 return false;
-           
+
         }
     }
 
-    private showUndefinedSOError(){
+    private showUndefinedSOError() {
         vscode.window.showErrorMessage("Unsupported Operating System");
     }
-    public clean():boolean{
-        switch(this.platform){
+    public clean(): boolean {
+        switch (this.platform) {
             case WIN32:
-                return  this.internalCoreWin32.cleanProject();
+                return this.internalCoreWin32.cleanProject();
             case LINUX:
                 return this.internalCoreLinux.cleanProject();
             case MACOS:
@@ -55,10 +94,10 @@ export class CoreEngine{
         }
     }
 
-    public create(rootPath:vscode.Uri): vscode.Uri| undefined{
-        switch(this.platform){
+    public create(rootPath: vscode.Uri): vscode.Uri | undefined {
+        switch (this.platform) {
             case WIN32:
-                return  this.internalCoreWin32.createProject(rootPath);
+                return this.internalCoreWin32.createProject(rootPath);
             case LINUX:
                 return this.internalCoreLinux.createProject(rootPath);
             case MACOS:
@@ -69,10 +108,10 @@ export class CoreEngine{
         }
     }
 
-    public compileAndRun():boolean{
-        switch(this.platform){
+    public compileAndRun(): boolean {
+        switch (this.platform) {
             case WIN32:
-                return  this.internalCoreWin32.compileAndRunProject();
+                return this.internalCoreWin32.compileAndRunProject();
             case LINUX:
                 return this.internalCoreLinux.compileAndRunProject();
             case MACOS:
@@ -83,10 +122,10 @@ export class CoreEngine{
         }
     }
 
-    public run():boolean{
-        switch(this.platform){
+    public run(): boolean {
+        switch (this.platform) {
             case WIN32:
-                return  this.internalCoreWin32.runProject(true);
+                return this.internalCoreWin32.runProject(true);
             case LINUX:
                 return this.internalCoreLinux.runProject(true);
             case MACOS:
@@ -97,10 +136,10 @@ export class CoreEngine{
         }
     }
 
-    public compile4Debug():boolean{
-        switch(this.platform){
+    public compile4Debug(): boolean {
+        switch (this.platform) {
             case WIN32:
-                return  this.internalCoreWin32.compileForDebugging();
+                return this.internalCoreWin32.compileForDebugging();
             case LINUX:
                 return this.internalCoreLinux.compileForDebugging();
             case MACOS:
@@ -111,29 +150,29 @@ export class CoreEngine{
         }
     }
 
-    public tmxImport(tmxFilePath:vscode.Uri){
+    public tmxImport(tmxFilePath: vscode.Uri) {
         this.internalCoreWin32.importTmxFile(tmxFilePath);
     }
 
-    public tmxJsonImport(tmxJsonFilePath:vscode.Uri){
+    public tmxJsonImport(tmxJsonFilePath: vscode.Uri) {
         this.internalCoreWin32.importJsonTmxFile(tmxJsonFilePath);
     }
 
-    public setRunPath(uri:string){
+    public setRunPath(uri: string) {
         this.internalCoreWin32.setRunPath(uri);
     }
 
-    public deactivate(){
-        switch(this.platform){
+    public deactivate() {
+        switch (this.platform) {
             case WIN32:
                 this.internalCoreWin32.deactivate();
             case LINUX:
-                this.internalCoreLinux.deactivate();    
+                this.internalCoreLinux.deactivate();
             case MACOS:
                 this.internalCoreMacOs.deactivate();
             default:
                 this.showUndefinedSOError();
-        }  
+        }
     }
 
 }
