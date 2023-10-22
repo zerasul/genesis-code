@@ -6,6 +6,8 @@ Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive deve
 
 For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/)
 
+If you want to know how to develop Mega Drive Games; You can see the "16 Bits Homebrew Development" Book available on Amazon: [Spanish Version](https://amzn.eu/d/1GDGkhA), English Version(Coming Soon).
+
 ## Features
 
 With this extension, you can use easily a few commands for help you create awesome games. This extension adds the following commands:
