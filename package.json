@@ -190,7 +190,7 @@
 		"typescript": "^5.2.2",
 		"@vscode/test-electron": "^2.3.4",
 		"yarn": "^1.22.19",
-		"@swc/core": "^1.3.93",
+		"@swc/core": "^1.3.94",
 		"@swc/wasm": "^1.3.89"
 	},
 	"dependencies": {
