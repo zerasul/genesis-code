@@ -80,6 +80,7 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * In Linux systems, you can't compile with debug options using SGDK/GENDEV toolchain.
 * In Linux Systems, when you create a new project there is no launch.json file for SGDK/GENDEV toolchain.
 * On MacOs Systems, for the SGDK/GENDEV ToolchainType you can't use custom Makefile or custom Environment variables; this is due to the use of Wine.
+* The C headers include settings don't work if you are using Docker containers; this is due the SGDK headers are inside the container and not available without using a volume. Follow [this instructions](https://zerasul.github.io/genesis-code-docs/install/#configure-headers-using-docker-containers) for more information.
 
 ## Release Notes
 
