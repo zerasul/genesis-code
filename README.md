@@ -23,7 +23,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added remote debugging configuration for use with GDB.
 * Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
 * Import TMX file command: Uses a [TMX file format](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/) for generate a C header file for your projects.
-* Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project).
+* Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project.
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
@@ -32,7 +32,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added Configuration for enable or disable status bar buttons.
 * Added Docker Support.
 
-![vscodegif](vscodegif.gif)
+![vscodegif](imgs/vscodegif.gif)
 
 ## Requirements
 
@@ -44,7 +44,7 @@ You can set the [Gens Emulator](http://www.gens.me/) command to call it directly
 
 You can set it via command , or using the settings configuration.
 
-![Genesiscodeconfiguration](genscodesettings.png)
+![Genesiscodeconfiguration](imgs/genscodesettings.png)
 
 **NOTE**: You can use another emulators like [Blastem](https://www.retrodev.com/blastem/).
 
@@ -54,33 +54,33 @@ You can select the toolchain type for use with genesis code:
 * MARSDEV: The MARSDEV project will be used with Genesis Code.
 * DOCKER: Use a SGDK Docker container for compiling.
 
-![genesiscodeconfigtoolchain](genesiscodeconfigtoolchain.png)
+![genesiscodeconfigtoolchain](imgs/genesiscodeconfigtoolchain.png)
 
 You can set an alternative MakeFile on the configuration panel. When the compile or clean command is called the alternative Makefile will be used instead the default makefile.
 
-![genesiscodemakefile](makefile.png)
+![genesiscodemakefile](imgs/makefile.png)
 
 Also, you can set an alternative value for the environment variables of GDK, GENDEV or MARSDEV.
 
-![envvariables](envvariables.png)
+![envvariables](imgs/envvariables.png)
 
 Now, you can define a custom docker image tag for generate a new container.
 
-![dockertag](dockertag.png)
+![dockertag](imgs/dockertag.png)
 
 **NOTE:** If you want to use [Doragasu SGDK Docker Image](https://gitlab.com/doragasu/docker-sgdk), you can use the check in Configuration and you must add the current Docker Image Tag description (with the gitlab registry URL).
 
-![statusbarconfig](statusbar.png)
+![statusbarconfig](imgs/statusbar.png)
 
 You can enable or disable status bar buttons for use some common commands.
 
-![Status Bar Buttons](sbarbuttons.png)
+![Status Bar Buttons](imgs/sbarbuttons.png)
 
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
 
-![bitmapviewer](bitmapv.PNG)
+![bitmapviewer](imgs/bitmapv.PNG)
 
 ## Known Issues
 
