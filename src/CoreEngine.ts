@@ -11,6 +11,7 @@ export class CoreEngine {
     private internalCoreLinux: AppModelLinux;
     private internalCoreMacOs: AppModelDarwin;
     private platform: string;
+    //Status Bar Buttons
     private static compileButton:vscode.StatusBarItem|undefined;
     private static compileAndRunButton:vscode.StatusBarItem|undefined;
     private static compileDebugButton:vscode.StatusBarItem|undefined;
@@ -23,7 +24,6 @@ export class CoreEngine {
     public constructor(extensionPath: string) {
         vscode.workspace.onDidChangeConfiguration((e) => {
             if (e.affectsConfiguration("addStatusBarButtons")) {
-                //TODO: Add theses Buttons using configuration Variable
                 //add status bar button to compile
                 let statusButtonsAdded:boolean = vscode.workspace.getConfiguration().get("addStatusBarButtons",false);
                 if(statusButtonsAdded){
@@ -51,6 +51,7 @@ export class CoreEngine {
     }
 
     private addStatusBarButtons(){
+        //Compile status Bar Button
         CoreEngine.compileButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
         CoreEngine.compileButton.text = "$(gear) Build";
         CoreEngine.compileButton.tooltip = "Compile Genesis Project";

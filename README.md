@@ -83,6 +83,11 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 ## Release Notes
 
+### 1.5.0
+* Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette).
+* Added 4 Status Bar Buttons for _compile_, _compile&Run_, _compile for Debug_ and _clean_.
+* Updating dependencies.
+
 ### 1.4.2
 
 * Updating grammar for use SGDK 1.80 with the last documentation.
