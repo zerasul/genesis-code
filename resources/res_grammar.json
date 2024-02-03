@@ -71,7 +71,7 @@
             ]
         },
         "resourceType": {
-            "match": "BITMAP|PALETTE|TILESET|TILEMAP|MAP|IMAGE|SPRITE|XGM|WAV|BIN|ALIGN|UNGROUP",
+            "match": "BITMAP|PALETTE|TILESET|TILEMAP|MAP|IMAGE|SPRITE|XGM|XGM2|WAV|BIN|ALIGN|UNGROUP",
             "name": "keyword.resourceType"
         },
         "resourceName": {
@@ -150,7 +150,7 @@
             "name": "support.class.optsprt"
         },
         "drivername": {
-            "match": "PCM|2ADPCM|4PCM|XGM",
+            "match": "PCM|2ADPCM|4PCM|XGM|XGM2",
             "name": "keyword.control.drivername"
         },
         "outrate": {

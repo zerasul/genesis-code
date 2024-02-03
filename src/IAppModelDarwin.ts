@@ -191,13 +191,13 @@ export class AppModelDarwin extends AppModel{
       return this.compileProject(true,'debug');
     }
 
-    private buildVolumeInfo():String{
-        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
+    private buildVolumeInfo():string{
+        let dogaratsu:boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
         let volumeInfo ="/src";
         if(dogaratsu){
             volumeInfo="/m68k -t";
         }
-        return `\"$PWD\":${volumeInfo}`;
+        return `"$PWD":${volumeInfo}`;
     }
 
 }

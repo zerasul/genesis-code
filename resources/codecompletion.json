@@ -49,6 +49,12 @@
             "doc": "XGM music type resource (.vgm or .xgm file), used to play music."
         },
         {
+            "label": "XGM2",
+            "kind": "KEYWORD",
+            "text": "XGM2 ",
+            "doc": "XGM2 music type resource (.vgm or .xgm file), for use to play music with the new XGM2 Driver."
+        },
+        {
             "label": "WAV",
             "kind": "KEYWORD",
             "text": "WAV ",
@@ -185,6 +191,12 @@
             "kind": "STRUCT",
             "text": "XGM ",
             "doc": "XGM music with 4 channels 8 bits samples driver."
+        },
+        {
+            "label": "XGM2",
+            "kind": "STRUCT",
+            "text": "XGM2 ",
+            "doc": "XGM2 new music Driver."
         },
         {
             "label": "ALIGN",

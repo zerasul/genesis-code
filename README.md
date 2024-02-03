@@ -28,6 +28,8 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
 * Added BitmapViewer.
+* Added Status Bar Buttons for compile, compile & Run, Compile For debug and clean (Thanks to burmaraider).
+* Added Configuration for enable or disable status bar buttons.
 * Added Docker Support.
 
 ![vscodegif](vscodegif.gif)
@@ -83,6 +85,13 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * The C headers include settings don't work if you are using Docker containers; this is due the SGDK headers are inside the container and not available without using a volume. Follow [this instructions](https://zerasul.github.io/genesis-code-docs/install/#configure-headers-using-docker-containers) for more information.
 
 ## Release Notes
+
+### 1.5.0
+
+* Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette).
+* Added 4 Status Bar Buttons for _compile_, _compile&Run_, _compile for Debug_ and _clean_.
+* Updating autocompletion and .res grammar for use with the new XGM2 Driver.
+* Updating dependencies.
 
 ### 1.4.2
 

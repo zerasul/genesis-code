@@ -123,7 +123,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let disposableAbout = vscode.commands.registerCommand('extension.aboutgenscode', () =>{
 		const column = vscode.window.activeTextEditor? vscode.window.activeTextEditor.viewColumn:undefined;
-		const panel = vscode.window.createWebviewPanel('about', "About Genesis Code",column || vscode.ViewColumn.One,{enableScripts:true});
+		const panel = vscode.window.createWebviewPanel('about', "About Genesis Code",column ?? vscode.ViewColumn.One,{enableScripts:true});
 		const strabouthtmlpath = Path.join(context.extensionPath , "resources", "about.html");
 		panel.webview.html= fs.readFileSync(strabouthtmlpath).toLocaleString();
 		panel.reveal();
