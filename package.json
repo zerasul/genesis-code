@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.4.2",
+	"version": "1.5.0",
 	"icon": "genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -166,6 +166,12 @@
 						"type": "string",
 						"default": "",
 						"description": "Set the $GDK environment variable. leave empty for use system default"
+					},
+					"addStatusBarButtons":{
+						"title": "Add Status Bar Buttons",
+						"type": "boolean",
+						"default":false,
+						"description": "Adds Status bar Auxiliar Buttons"
 					}
 				}
 			}

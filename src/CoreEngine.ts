@@ -11,50 +11,38 @@ export class CoreEngine {
     private internalCoreLinux: AppModelLinux;
     private internalCoreMacOs: AppModelDarwin;
     private platform: string;
+    private static compileButton:vscode.StatusBarItem|undefined;
+    private static compileAndRunButton:vscode.StatusBarItem|undefined;
+    private static compileDebugButton:vscode.StatusBarItem|undefined;
+    private static cleanButton:vscode.StatusBarItem|undefined;
 
-    
+
+
+
+
     public constructor(extensionPath: string) {
-
-        let statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-        statusBar.text = "Genesis Code Ready";
-
-        //add status bar button to compile
-        let compileButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-        compileButton.text = "$(gear) Build";
-        compileButton.tooltip = "Compile Genesis Project";
-        compileButton.command = "genesis.compile";
-        compileButton.show();
-
-        //add status bar button to compile and run
-        let compileAndRunButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 2);
-        compileAndRunButton.text = "$(play) Play";
-        compileAndRunButton.tooltip = "Compile and Run Genesis Project";
-        compileAndRunButton.color = "statusBarItem.warningBackground";
-        compileAndRunButton.command = "genesis.compileAndRun";
-        compileAndRunButton.show();
-
-        //add status bar to compile for debug
-        let compileDebugButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 3);
-        compileDebugButton.text = "$(bug) Debug";
-        compileDebugButton.tooltip = "Compile Genesis Project for Debugging";
-        compileDebugButton.color = "statusBarItem.warningBackground";
-        compileDebugButton.command = "genesis.compileDebug";
-        compileDebugButton.show();
-
-        //add status bar button to clean project
-        let cleanButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-        cleanButton.text = "$(trashcan) Clean";
-        cleanButton.tooltip = "Clean Genesis Project";
-        cleanButton.command = "genesis.clean";
-        cleanButton.show();
-
-        statusBar.show();
-
+        vscode.workspace.onDidChangeConfiguration((e) => {
+            if (e.affectsConfiguration("addStatusBarButtons")) {
+                //TODO: Add theses Buttons using configuration Variable
+                //add status bar button to compile
+                let statusButtonsAdded:boolean = vscode.workspace.getConfiguration().get("addStatusBarButtons",false);
+                if(statusButtonsAdded){
+                    this.addStatusBarButtons();
+                }else{
+         
+                    CoreEngine.compileButton?.dispose();
+                    CoreEngine.compileAndRunButton?.dispose();
+                    CoreEngine.compileDebugButton?.dispose();
+                    CoreEngine.cleanButton?.dispose();
+                }
+            }
+        });
+        let statusButtonsAdded:boolean = vscode.workspace.getConfiguration().get("addStatusBarButtons",false);
         this.internalCoreWin32 = new AppModelWin32(extensionPath);
         this.internalCoreLinux = new AppModelLinux(extensionPath);
         this.internalCoreMacOs = new AppModelDarwin(extensionPath);
         this.platform = process.platform.toString();
-
+        if(statusButtonsAdded) this.addStatusBarButtons();
         vscode.commands.registerCommand('genesis.compile', () => { this.compile(); });
         vscode.commands.registerCommand('genesis.compileAndRun', () => { this.compileAndRun(); });
         vscode.commands.registerCommand('genesis.compileDebug', () => { this.compile4Debug(); });
@@ -62,6 +50,36 @@ export class CoreEngine {
 
     }
 
+    private addStatusBarButtons(){
+        CoreEngine.compileButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+        CoreEngine.compileButton.text = "$(gear) Build";
+        CoreEngine.compileButton.tooltip = "Compile Genesis Project";
+        CoreEngine.compileButton.command = "genesis.compile";
+        CoreEngine.compileButton.show();
+
+        //add status bar button to compile and run
+        CoreEngine.compileAndRunButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 2);
+        CoreEngine.compileAndRunButton.text = "$(play) Play";
+        CoreEngine.compileAndRunButton.tooltip = "Compile and Run Genesis Project";
+        CoreEngine.compileAndRunButton.color = "statusBarItem.warningBackground";
+        CoreEngine.compileAndRunButton.command = "genesis.compileAndRun";
+        CoreEngine.compileAndRunButton.show();
+
+        //add status bar to compile for debug
+        CoreEngine.compileDebugButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 3);
+        CoreEngine.compileDebugButton.text = "$(bug) Debug";
+        CoreEngine.compileDebugButton.tooltip = "Compile Genesis Project for Debugging";
+        CoreEngine.compileDebugButton.color = "statusBarItem.warningBackground";
+        CoreEngine.compileDebugButton.command = "genesis.compileDebug";
+        CoreEngine.compileDebugButton.show();
+
+        //add status bar button to clean project
+        CoreEngine.cleanButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+        CoreEngine.cleanButton.text = "$(trashcan) Clean";
+        CoreEngine.cleanButton.tooltip = "Clean Genesis Project";
+        CoreEngine.cleanButton.command = "genesis.clean";
+        CoreEngine.cleanButton.show();
+    }
     public compile(): boolean {
         switch (this.platform) {
             case WIN32:
