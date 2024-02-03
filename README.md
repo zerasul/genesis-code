@@ -89,7 +89,7 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 * Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette).
 * Added 4 Status Bar Buttons for _compile_, _compile&Run_, _compile for Debug_ and _clean_.
-* Updating autocompletion and .res grammar for use with the new XGM2 Driver.
+* Updating autocompletion and .res grammar for use with the new XGM2 Driver and SGDK 2.00.
 * Updating dependencies.
 
 ### 1.4.2
