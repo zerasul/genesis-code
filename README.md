@@ -4,7 +4,7 @@
 
 Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) or [MARSDEV](https://github.com/andwn/marsdev) projects for create homebrew games for the Sega 16 bits console.
 
-For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/)
+For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/).
 
 If you want to know how to develop Mega Drive Games; You can see the "16 Bits Homebrew Development" Book available on Amazon: [Spanish Version](https://amzn.eu/d/1GDGkhA), English Version(Coming Soon).
 
@@ -69,6 +69,12 @@ Now, you can define a custom docker image tag for generate a new container.
 ![dockertag](dockertag.png)
 
 **NOTE:** If you want to use [Doragasu SGDK Docker Image](https://gitlab.com/doragasu/docker-sgdk), you can use the check in Configuration and you must add the current Docker Image Tag description (with the gitlab registry URL).
+
+![statusbarconfig](statusbar.png)
+
+You can enable or disable status bar buttons for use some common commands.
+
+![Status Bar Buttons](sbarbuttons.png)
 
 ## Bitmap Viewer
 
