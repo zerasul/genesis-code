@@ -28,6 +28,8 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
 * Added BitmapViewer.
+* Added Status Bar Buttons for compile, compile & Run, Compile For debug and clean (Thanks to burmaraider).
+* Added Configuration for enable or disable status bar buttons.
 * Added Docker Support.
 
 ![vscodegif](vscodegif.gif)
