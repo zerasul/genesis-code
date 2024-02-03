@@ -174,8 +174,8 @@ export class AppModelWin32 extends AppModel{
         return true;
     }
 
-    private buildVolumeInfo():String{
-        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(constants.DORAGASU_IMAGE,false);
+    private buildVolumeInfo():string{
+        let dogaratsu:boolean = vscode.workspace.getConfiguration().get(constants.DORAGASU_IMAGE,false);
         let volumeInfo ="/src";
         if(dogaratsu){
            volumeInfo="/m68k -t";

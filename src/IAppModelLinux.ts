@@ -1,4 +1,3 @@
-import { constants } from "buffer";
 import * as vscode from "vscode";
 import { DEFAULT_GENDEV_SGDK_MAKEFILE, DOCKER, DOCKERTAG, GENDEV_ENV, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, DORAGASU_IMAGE } from "./constants";
 import { AppModel } from "./IAppModel";
@@ -144,7 +143,6 @@ export class AppModelLinux extends AppModel{
         return true;
     }
     public compileAndRunProject(): boolean {
-        let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         this.compileProject(false);
         this.getTerminal().sendText(" && ");
         this.runProject(true);
@@ -179,13 +177,13 @@ export class AppModelLinux extends AppModel{
     
 
 
-    private buildVolumeInfo():String{
-        let dogaratsu:Boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
+    private buildVolumeInfo():string{
+        let dogaratsu:boolean = vscode.workspace.getConfiguration().get(DORAGASU_IMAGE,false);
         let volumeInfo ="/src";
         if(dogaratsu){
             volumeInfo="/m68k -t";
         }
-        return `\"$PWD\":${volumeInfo}`;
+        return `"$PWD":${volumeInfo}`;
     }
 }
 

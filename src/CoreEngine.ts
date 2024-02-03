@@ -185,10 +185,13 @@ export class CoreEngine {
         switch (this.platform) {
             case WIN32:
                 this.internalCoreWin32.deactivate();
+                break;
             case LINUX:
                 this.internalCoreLinux.deactivate();
+                break;
             case MACOS:
                 this.internalCoreMacOs.deactivate();
+                break;
             default:
                 this.showUndefinedSOError();
         }
