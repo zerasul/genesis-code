@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.5.0
+
+* [Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette)](https://github.com/zerasul/genesis-code/issues/1087).
+* [Added 4 Status Bar Buttons for _compile_, _compile&Run_, _compile for Debug_ and _clean_](https://github.com/zerasul/genesis-code/pull/951).
+* [Updating autocompletion and .res grammar for use with the new XGM2 Driver and SGDK 2.00](https://github.com/zerasul/genesis-code/issues/928).
+* Updating dependencies.
+
 ## 1.4.2
 
 * [Updating grammar for use SGDK 1.80 with the last documentation.](https://github.com/zerasul/genesis-code/issues/774)
