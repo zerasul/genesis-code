@@ -1,10 +1,13 @@
 # Genesis-code Extension
 
-[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span> [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
+[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master)
+[![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.00-912aeb)](https://github.com/Stephane-D/SGDK)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
 
 Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive development. This extension is created for use with the [SGDK](https://github.com/Stephane-D/SGDK)/[GENDEV](https://github.com/kubilus1/gendev) or [MARSDEV](https://github.com/andwn/marsdev) projects for create homebrew games for the Sega 16 bits console.
 
-For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/)
+For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/).
 
 If you want to know how to develop Mega Drive Games; You can see the "16 Bits Homebrew Development" Book available on Amazon: [Spanish Version](https://amzn.eu/d/1GDGkhA), English Version(Coming Soon).
 
@@ -23,7 +26,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added remote debugging configuration for use with GDB.
 * Compatible with [MarsDev](https://github.com/andwn/marsdev) Toolchain.
 * Import TMX file command: Uses a [TMX file format](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/) for generate a C header file for your projects.
-* Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project).
+* Import Json TMX file command: Uses a [Tmx Json File Format](https://doc.mapeditor.org/en/stable/reference/json-map-format/) for generate a C Header file for Your project.
 * Added configuration for use alternative MakeFile.
 * Added configuration for use alernative environment variables for GDK, GENDEV or MARSDEV.
 * Added Genesis Code: About for open more information about the extension.
@@ -32,7 +35,7 @@ With this extension, you can use easily a few commands for help you create aweso
 * Added Configuration for enable or disable status bar buttons.
 * Added Docker Support.
 
-![vscodegif](vscodegif.gif)
+![vscodegif](imgs/vscodegif.gif)
 
 ## Requirements
 
@@ -44,7 +47,7 @@ You can set the [Gens Emulator](http://www.gens.me/) command to call it directly
 
 You can set it via command , or using the settings configuration.
 
-![Genesiscodeconfiguration](genscodesettings.png)
+![Genesiscodeconfiguration](imgs/genscodesettings.png)
 
 **NOTE**: You can use another emulators like [Blastem](https://www.retrodev.com/blastem/).
 
@@ -54,27 +57,33 @@ You can select the toolchain type for use with genesis code:
 * MARSDEV: The MARSDEV project will be used with Genesis Code.
 * DOCKER: Use a SGDK Docker container for compiling.
 
-![genesiscodeconfigtoolchain](genesiscodeconfigtoolchain.png)
+![genesiscodeconfigtoolchain](imgs/genesiscodeconfigtoolchain.png)
 
 You can set an alternative MakeFile on the configuration panel. When the compile or clean command is called the alternative Makefile will be used instead the default makefile.
 
-![genesiscodemakefile](makefile.png)
+![genesiscodemakefile](imgs/makefile.png)
 
 Also, you can set an alternative value for the environment variables of GDK, GENDEV or MARSDEV.
 
-![envvariables](envvariables.png)
+![envvariables](imgs/envvariables.png)
 
 Now, you can define a custom docker image tag for generate a new container.
 
-![dockertag](dockertag.png)
+![dockertag](imgs/dockertag.png)
 
 **NOTE:** If you want to use [Doragasu SGDK Docker Image](https://gitlab.com/doragasu/docker-sgdk), you can use the check in Configuration and you must add the current Docker Image Tag description (with the gitlab registry URL).
+
+![statusbarconfig](imgs/statusbar.png)
+
+You can enable or disable status bar buttons for use some common commands.
+
+![Status Bar Buttons](imgs/sbarbuttons.png)
 
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
 
-![bitmapviewer](bitmapv.PNG)
+![bitmapviewer](imgs/bitmapv.PNG)
 
 ## Known Issues
 
@@ -90,7 +99,7 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 * Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette).
 * Added 4 Status Bar Buttons for _compile_, _compile&Run_, _compile for Debug_ and _clean_.
-* Updating autocompletion and .res grammar for use with the new XGM2 Driver.
+* Updating autocompletion and .res grammar for use with the new XGM2 Driver and SGDK 2.00.
 * Updating dependencies.
 
 ### 1.4.2
