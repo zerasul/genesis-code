@@ -197,7 +197,7 @@
 		"@vscode/test-electron": "^2.3.9",
 		"yarn": "^1.22.22",
 		"@swc/core": "^1.5.0",
-		"@swc/wasm": "^1.5.0"
+		"@swc/wasm": "^1.5.2"
 	},
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
