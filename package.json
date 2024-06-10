@@ -191,7 +191,7 @@
 		"@types/vscode": "^1.90.0",
 		"glob": "^8.0.3",
 		"mocha": "^10.4.0",
-		"nyc": "^15.1.0",
+		"nyc": "^17.0.0",
 		"tslint": "^6.1.3",
 		"typescript": "^5.4.5",
 		"@vscode/test-electron": "^2.4.0",
