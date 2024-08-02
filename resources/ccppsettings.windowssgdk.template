@@ -1,7 +1,7 @@
 { 
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "C_Cpp.default.includePath": ["${env:GDK}\\inc",
-    "${env:GDK}\\res",
+    "C_Cpp.default.includePath": ["{{env:GDK}}\\inc",
+    "{{env:GDK}}\\res",
     "res",
     "inc"
 ]

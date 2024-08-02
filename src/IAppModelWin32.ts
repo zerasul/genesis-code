@@ -110,7 +110,16 @@ export class AppModelWin32 extends AppModel{
 
         }
         //add settings.json
-        fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
+        //fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
+        //if the GDK env is set as configuration, change path
+        
+        let fileContent:string = fs.readFileSync( sourcefile).toLocaleString();
+        let configgdk:string= vscode.workspace.getConfiguration().get(constants.GDK_ENV,"${env:GDK}");
+        //clean path
+        configgdk=configgdk.replace(/:\\/g,":\\\\");
+        fileContent=fileContent.replace(/{{env:GDK}}/g,configgdk);
+        //Write file using configuration instead environment variable
+        fs.writeFileSync( Path.join(vscodedirpath, "settings.json"),fileContent);
         this.getTerminal().sendText(`cd "${rootPath.fsPath}" && git init`);
         return rootPath;
     }
