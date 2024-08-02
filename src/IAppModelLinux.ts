@@ -87,7 +87,10 @@ export class AppModelLinux extends AppModel{
                 fs.copyFileSync(settingssourcefile, Path.join(vscodedirpath, "settings.json"));
             } else if (toolchainType === SGDK_GENDEV || toolchainType===DOCKER) {
                 let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.linuxgendev.template");
-                fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
+                let fileContent:string = fs.readFileSync(sourcefile).toLocaleString();
+                let configGendev:string= vscode.workspace.getConfiguration().get(GENDEV_ENV,"${env:GENDEV}");
+                fileContent= fileContent.replace(/{{env:GENDEV}}/g,configGendev);
+                fs.writeFileSync(Path.join(vscodedirpath, "settings.json"),fileContent); 
             }   
         }
         let makefiletemppath = Path.join(this.extensionPath, "resources", "Makefile.template");
