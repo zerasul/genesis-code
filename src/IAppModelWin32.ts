@@ -106,13 +106,15 @@ export class AppModelWin32 extends AppModel{
         let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowssgdk.template");
         let configgdk:string= vscode.workspace.getConfiguration().get(constants.GDK_ENV,"${env:GDK}");
         //clean path
-        configgdk=configgdk.replace(/:\\/g,":\\\\");
+        configgdk=configgdk.replace(/\\/g,"\\\\");
         let fileContent:string = fs.readFileSync( sourcefile).toLocaleString(); 
         if(toolchainType===constants.MARSDEV){
             this.createMakefileMarsDev(rootPath);        
             sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
-            let configgdk:string= vscode.workspace.getConfiguration().get(constants.MARSDEV_ENV,"${env:MARSDEV}");
-            configgdk=configgdk.replace(/:\\/g,":\\\\");
+            fileContent= fs.readFileSync( sourcefile).toLocaleString(); 
+            configgdk= Path.parse(vscode.workspace.getConfiguration().get(constants.MARSDEV_ENV,"${env:MARSDEV}")).dir;
+            configgdk=configgdk.replace(/\\/g,"\\\\");
+            
             fileContent=fileContent.replace(/{{env:MARSDEV}}/g,configgdk);
         }else{
             fileContent=fileContent.replace(/{{env:GDK}}/g,configgdk);
