@@ -104,20 +104,20 @@ export class AppModelWin32 extends AppModel{
         //add marsdev makefile
         let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
         let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowssgdk.template");
-        if(toolchainType===constants.MARSDEV){
-            this.createMakefileMarsDev(rootPath);        
-            sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
-
-        }
-        //add settings.json
-        //fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
-        //if the GDK env is set as configuration, change path
-        
-        let fileContent:string = fs.readFileSync( sourcefile).toLocaleString();
         let configgdk:string= vscode.workspace.getConfiguration().get(constants.GDK_ENV,"${env:GDK}");
         //clean path
         configgdk=configgdk.replace(/:\\/g,":\\\\");
-        fileContent=fileContent.replace(/{{env:GDK}}/g,configgdk);
+        let fileContent:string = fs.readFileSync( sourcefile).toLocaleString(); 
+        if(toolchainType===constants.MARSDEV){
+            this.createMakefileMarsDev(rootPath);        
+            sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
+            let configgdk:string= vscode.workspace.getConfiguration().get(constants.MARSDEV_ENV,"${env:MARSDEV}");
+            configgdk=configgdk.replace(/:\\/g,":\\\\");
+            fileContent=fileContent.replace(/{{env:MARSDEV}}/g,configgdk);
+        }else{
+            fileContent=fileContent.replace(/{{env:GDK}}/g,configgdk);
+        }
+        //add settings.json
         //Write file using configuration instead environment variable
         fs.writeFileSync( Path.join(vscodedirpath, "settings.json"),fileContent);
         this.getTerminal().sendText(`cd "${rootPath.fsPath}" && git init`);

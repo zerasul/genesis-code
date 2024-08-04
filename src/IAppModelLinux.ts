@@ -84,7 +84,10 @@ export class AppModelLinux extends AppModel{
                 let sourcefile = Path.join(this.extensionPath, "resources", "launch.json.linuxmarsdev.template");
                 fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "launch.json"));
                 let settingssourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.linuxmarsdev.template");
-                fs.copyFileSync(settingssourcefile, Path.join(vscodedirpath, "settings.json"));
+                let fileContent:string = fs.readFileSync(settingssourcefile).toLocaleString();
+                let configGendev:string= vscode.workspace.getConfiguration().get(MARSDEV_ENV,"${env:MARSDEV}");
+                fileContent= fileContent.replace(/{{env:MARSDEV}}/g,configGendev);
+                fs.writeFileSync(Path.join(vscodedirpath, "settings.json"),fileContent);
             } else if (toolchainType === SGDK_GENDEV || toolchainType===DOCKER) {
                 let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.linuxgendev.template");
                 let fileContent:string = fs.readFileSync(sourcefile).toLocaleString();

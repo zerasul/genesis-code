@@ -123,7 +123,10 @@ export class AppModelDarwin extends AppModel{
         let toolchainType = vscode.workspace.getConfiguration().get(TOOLCHAINTYPE);
         if (toolchainType === MARSDEV) {
             let sourcefile = Path.join(extensionPath, "resources", "ccppsettings.linuxmarsdev.template");
-            fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));
+            let fileContent:string = fs.readFileSync(sourcefile).toLocaleString();
+                let configGendev:string= vscode.workspace.getConfiguration().get(MARSDEV_ENV,"${env:MARSDEV}");
+                fileContent= fileContent.replace(/{{env:MARSDEV}}/g,configGendev);
+                fs.writeFileSync(Path.join(vscodepath, "settings.json"),fileContent);
         } else if (toolchainType === SGDK_GENDEV || toolchainType===DOCKER) {
             let sourcefile = Path.join(extensionPath, "resources", "ccppsettings.macossgdk.template");
             fs.copyFileSync(sourcefile, Path.join(vscodepath, "settings.json"));

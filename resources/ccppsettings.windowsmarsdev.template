@@ -1,7 +1,7 @@
 { 
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "C_Cpp.default.includePath": ["${env:MARSDEV}\\sgdk\\SGDK\\inc",
-    "${env:MARSDEV}\\sgdk\\SGDK\\res",
+    "C_Cpp.default.includePath": ["{{env:MARSDEV}}\\sgdk\\SGDK\\inc",
+    "{{env:MARSDEV}}\\sgdk\\SGDK\\res",
     "res",
     "inc"
 ]
