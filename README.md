@@ -95,6 +95,12 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 ## Release Notes
 
+### 1.5.1
+
+* On Windows Systems, the new projects will be created using Command prompt console as default (no extra configuration needed) (Thanks to AIoriBranford).
+* Now, when a new project is created, the current GDK or GENDEV configuration will be used for C/C++ include configuration on .vscode/settings.json; if there is no configuration, the environment variable will be used.
+* Updated Dependencies.
+
 ### 1.5.0
 
 * Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette).

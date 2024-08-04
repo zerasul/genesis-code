@@ -2,6 +2,12 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.5.1
+
+* [On Windows Systems, the new projects will be created using Command prompt console as default (no extra configuration needed).](https://github.com/zerasul/genesis-code/pull/1180)
+* [Now, when a new project is created, the current GDK or GENDEV configuration will be used for C/C++ include configuration on .vscode/settings.json; if there is no configuration, the environment variable will be used.](https://github.com/zerasul/genesis-code/issues/1198).
+* Updated Dependencies.
+
 ## 1.5.0
 
 * [Add "Status bar Button" configuration, to add status bar buttons for the more commons commands (no more command palette)](https://github.com/zerasul/genesis-code/issues/1087).
