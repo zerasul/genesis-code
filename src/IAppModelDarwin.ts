@@ -2,6 +2,7 @@ import path = require("path");
 import * as vscode from "vscode";
 import { DOCKER, DOCKERTAG, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, DORAGASU_IMAGE } from "./constants";
 import { AppModel } from "./IAppModel";
+import * as constants from "./constants";
 import * as Path from "path";
 import * as fs from "fs";
 
@@ -39,7 +40,7 @@ export class AppModelDarwin extends AppModel{
     }
     private cleanDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
         return true;
@@ -172,7 +173,7 @@ export class AppModelDarwin extends AppModel{
     }
     private compileProjectDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
         return true;    

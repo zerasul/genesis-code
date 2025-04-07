@@ -21,7 +21,7 @@ export class AppModelWin32 extends AppModel{
     }
     private compileDocker(newLine: boolean,withArg:string): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
         return true;
@@ -158,7 +158,7 @@ export class AppModelWin32 extends AppModel{
     }
     private cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
         return true;

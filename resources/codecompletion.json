@@ -227,6 +227,30 @@
             "kind": "FUNCTION",
             "text": "UNGROUP ",
             "doc": "by default rescomp will group data export by type, using UNGROUP allow to disable that feature."
+        },
+        {
+            "label": "ROW",
+            "kind": "VARIABLE",
+            "text": "ROW ",
+            "doc": "Row ordering"
+        },
+        {
+            "label": "COLUMN",
+            "kind": "VARIABLE",
+            "text": "COLUMN ",
+            "doc": "Column ordering"
+        },
+        {
+            "label": "TRUE",
+            "kind": "VARIABLE",
+            "text": "TRUE ",
+            "doc": "True value"
+        },
+        {
+            "label": "FALSE",
+            "kind": "VARIABLE",
+            "text": "FALSE ",
+            "doc": "False value"
         }
         
     ]
