@@ -75,3 +75,8 @@ export const LINUX="linux";
  */
 export const MACOS="darwin";
 
+/**
+ * SGDK Docker Image (Using new SGDK Docker Image)
+ */
+export const SGDK_DEFAULT_DOCKER_IMAGE = "ghcr.io/stephane-d/sgdk:latest";
+

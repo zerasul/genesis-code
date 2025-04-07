@@ -1,7 +1,7 @@
 # Genesis-code Extension
 
 [![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master)
-[![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.00-912aeb)](https://github.com/Stephane-D/SGDK)
+[![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.11-912aeb)](https://github.com/Stephane-D/SGDK)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
 
@@ -9,7 +9,7 @@ Genesis-Code is a Visual Studio Code Extension for Sega Genesis/ Mega Drive deve
 
 For more information, see [Genesis Code Documentation Web Page](https://zerasul.github.io/genesis-code-docs/).
 
-If you want to know how to develop Mega Drive Games; You can see the "16 Bits Homebrew Development" Book available on Amazon: [Spanish Version](https://amzn.eu/d/1GDGkhA), English Version(Coming Soon).
+If you want to know how to develop Mega Drive Games; You can see the "16 Bits Homebrew Development" Book available on Amazon: [Spanish Version](https://amzn.eu/d/1GDGkhA), [English Version](https://www.amazon.com/dp/B0CW4TH2NJ).
 
 ## Features
 
@@ -39,7 +39,7 @@ With this extension, you can use easily a few commands for help you create aweso
 
 ## Requirements
 
-To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables, or build a SGDK Docker Image.
+To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables, or build/use a SGDK Docker Image.
 
 ## Extension Settings
 
@@ -94,6 +94,18 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * The C headers include settings don't work if you are using Docker containers; this is due the SGDK headers are inside the container and not available without using a volume. Follow [this instructions](https://zerasul.github.io/genesis-code-docs/install/#configure-headers-using-docker-containers) for more information.
 
 ## Release Notes
+
+### 1.5.2
+
+* Now the default Docker image is based on SGDK's Github Registry (```ghcr.io/stephane-d/sgdk:latest```).
+* Updating autocompletion and .res grammar for use with SGDK 2.11.
+* Updating dependencies.
+
+### 1.5.1
+
+* On Windows Systems, the new projects will be created using Command prompt console as default (no extra configuration needed) (Thanks to AIoriBranford).
+* Now, when a new project is created, the current GDK or GENDEV configuration will be used for C/C++ include configuration on .vscode/settings.json; if there is no configuration, the environment variable will be used.
+* Updated Dependencies.
 
 ### 1.5.0
 

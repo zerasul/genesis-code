@@ -21,7 +21,7 @@ export class AppModelWin32 extends AppModel{
     }
     private compileDocker(newLine: boolean,withArg:string): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
         return true;
@@ -104,13 +104,24 @@ export class AppModelWin32 extends AppModel{
         //add marsdev makefile
         let toolchainType = vscode.workspace.getConfiguration().get(constants.TOOLCHAINTYPE);
         let sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowssgdk.template");
+        let configgdk:string= vscode.workspace.getConfiguration().get(constants.GDK_ENV,"${env:GDK}");
+        //clean path
+        configgdk=configgdk.replace(/\\/g,"\\\\");
+        let fileContent:string = fs.readFileSync( sourcefile).toLocaleString(); 
         if(toolchainType===constants.MARSDEV){
             this.createMakefileMarsDev(rootPath);        
             sourcefile = Path.join(this.extensionPath, "resources", "ccppsettings.windowsmarsdev.template");
-
+            fileContent= fs.readFileSync( sourcefile).toLocaleString(); 
+            configgdk= Path.parse(vscode.workspace.getConfiguration().get(constants.MARSDEV_ENV,"${env:MARSDEV}")).dir;
+            configgdk=configgdk.replace(/\\/g,"\\\\");
+            
+            fileContent=fileContent.replace(/{{env:MARSDEV}}/g,configgdk);
+        }else{
+            fileContent=fileContent.replace(/{{env:GDK}}/g,configgdk);
         }
         //add settings.json
-        fs.copyFileSync(sourcefile, Path.join(vscodedirpath, "settings.json"));
+        //Write file using configuration instead environment variable
+        fs.writeFileSync( Path.join(vscodedirpath, "settings.json"),fileContent);
         this.getTerminal().sendText(`cd "${rootPath.fsPath}" && git init`);
         return rootPath;
     }
@@ -147,7 +158,7 @@ export class AppModelWin32 extends AppModel{
     }
     private cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;;
         let volumeInfo = this.buildVolumeInfo();
         this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
         return true;
