@@ -95,6 +95,12 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 ## Release Notes
 
+### 1.5.2
+
+* Now the default Docker image is based on SGDK's Github Registry (```ghcr.io/stephane-d/sgdk:latest```).
+* Updating autocompletion and .res grammar for use with SGDK 2.11.
+* Updating dependencies.
+
 ### 1.5.1
 
 * On Windows Systems, the new projects will be created using Command prompt console as default (no extra configuration needed) (Thanks to AIoriBranford).
