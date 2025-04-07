@@ -172,6 +172,12 @@
 						"type": "boolean",
 						"default":false,
 						"description": "Adds Status bar Auxiliar Buttons"
+					},
+					"parallelCompile":{
+						"title": "Parallel Compile",
+						"type": "integer",
+						"default":1,
+						"description": "Enable Parallel Compile (-J)"
 					}
 				}
 			}

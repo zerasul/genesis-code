@@ -137,16 +137,19 @@ export class AppModelLinux extends AppModel{
 
         this.setmardevenv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.getTerminal().sendText(`make  ${mkfile} clean ${withArg}`, newLine);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        this.getTerminal().sendText(`make  ${mkfile} -j${parallelCompile} clean ${withArg}`, newLine);
         return true;
     }
+    
     compilesgdk(newLine: boolean, withArg: string, makefile:string): boolean {
         let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
         if (gendev !== "") {
             this.getTerminal().sendText(`export GENDEV=${gendev}`, true);
         }
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-        this.getTerminal().sendText(`make -f ${cmakefile} ${withArg}`, newLine);   
+        this.getTerminal().sendText(`make -f ${cmakefile} -j${parallelCompile} ${withArg}`, newLine);   
         return true;
     }
     public compileAndRunProject(): boolean {

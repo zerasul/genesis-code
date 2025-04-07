@@ -46,6 +46,16 @@ export const DOCKERTAG = "dockerTag";
 export const GENS_PATH= "gens.path";
 
 /**
+ * Parallel compilation configuration key
+ */
+export const PARALEL_COMPILE = "parallelCompile";
+
+/**
+ * Default value for parallel compilation
+ */
+export const PARALLEL_COMPILE_DEFAULT = 1;
+
+/**
  * Doragasu Image
  */
 export const DORAGASU_IMAGE = "doragasuImage";
