@@ -29,19 +29,21 @@ export class AppModelWin32 extends AppModel{
     private compileMarsdev(newLine: boolean, withArg:string): boolean {
         this.setMarsDevEnv();
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE);
-        this.getTerminal().sendText(`make ${makefile} clean ${withArg}`, newLine);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        this.getTerminal().sendText(`make ${makefile} -j${parallelCompile} clean ${withArg}`, newLine);
         return true;
     }
     private compilesgdk(newLine: boolean, withArg:string): boolean {
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE, constants.DEFAULT_WIN_SGDK_MAKEFILE);
         let gdk = vscode.workspace.getConfiguration().get(constants.GDK_ENV);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
         if(gdk!==""){
             this.getTerminal().sendText("set GDK=" + gdk, true);
         }
         if(makefile===""){
             makefile=constants.DEFAULT_WIN_SGDK_MAKEFILE;
         }
-        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${makefile} ${withArg}`, newLine);
+        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${makefile} -j${parallelCompile} ${withArg}`, newLine);
         return true;
     }
     public compileAndRunProject(): boolean {
