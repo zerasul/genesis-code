@@ -67,11 +67,17 @@
                 },
                 {
                     "include": "#tileset_id"
+                },
+                {
+                    "include": "#ordering"
+                },
+                {
+                    "include": "#export"
                 }
             ]
         },
         "resourceType": {
-            "match": "BITMAP|PALETTE|TILESET|TILEMAP|MAP|IMAGE|SPRITE|XGM|XGM2|WAV|BIN|ALIGN|UNGROUP",
+            "match": "BITMAP|PALETTE|TILESET|TILEMAP|MAP|IMAGE|SPRITE|XGM|XGM2|WAV|BIN|ALIGN|UNGROUP|NEAR",
             "name": "keyword.resourceType"
         },
         "resourceName": {
@@ -177,6 +183,15 @@
                     "include": "#letters"
                 }
             ]
+        },
+        "ordering":{
+            "match": "ROW|COLUMN",
+            "name": "keyword.control.ordering"
+        },
+        "export":{
+            "match": "0|1|TRUE|FALSE",
+            "name": "support.function.collision"
         }
+
     }
 }

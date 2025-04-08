@@ -46,6 +46,19 @@ export const DOCKERTAG = "dockerTag";
 export const GENS_PATH= "gens.path";
 
 /**
+ * Parallel compilation configuration key
+ */
+export const PARALEL_COMPILE = "parallelCompile";
+
+/**
+ * Default value for parallel compilation
+ */
+export const PARALLEL_COMPILE_DEFAULT = 1;
+
+/** extra parameters for compilation */
+export const EXTRA_PARAMETERS = "extraParameters";
+
+/**
  * Doragasu Image
  */
 export const DORAGASU_IMAGE = "doragasuImage";
@@ -74,4 +87,9 @@ export const LINUX="linux";
  * MacOs Constant
  */
 export const MACOS="darwin";
+
+/**
+ * SGDK Docker Image (Using new SGDK Docker Image)
+ */
+export const SGDK_DEFAULT_DOCKER_IMAGE = "ghcr.io/stephane-d/sgdk:latest";
 

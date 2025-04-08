@@ -2,6 +2,13 @@
 
 This is the change Log of Genesis Code. For more information you can see the [Documentation page](https://zerasul.github.io/genesis-code-docs/).
 
+## 1.5.2
+* [Updated autocompletion and .res grammer for use with SGDK 2.11](https://github.com/zerasul/genesis-code/issues/1416).
+* [Now the default Docker image is the SGDK's Github Registry: ```ghcr.io/stephane-d/sgdk:latest```](https://github.com/zerasul/genesis-code/issues/1416).
+* [Added new "Paralel Compile" Configuration parameter (for -j usage)](https://github.com/zerasul/genesis-code/issues/1382).
+* [Added new "extra params" Configuration parameter](https://github.com/zerasul/genesis-code/issues/1424).
+* Updated Dependencies.
+
 ## 1.5.1
 
 * [On Windows Systems, the new projects will be created using Command prompt console as default (no extra configuration needed).](https://github.com/zerasul/genesis-code/pull/1180)

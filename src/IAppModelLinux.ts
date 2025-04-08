@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { DEFAULT_GENDEV_SGDK_MAKEFILE, DOCKER, DOCKERTAG, GENDEV_ENV, GENS_PATH, MAKEFILE, MARSDEV, MARSDEV_ENV, SGDK_GENDEV, TOOLCHAINTYPE, DORAGASU_IMAGE } from "./constants";
 import { AppModel } from "./IAppModel";
+import * as constants from "./constants";
 import * as Path from 'path';
 import * as fs from 'fs';
 
@@ -26,15 +27,17 @@ export class AppModelLinux extends AppModel{
     }
     cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${extraParams} clean`);
         return true;
     }    
     cleanProjectMarsDev(makefile:unknown): boolean {
         this.setmardevenv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.getTerminal().sendText(`make ${mkfile} clean`);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`make ${mkfile} ${extraParams} clean`);
         return true;    }
 
     setmardevenv() {
@@ -125,10 +128,11 @@ export class AppModelLinux extends AppModel{
     }
     compileDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
 
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${extraParams} ${withArg}` , newLine);
         return true;
         }
 
@@ -136,16 +140,21 @@ export class AppModelLinux extends AppModel{
 
         this.setmardevenv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.getTerminal().sendText(`make  ${mkfile} clean ${withArg}`, newLine);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`make  ${mkfile} -j${parallelCompile} ${extraParams} clean ${withArg}`, newLine);
         return true;
     }
+    
     compilesgdk(newLine: boolean, withArg: string, makefile:string): boolean {
         let gendev = vscode.workspace.getConfiguration().get(GENDEV_ENV);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         if (gendev !== "") {
             this.getTerminal().sendText(`export GENDEV=${gendev}`, true);
         }
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-        this.getTerminal().sendText(`make -f ${cmakefile} ${withArg}`, newLine);   
+        this.getTerminal().sendText(`make -f ${cmakefile} -j${parallelCompile} ${extraParams} ${withArg}`, newLine);   
         return true;
     }
     public compileAndRunProject(): boolean {
@@ -177,8 +186,9 @@ export class AppModelLinux extends AppModel{
           this.getTerminal().sendText(`export GENDEV=${gendev}`, true);
         }
         //linux
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         let cmakefile = (makefile !== "") ? makefile : DEFAULT_GENDEV_SGDK_MAKEFILE;
-        this.getTerminal().sendText(`make -f ${cmakefile} clean\n`);
+        this.getTerminal().sendText(`make -f ${cmakefile} ${extraParams} clean\n`);
         return true;    }
     
 

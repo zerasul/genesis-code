@@ -2,7 +2,7 @@
 	"name": "genesis-code",
 	"displayName": "Genesis Code",
 	"description": "Sega genesis Development Extension",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"icon": "imgs/genesiscodeicon.png",
 	"publisher": "Zerasul",
 	"license": "See LICENSE in LICENSE",
@@ -172,6 +172,18 @@
 						"type": "boolean",
 						"default":false,
 						"description": "Adds Status bar Auxiliar Buttons"
+					},
+					"extraParameters":{
+						"title": "Extra Parameters",
+						"type": "string",
+						"default": "",
+						"description": "Set Extra Parameters for makefile"
+					},
+					"parallelCompile":{
+						"title": "Parallel Compile",
+						"type": "integer",
+						"default":1,
+						"description": "Enable Parallel Compilation on makefile (-J)"
 					}
 				}
 			}
@@ -187,22 +199,22 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.0",
-		"@types/mocha": "^10.0.7",
+		"@types/mocha": "^10.0.10",
 		"@types/vscode": "^1.92.0",
 		"glob": "^8.0.3",
-		"mocha": "^10.7.0",
-		"nyc": "^17.0.0",
+		"mocha": "^11.1.0",
+		"nyc": "^17.1.0",
 		"tslint": "^6.1.3",
-		"typescript": "^5.5.4",
+		"typescript": "^5.8.3",
 		"@vscode/test-electron": "^2.4.1",
 		"yarn": "^1.22.22",
-		"@swc/core": "^1.7.4",
-		"@swc/wasm": "^1.7.4"
+		"@swc/core": "^1.11.8",
+		"@swc/wasm": "^1.11.18"
 	},
 	"dependencies": {
 		"@zerasul/image-read-helper": "^0.0.1",
-		"fast-xml-parser": "^4.4.1",
-		"@types/node": "^22.0.2"
+		"fast-xml-parser": "^5.2.0",
+		"@types/node": "^22.8.4"
 	},
 	"bugs": {
 		"url": "https://github.com/zerasul/genesis-code/issues"

@@ -21,27 +21,32 @@ export class AppModelWin32 extends AppModel{
     }
     private compileDocker(newLine: boolean,withArg:string): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${withArg}` , newLine);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${extraParams} ${withArg}` , newLine);
         return true;
     }
     private compileMarsdev(newLine: boolean, withArg:string): boolean {
         this.setMarsDevEnv();
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE);
-        this.getTerminal().sendText(`make ${makefile} clean ${withArg}`, newLine);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`make ${makefile} -j${parallelCompile} ${extraParams} clean ${withArg}`, newLine);
         return true;
     }
     private compilesgdk(newLine: boolean, withArg:string): boolean {
         let makefile = vscode.workspace.getConfiguration().get(constants.MAKEFILE, constants.DEFAULT_WIN_SGDK_MAKEFILE);
         let gdk = vscode.workspace.getConfiguration().get(constants.GDK_ENV);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         if(gdk!==""){
             this.getTerminal().sendText("set GDK=" + gdk, true);
         }
         if(makefile===""){
             makefile=constants.DEFAULT_WIN_SGDK_MAKEFILE;
         }
-        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${makefile} ${withArg}`, newLine);
+        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${makefile} -j${parallelCompile} ${extraParams} ${withArg}`, newLine);
         return true;
     }
     public compileAndRunProject(): boolean {
@@ -158,9 +163,10 @@ export class AppModelWin32 extends AppModel{
     }
     private cleanProjectDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(constants.DOCKERTAG);
-        let dockerTag = tag !== "" ? tag : "sgdk";
+        let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;;
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} clean` , true);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} ${dockerTag} ${extraParams} clean` , true);
         return true;
     }
 
@@ -171,17 +177,19 @@ export class AppModelWin32 extends AppModel{
     private cleanProjectMarsDev(makefile: unknown): boolean {
         this.setMarsDevEnv();
         let mkfile = (makefile !== "") ? "-f " + makefile : " ";
-        this.getTerminal().sendText(`make ${mkfile} clean`);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`make ${mkfile} ${extraParams} clean`);
         return true;
     }
 
     private cleanProjectSgdk(makefile:string):boolean{
         let gdk = vscode.workspace.getConfiguration().get(constants.GDK_ENV);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         if (gdk !== "") {
             this.getTerminal().sendText(`set GDK=${gdk}`, true);
           }
         let cmakefile = makefile !== "" ? makefile : constants.DEFAULT_WIN_SGDK_MAKEFILE;
-        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${cmakefile} clean\n`);
+        this.getTerminal().sendText(`%GDK%\\bin\\make -f ${cmakefile} ${extraParams} clean\n`);
         return true;
     }
 

@@ -1,7 +1,7 @@
 # Genesis-code Extension
 
-[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master)
-[![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.00-912aeb)](https://github.com/Stephane-D/SGDK)
+[![.github/workflows/extensionTests.yml](https://github.com/zerasul/genesis-code/actions/workflows/extensionTests.yml/badge.svg?branch=master)](https://github.com/zerasul/genesis-code/actions/workflows/extensionTests.yml)
+[![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.11-912aeb)](https://github.com/Stephane-D/SGDK)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
 
@@ -39,7 +39,7 @@ With this extension, you can use easily a few commands for help you create aweso
 
 ## Requirements
 
-To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables, or build a SGDK Docker Image.
+To use this extension you need to install SGDK(windows)/GENDEV(linux) or MARSDEV projects on your system and configure the GDK, GENDEV or MARSDEV enviroment variables, or build/use a SGDK Docker Image.
 
 ## Extension Settings
 
@@ -79,6 +79,12 @@ You can enable or disable status bar buttons for use some common commands.
 
 ![Status Bar Buttons](imgs/sbarbuttons.png)
 
+Also, you can enable parallel compilation adding the number of threads in the Genesis Code configuration.
+
+And now, you can add extra parameters for compilation and clean commands this will be used on docker and make calls.
+
+![extra Parameters](imgs/extraparams.png)
+
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
@@ -94,6 +100,14 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * The C headers include settings don't work if you are using Docker containers; this is due the SGDK headers are inside the container and not available without using a volume. Follow [this instructions](https://zerasul.github.io/genesis-code-docs/install/#configure-headers-using-docker-containers) for more information.
 
 ## Release Notes
+
+### 1.5.2
+
+* Now the default Docker image is based on SGDK's Github Registry (```ghcr.io/stephane-d/sgdk:latest```).
+* Updating autocompletion and .res grammar for use with SGDK 2.11.
+* Added new ```ParallelCompile``` configuration parameter for use -j for parallel compilation (only for SGDK on windows or MARSDEV).
+* Added new ```extraParameters``` configuration parameter to add extra parameters on compilation and clean commands.
+* Updating dependencies.
 
 ### 1.5.1
 
