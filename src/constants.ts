@@ -55,6 +55,9 @@ export const PARALEL_COMPILE = "parallelCompile";
  */
 export const PARALLEL_COMPILE_DEFAULT = 1;
 
+/** extra parameters for compilation */
+export const EXTRA_PARAMETERS = "extraParameters";
+
 /**
  * Doragasu Image
  */

@@ -173,11 +173,17 @@
 						"default":false,
 						"description": "Adds Status bar Auxiliar Buttons"
 					},
+					"extraParameters":{
+						"title": "Extra Parameters",
+						"type": "string",
+						"default": "",
+						"description": "Set Extra Parameters for makefile"
+					},
 					"parallelCompile":{
 						"title": "Parallel Compile",
 						"type": "integer",
 						"default":1,
-						"description": "Enable Parallel Compile (-J)"
+						"description": "Enable Parallel Compilation on makefile (-J)"
 					}
 				}
 			}

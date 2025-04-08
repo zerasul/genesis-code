@@ -35,14 +35,17 @@ export class AppModelDarwin extends AppModel{
     private cleanMarsDev(makefile: unknown): boolean {
         this.setmarsdevenv();
         let make = (makefile!=='')?`-f ${makefile}`: ' ';
-        this.getTerminal().sendText(`make ${make} clean`);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        
+        this.getTerminal().sendText(`make ${make} ${extraParams} clean`);
         return true;
     }
     private cleanDocker(): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} clean`);
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${extraParams} clean`);
         return true;
     }
 
@@ -168,14 +171,18 @@ export class AppModelDarwin extends AppModel{
         this.setmarsdevenv();
         let makefile = vscode.workspace.getConfiguration().get(MAKEFILE);
         let mkfile = (makefile !== "") ? `-f ${makefile}` : " ";
-        this.getTerminal().sendText(`make ${mkfile}  clean ${withArg}`, newLine);
+        let parallelCompile = vscode.workspace.getConfiguration().get(constants.PARALEL_COMPILE,constants.PARALLEL_COMPILE_DEFAULT);
+        
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`make ${mkfile} -j${parallelCompile} ${extraParams} clean ${withArg}`, newLine);
         return true;
     }
     private compileProjectDocker(newLine: boolean, withArg: string): boolean {
         let tag = vscode.workspace.getConfiguration().get(DOCKERTAG);
         let dockerTag = tag !== "" ? tag : constants.SGDK_DEFAULT_DOCKER_IMAGE;
         let volumeInfo = this.buildVolumeInfo();
-        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${withArg}` , newLine);
+        let extraParams = vscode.workspace.getConfiguration().get(constants.EXTRA_PARAMETERS,"");
+        this.getTerminal().sendText(`docker run --rm -v ${volumeInfo} -u $(id -u):$(id -g) ${dockerTag} ${extraParams} ${withArg}` , newLine);
         return true;    
     }
     public compileAndRunProject(): boolean {
