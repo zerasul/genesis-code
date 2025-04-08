@@ -79,6 +79,8 @@ You can enable or disable status bar buttons for use some common commands.
 
 ![Status Bar Buttons](imgs/sbarbuttons.png)
 
+Also, you can enable parallel compilation adding the number of threads in the Genesis Code configuration.
+
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
@@ -99,6 +101,7 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 
 * Now the default Docker image is based on SGDK's Github Registry (```ghcr.io/stephane-d/sgdk:latest```).
 * Updating autocompletion and .res grammar for use with SGDK 2.11.
+* Added new ```ParallelCompile``` configuration parameter for use -j for parallel compilation (only for SGDK on windows or MARSDEV).
 * Updating dependencies.
 
 ### 1.5.1
