@@ -1,6 +1,6 @@
 # Genesis-code Extension
 
-[![Build Status](https://dev.azure.com/zerasul/genesis-code/_apis/build/status/zerasul.genesis-code?branchName=master)](https://dev.azure.com/zerasul/genesis-code/_build/latest?definitionId=1&branchName=master)
+[![.github/workflows/extensionTests.yml](https://github.com/zerasul/genesis-code/actions/workflows/extensionTests.yml/badge.svg?branch=master)](https://github.com/zerasul/genesis-code/actions/workflows/extensionTests.yml)
 [![SGDK Compatible](https://img.shields.io/badge/SGDK_Compatible-2.11-912aeb)](https://github.com/Stephane-D/SGDK)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=genesis-code-project&metric=security_rating)](https://sonarcloud.io/dashboard?id=genesis-code-project) <span class="badge-buymeacoffee"><a href="https://buymeacoffee.com/zerasul" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a></span>
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/zerasul.genesis-code)](https://marketplace.visualstudio.com/items?itemName=zerasul.genesis-code)
