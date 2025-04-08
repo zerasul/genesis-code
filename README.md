@@ -81,6 +81,10 @@ You can enable or disable status bar buttons for use some common commands.
 
 Also, you can enable parallel compilation adding the number of threads in the Genesis Code configuration.
 
+And now, you can add extra parameters for compilation and clean commands this will be used on docker and make calls.
+
+![extra Parameters](imgs/extraparams.png)
+
 ## Bitmap Viewer
 
 Now you can use the Bitmap Viewer; with some information of the images. You can open as alternative viewer on VSCODE (right click and Reopen Editor... on tab).
@@ -102,6 +106,7 @@ Now you can use the Bitmap Viewer; with some information of the images. You can 
 * Now the default Docker image is based on SGDK's Github Registry (```ghcr.io/stephane-d/sgdk:latest```).
 * Updating autocompletion and .res grammar for use with SGDK 2.11.
 * Added new ```ParallelCompile``` configuration parameter for use -j for parallel compilation (only for SGDK on windows or MARSDEV).
+* Added new ```extraParameters``` configuration parameter to add extra parameters on compilation and clean commands.
 * Updating dependencies.
 
 ### 1.5.1
